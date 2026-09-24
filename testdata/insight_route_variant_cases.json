@@ -1,0 +1,116 @@
+{
+  "about": [
+    "Slice 4: two ways of the same named route.",
+    "No 30-day window. Pair first. The threshold is the IQR divided by",
+    "the root of the pair count (or of the smaller group if unpaired).",
+    "Expected values were derived by hand from those rules."
+  ],
+  "places": [
+    {"id": "home", "name": "Home", "latitude": -10.18, "longitude": -48.33},
+    {"id": "work", "name": "Work", "latitude": -10.20, "longitude": -48.35}
+  ],
+  "viaA": "-10.18,-48.33;-10.19,-48.332;-10.20,-48.35",
+  "viaB": "-10.18,-48.33;-10.19,-48.334;-10.20,-48.35",
+  "cases": [
+    {
+      "name": "four pairs of 80 against 140 is a claim",
+      "why": [
+        "Four pairs, each 10 km. Way A is 800 Wh, way B is 1400 Wh.",
+        "Ratio of sums is 80 against 140. Pair differences are all -60.",
+        "n_pairs is 4, so the threshold uses IQR of those diffs, which is 0.",
+        "60 > 0, so the layer must print the claim."
+      ],
+      "subjectId": "a1",
+      "trips": [
+        {"id": "a1", "endedAtUtcMillis": 1780000000000, "distanceKm": 10, "canPackWh": 800, "path": "A", "daysOffset": 0, "hour": 8},
+        {"id": "b1", "endedAtUtcMillis": 1780003600000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "daysOffset": 0, "hour": 8},
+        {"id": "a2", "endedAtUtcMillis": 1780086400000, "distanceKm": 10, "canPackWh": 800, "path": "A", "daysOffset": 1, "hour": 8},
+        {"id": "b2", "endedAtUtcMillis": 1780090000000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "daysOffset": 1, "hour": 8},
+        {"id": "a3", "endedAtUtcMillis": 1780172800000, "distanceKm": 10, "canPackWh": 800, "path": "A", "daysOffset": 2, "hour": 8},
+        {"id": "b3", "endedAtUtcMillis": 1780176400000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "daysOffset": 2, "hour": 8},
+        {"id": "a4", "endedAtUtcMillis": 1780259200000, "distanceKm": 10, "canPackWh": 800, "path": "A", "daysOffset": 3, "hour": 8},
+        {"id": "b4", "endedAtUtcMillis": 1780262800000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "daysOffset": 3, "hour": 8}
+      ],
+      "expected": {
+        "kind": "present",
+        "confidence": "supported",
+        "considered": 4,
+        "difference": -60.0
+      }
+    },
+    {
+      "name": "four identical pairs are not distinguishable",
+      "subjectId": "a1",
+      "trips": [
+        {"id": "a1", "endedAtUtcMillis": 1780000000000, "distanceKm": 10, "canPackWh": 1000, "path": "A", "hour": 8},
+        {"id": "b1", "endedAtUtcMillis": 1780003600000, "distanceKm": 10, "canPackWh": 1000, "path": "B", "hour": 8},
+        {"id": "a2", "endedAtUtcMillis": 1780086400000, "distanceKm": 10, "canPackWh": 1000, "path": "A", "hour": 8},
+        {"id": "b2", "endedAtUtcMillis": 1780090000000, "distanceKm": 10, "canPackWh": 1000, "path": "B", "hour": 8},
+        {"id": "a3", "endedAtUtcMillis": 1780172800000, "distanceKm": 10, "canPackWh": 1000, "path": "A", "hour": 8},
+        {"id": "b3", "endedAtUtcMillis": 1780176400000, "distanceKm": 10, "canPackWh": 1000, "path": "B", "hour": 8},
+        {"id": "a4", "endedAtUtcMillis": 1780259200000, "distanceKm": 10, "canPackWh": 1000, "path": "A", "hour": 8},
+        {"id": "b4", "endedAtUtcMillis": 1780262800000, "distanceKm": 10, "canPackWh": 1000, "path": "B", "hour": 8}
+      ],
+      "expected": {
+        "kind": "present",
+        "confidence": "notDistinguishable",
+        "considered": 4,
+        "difference": 0.0
+      }
+    },
+    {
+      "name": "one pair is not a group claim",
+      "subjectId": "a1",
+      "trips": [
+        {"id": "a1", "endedAtUtcMillis": 1780000000000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "b1", "endedAtUtcMillis": 1780003600000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "hour": 8}
+      ],
+      "expected": {
+        "kind": "none",
+        "absence": "insufficientSupport",
+        "considered": 1
+      }
+    },
+    {
+      "name": "a trip 20 days apart is not a pair, but unpaired groups still compare",
+      "why": [
+        "Four trips each way, 20 days between A and B of the same index,",
+        "so pairing finds nothing. Unpaired fallback: 4 and 4, IQR of the",
+        "eight rates (four 80s and four 140s) is 60. Threshold is 60 / 2 = 30.",
+        "The 60 Wh/km gap beats that."
+      ],
+      "subjectId": "a1",
+      "trips": [
+        {"id": "a1", "endedAtUtcMillis": 1780000000000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "a2", "endedAtUtcMillis": 1780086400000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "a3", "endedAtUtcMillis": 1780172800000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "a4", "endedAtUtcMillis": 1780259200000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "b1", "endedAtUtcMillis": 1781728000000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "hour": 8},
+        {"id": "b2", "endedAtUtcMillis": 1781814400000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "hour": 8},
+        {"id": "b3", "endedAtUtcMillis": 1781900800000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "hour": 8},
+        {"id": "b4", "endedAtUtcMillis": 1781987200000, "distanceKm": 10, "canPackWh": 1400, "path": "B", "hour": 8}
+      ],
+      "expected": {
+        "kind": "present",
+        "confidence": "supported",
+        "considered": 8,
+        "difference": -60.0
+      }
+    },
+    {
+      "name": "only one way is not a comparison",
+      "subjectId": "a1",
+      "trips": [
+        {"id": "a1", "endedAtUtcMillis": 1780000000000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "a2", "endedAtUtcMillis": 1780086400000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "a3", "endedAtUtcMillis": 1780172800000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8},
+        {"id": "a4", "endedAtUtcMillis": 1780259200000, "distanceKm": 10, "canPackWh": 800, "path": "A", "hour": 8}
+      ],
+      "expected": {
+        "kind": "none",
+        "absence": "noOtherVariant",
+        "considered": 4
+      }
+    }
+  ]
+}

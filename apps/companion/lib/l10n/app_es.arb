@@ -1,0 +1,565 @@
+{
+  "appTitle": "Capy Energy",
+  "pairingTitle": "Emparejar con el vehículo",
+  "pairingBody": "Escriba el código de 6 dígitos que muestra el vehículo.",
+  "pairingCodeHint": "000000",
+  "pairingAction": "Emparejar",
+  "pairingForget": "Olvidar este vehículo",
+  "pairingInvalidCode": "Escriba los 6 dígitos del vehículo.",
+  "pairingRejected": "El vehículo rechazó este código.",
+  "homePairedTitle": "Emparejado",
+  "homePairedBody": "Este teléfono lee el historial del vehículo desde su cuenta en la nube.",
+  "homeNoteLabel": "Nota",
+  "homeNoteBody": "El vehículo es la fuente. Este teléfono conserva el historial largo después de un sync.",
+  "syncTitle": "Sync",
+  "syncAction": "SYNC AHORA",
+  "syncRunning": "SINCRONIZANDO",
+  "syncProgressLabel": "Progreso en la nube",
+  "syncProgressUpToDate": "100% al día",
+  "syncProgressPending": "{count, plural, =1{1 pendiente} other{{count} pendientes}}",
+  "@syncProgressPending": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncProgressDetail": "{clean} de {total} registros en la nube",
+  "@syncProgressDetail": {
+    "placeholders": {
+      "clean": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "syncNeverRun": "Aún sin sincronizar",
+  "syncHolding": "{trips} viajes, {charges} cargas en este teléfono",
+  "@syncHolding": {
+    "placeholders": {
+      "trips": {
+        "type": "int"
+      },
+      "charges": {
+        "type": "int"
+      }
+    }
+  },
+  "syncLastRun": "Último sync: {time}",
+  "syncResultCompleted": "{records} registros llegaron de la nube.",
+  "syncResultNothing": "El vehículo no tenía nada nuevo.",
+  "syncResultFailed": "La sincronizacion no alcanzo la nube. Verifique su conexion e intente de nuevo.",
+  "syncResultCloudDisabled": "La sincronización en la nube está desactivada en esta compilación.",
+  "syncResultPhoneOffline": "Este celular no pudo alcanzar la nube. Verifique su conexión e intente de nuevo.",
+  "syncResultCarSilent": "El vehículo no envió nada a la nube. Si tiene viajes nuevos, verifique su conexión.",
+  "syncStreamTrips": "Viajes",
+  "syncStreamCharges": "Cargas",
+  "syncStreamCycles": "Ciclos",
+  "syncStreamIntervals": "Intervalos",
+  "syncStreamEvents": "Eventos",
+  "syncStreamFrames": "Frames",
+  "syncStreamTracks": "Rutas",
+  "syncProgressCounted": "{stream}: {done} de {total}",
+  "@syncProgressCounted": {
+    "placeholders": {
+      "stream": {},
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "syncProgressUnknown": "{stream}: {done}",
+  "@syncProgressUnknown": {
+    "placeholders": {
+      "stream": {},
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "syncProgressSession": "Sesión {index} de {count}",
+  "@syncProgressSession": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncWipeAction": "BORRAR DATOS LOCALES",
+  "syncWipeTitle": "¿Borrar los datos locales?",
+  "syncWipeBody": "Este teléfono borra cada viaje, carga y registro que extrajo. El vehículo conserva los suyos. El próximo sync copia el historial otra vez desde el inicio.",
+  "syncWipeCancel": "CANCELAR",
+  "syncWipeConfirm": "BORRAR",
+  "syncStreamWaiting": "Esperando",
+  "navSync": "Sync",
+  "navHistory": "Historial",
+  "navTrips": "Viajes",
+  "navCharges": "Cargas",
+  "navBattery": "Batería",
+  "navSettings": "Ajustes",
+  "navComingSoon": "Pronto disponible.",
+  "historyTrips": "Viajes",
+  "historyCharges": "Cargas",
+  "historyEmpty": "Aún no hay nada aquí. Sincronice con el vehículo.",
+  "historyTripMeta": "{duration} · {distance} km",
+  "@historyTripMeta": {
+    "placeholders": {
+      "duration": {},
+      "distance": {}
+    }
+  },
+  "historyRowEnergy": "{energy} kWh",
+  "@historyRowEnergy": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyFailed": "No se pudo leer el archivo: {reason}",
+  "historyRoute": "Ruta",
+  "historyNoRoute": "Este viaje no lleva ninguna posición GPS.",
+  "historyMapExpand": "Ampliar el mapa",
+  "historyMapCollapse": "Reducir el mapa",
+  "historyDuration": "Duración",
+  "historyDistance": "Distancia",
+  "historySoc": "Carga",
+  "historyConsumed": "Usada",
+  "historyRegenerated": "Recuperada",
+  "historyEfficiency": "Eficiencia",
+  "historyClimb": "Ascenso",
+  "historyTemperature": "Exterior",
+  "historyStart": "Conectado",
+  "historyEnd": "Desconectado",
+  "historyEnergy": "Energía",
+  "historyPeakPower": "Potencia pico",
+  "historyAveragePower": "Potencia promedio",
+  "historyPeakAndAverage": "Pico y promedio",
+  "historyChargingPower": "Potencia de carga",
+  "historyChargeLocation": "Ubicación",
+  "historyChargeCost": "Costo",
+  "historyEditCost": "Editar el precio de esta carga",
+  "chargeCostTitle": "Precio de carga",
+  "chargeCostDescription": "Aplica solo a esta carga. Escriba un precio por kWh, o el total que pagó.",
+  "chargeCostFieldRate": "Precio/kWh",
+  "chargeCostFieldTotal": "Total pagado",
+  "chargeCostUnitRate": "/kWh",
+  "moneyKeypadSave": "Guardar",
+  "moneyKeypadClear": "Limpiar el monto",
+  "moneyKeypadDelete": "Borrar el último dígito",
+  "moneyKeypadClose": "Cerrar el teclado de precio",
+  "historyVoltage": "Voltaje del pack",
+  "historyFrameCount": "{count} muestras grabadas",
+  "historyBattery": "Batería",
+  "historyEnergyBalance": "Balance de energía",
+  "historyEvents": "Eventos",
+  "eventTripArmed": "Viaje preparado",
+  "eventTripStarted": "Viaje iniciado",
+  "eventTripPendingEnd": "Viaje deteniéndose",
+  "eventTripCancelled": "Viaje cancelado",
+  "eventTripEnded": "Viaje terminado",
+  "eventTripRecovered": "Viaje recuperado",
+  "eventChargePlugConnected": "Conector conectado",
+  "eventChargeStarted": "Carga iniciada",
+  "eventChargeEnded": "Carga terminada",
+  "eventChargePlugDisconnected": "Conector desconectado",
+  "eventChargeRecovered": "Carga recuperada",
+  "eventChargeLimitReached": "Carga objetivo alcanzada",
+  "historyTraction": "Tracción",
+  "historyAuxiliary": "Otros sistemas",
+  "historyRecovered": "Recuperada",
+  "historyTotalDelivered": "{energy} kWh entregados en total",
+  "@historyTotalDelivered": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyNetConsumed": "{energy} kWh netos consumidos",
+  "@historyNetConsumed": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyWh": "{energy} Wh",
+  "@historyWh": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyPerMinute": "Gastada y recuperada",
+  "historyPerColumn": "{minutes} min por columna",
+  "@historyPerColumn": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "historyTerrain": "Terreno y clima",
+  "historyAltitude": "Altitud",
+  "historyOutsideTemp": "Temperatura exterior",
+  "historyDriveMode": "Modo de conducción",
+  "historyDriveModeNormal": "Normal",
+  "historyDriveModeEco": "Eco",
+  "historyDriveModeSport": "Sport",
+  "historyDriveModeOther": "Otro",
+  "historyClimate": "Clima",
+  "historyClimateShare": "Encendido el {percent}% del viaje",
+  "@historyClimateShare": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "historyClimateCooling": "Refrigeración",
+  "historyClimateHeating": "Calefacción",
+  "historyClimateBoth": "Refrigeración y calefacción",
+  "historyClimateBlower": "Ventilador {level}",
+  "@historyClimateBlower": {
+    "placeholders": {
+      "level": {}
+    }
+  },
+  "historyClimateSetpoint": "Cabina fijada a {degrees} °C",
+  "@historyClimateSetpoint": {
+    "placeholders": {
+      "degrees": {}
+    }
+  },
+  "historyClimateOff": "El sistema de clima permaneció apagado.",
+  "historyClimateInAux": "Su energía está contada en Otros sistemas. El vehículo no reporta el monto.",
+  "historyDriveModeShare": "{mode} {percent}%",
+  "@historyDriveModeShare": {
+    "placeholders": {
+      "mode": {},
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingSkip": "Saltar",
+  "onboardingNext": "Siguiente",
+  "onboardingStart": "Comenzar",
+  "onboardingBack": "Volver",
+  "onboardingSlide1Title": "Conozca a Capy",
+  "onboardingSlide1Body": "La energía de su vehículo, grabada viaje tras viaje.",
+  "onboardingSlide2Title": "Vea cada viaje y cada carga",
+  "onboardingSlide2Body": "Capy lee sus viajes y cargas del vehículo desde su cuenta en la nube.",
+  "onboardingSlide3Title": "Empareje en segundos",
+  "onboardingSlide3Body": "Escriba el código de 6 dígitos que el vehículo muestra en su pantalla. El historial queda en su teléfono.",
+  "onboardingPairTitle": "Empareje con su vehículo",
+  "onboardingPairBody": "Escriba el código de 6 dígitos que muestra la pantalla del vehículo, en Sync.",
+  "onboardingCodeLabel": "Código de 6 dígitos",
+  "onboardingPairing": "Emparejando",
+  "onboardingSyncingTitle": "Sincronizando",
+  "onboardingSyncingBody": "El teléfono extrae los registros en este orden: viajes, cargas, ciclos y luego frames.",
+  "onboardingStreamWaiting": "Esperando",
+  "onboardingWritten": "{done} escritos",
+  "@onboardingWritten": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingCounted": "{done} de {total}",
+  "@onboardingCounted": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingPairedTitle": "Vehículo emparejado.",
+  "onboardingPairedBody": "{records} registros están en este teléfono.",
+  "@onboardingPairedBody": {
+    "placeholders": {
+      "records": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingPairedNothing": "El vehículo aún no tenía nada para enviar.",
+  "onboardingSyncFailed": "No se alcanzó el vehículo. Sincronice después desde la pestaña Sync.",
+  "onboardingSyncCloudDisabled": "La sincronización en la nube está desactivada en esta compilación. El sync queda en este celular.",
+  "onboardingSyncPhoneOffline": "Este celular no pudo alcanzar la nube. Verifique su conexión y sincronice después desde la pestaña Sync.",
+  "onboardingSyncCarSilent": "El vehículo aún no envió nada. Si tiene viajes, verifique su conexión e intente de nuevo.",
+  "onboardingContinue": "Continuar",
+  "onboardingLoginTitle": "Bienvenido de nuevo",
+  "onboardingLoginBody": "Inicie sesión en su cuenta Capy Energy.",
+  "onboardingCreateTitle": "Cree su cuenta",
+  "onboardingCreateBody": "Una cuenta para esta app. Los viajes quedan en este teléfono.",
+  "onboardingEmailLabel": "Email",
+  "onboardingEmailHint": "usted@ejemplo.com",
+  "onboardingPasswordLabel": "Contraseña",
+  "onboardingShowPassword": "Mostrar la contraseña",
+  "onboardingHidePassword": "Ocultar la contraseña",
+  "onboardingLogIn": "Iniciar sesión",
+  "onboardingLoggingIn": "Iniciando sesión",
+  "onboardingCreating": "Creando la cuenta",
+  "onboardingForgotPassword": "¿Olvidó la contraseña?",
+  "onboardingCreateAccount": "Crear cuenta",
+  "onboardingHaveAccount": "Tengo una cuenta",
+  "onboardingWelcomeTitle": "Ya está dentro.",
+  "onboardingWelcomeBody": "Sesión iniciada como {email}. A continuación, empareje con su vehículo.",
+  "@onboardingWelcomeBody": {
+    "placeholders": {
+      "email": {}
+    }
+  },
+  "onboardingContinueToPairing": "Continuar al emparejamiento",
+  "accountInvalidEmail": "Escriba una dirección de email válida.",
+  "accountWeakPassword": "La contraseña debe tener al menos {count} caracteres, con mayúsculas, minúsculas y dígitos.",
+  "@accountWeakPassword": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accountWrongCredentials": "El email o la contraseña está mal.",
+  "accountEmailNotConfirmed": "Primero confirme la dirección desde el email.",
+  "accountAlreadyRegistered": "Esta dirección ya tiene una cuenta. Inicie sesión.",
+  "accountRateLimited": "Demasiados intentos. Espere e intente de nuevo.",
+  "accountNetwork": "No se alcanzó el servidor de cuentas.",
+  "accountUnconfigured": "Esta build no lleva servidor de cuentas.",
+  "accountUnknown": "El servidor de cuentas rechazó esta acción.",
+  "accountConfirmEmail": "Abra su email y confirme la dirección.",
+  "accountResetSent": "Si esa dirección tiene una cuenta, el email de restablecimiento va en camino.",
+  "syncStreamAnnotations": "Anotaciones",
+  "settingsTitle": "Ajustes",
+  "settingsAppearance": "Apariencia",
+  "settingsBeta": "Beta",
+  "settingsBetaDesc": "Funciones todavía en prueba. Pueden cambiar o dejar de funcionar.",
+  "settingsBetaAbrpSync": "Sincronizar datos con ABRP",
+  "settingsBetaAbrpSyncDesc": "Lee los datos del vehículo en vivo por Bluetooth y los envía a A Better Routeplanner. El teléfono pide el permiso de Bluetooth cuando activas esto.",
+  "settingsAbrpTokenLabel": "Tu token de ABRP",
+  "settingsAbrpTokenHint": "ej.: 12345678-abcd-...",
+  "settingsAbrpTokenHelp": "Obtén el token en la app de ABRP: Ajustes, Modelo del vehículo, Live Data, Generic (Iternio).",
+  "settingsAbrpApiKeyLabel": "Tu API key de ABRP",
+  "settingsAbrpApiKeyHint": "ej.: 12345678-abcd-...",
+  "settingsAbrpApiKeyHelp": "Obligatoria. Capy no trae clave propia, porque Iternio limita cada clave a pocas peticiones por segundo. Crea la tuya con el botón (i) de arriba.",
+  "settingsAbrpHelpTitle": "Cómo conectar ABRP",
+  "settingsAbrpHelpClose": "Cerrar la ayuda de ABRP",
+  "settingsAbrpHelpApiKeyTitle": "API key",
+  "settingsAbrpHelpApiKeySteps": "Abre la página de API keys de ABRP abajo. Ve a API Keys y luego Create Key. Pon App Name = Capy y pulsa Create Key. Copia la clave generada en el campo API KEY.",
+  "settingsAbrpHelpApiKeyLink": "https://abetterrouteplanner.com/home/app/api-keys/telemetry",
+  "settingsAbrpHelpLinkFailed": "No se pudo abrir el navegador. La dirección es {url}",
+  "settingsAbrpHelpTokenTitle": "Token del usuario",
+  "settingsAbrpHelpTokenSteps": "Abre la app de ABRP. Ve a Vehículo, luego Datos en tiempo real, luego Generic. Pulsa Copy Token y pega el token en el campo del token.",
+  "settingsAbrpStateStreaming": "Enviando datos en vivo a ABRP",
+  "settingsAbrpStateIdle": "Esperando el flujo del vehículo",
+  "settingsAbrpStateError": "Error: {message}",
+  "settingsAbrpStateDisabled": "Envío desactivado",
+  "settingsThemeDesc": "El tema se comparte con el vehículo cuando los dos sincronizan.",
+  "settingsAccount": "Cuenta",
+  "settingsSignedInAs": "Sesión iniciada como {email}",
+  "settingsSignOut": "Cerrar sesión",
+  "settingsSignedOut": "Ninguna cuenta tiene sesión iniciada en este teléfono.",
+  "settingsNoAccountServer": "Esta build no lleva servidor de cuentas.",
+  "settingsThemeNameLight": "Claro",
+  "settingsThemeNameDark": "Petróleo",
+  "settingsThemeNameMidnight": "Medianoche",
+  "settingsThemeNameSepia": "Sepia",
+  "settingsThemeNameNordic": "Nórdico",
+  "settingsThemeNameDaylight": "Luz del día",
+  "settingsThemeNameTokyoNeon": "Tokyo Neon",
+  "settingsThemeNameSunsetDrive": "Atardecer",
+  "settingsThemeNameBubblegum": "Chicle",
+  "@settingsSignedInAs": {
+    "description": "Names the address that is signed in.",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "insightNameStart": "Nombrar inicio",
+  "insightNameEnd": "Nombrar fin",
+  "insightNameLocation": "Nombrar lugar",
+  "insightPlaceTitle": "Nombrar este lugar",
+  "insightPlaceHint": "Nombre",
+  "insightPlaceSave": "Guardar",
+  "insightPlaceCancel": "Cancelar",
+  "navInsights": "Insights",
+  "insightsTitle": "Insights",
+  "insightsSubtitle": "Rutas entre sus lugares nombrados",
+  "insightsInfoTitle": "Cómo funcionan los insights",
+  "insightsInfoBody": "Los insights comparan tus viajes medidos entre lugares nombrados.\n\nUn viaje es medido cuando el carro registró energía de la batería, minutos integrados y la lectura coincide con la batería.\n\nCada dirección es separada: ir a un lugar y volver son dos rutas diferentes.\n\nLas comparaciones necesitan al menos 4 viajes medidos en la misma dirección. Hasta entonces la ruta queda bloqueada y muestra cuántos faltan.\n\nAbre una ruta para ver todos los viajes medidos, del más al menos eficiente.",
+  "insightsInfoClose": "Entendido",
+  "insightRouteTrips": "{count} viajes",
+  "@insightRouteTrips": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightMeasuredOf": "{measured} de {total} viajes medidos",
+  "@insightMeasuredOf": {
+    "placeholders": {
+      "measured": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "insightRankingTitle": "Clasificación de la ruta",
+  "insightRankingBest": "Mejor viaje",
+  "insightRouteMissingTrips": "Faltan {count} viajes medidos para que comiencen las comparaciones",
+  "insightsNoRoutesTitle": "Aún no hay rutas",
+  "insightsNoRoutesBody": "Nombre los lugares de inicio y fin de sus viajes para agrupar rutas y ver aquí estadísticas de consumo.",
+  "navJourneys": "Jornadas",
+  "journeysTitle": "Jornadas",
+  "journeysNew": "Nueva jornada",
+  "journeysEmptyTitle": "Aún no hay jornadas",
+  "journeysEmptyDesc": "Agrupe viajes y cargas en un evento con nombre, como unas vacaciones o un paseo de fin de semana.",
+  "journeyName": "Nombre",
+  "journeyNameHint": "p. ej., Vacaciones en Río",
+  "journeyNote": "Nota",
+  "journeyNoteHint": "Detalles o recuerdos opcionales",
+  "journeyStartDate": "Fecha de inicio",
+  "journeyEndDate": "Fecha de fin",
+  "journeySave": "Guardar",
+  "journeyEdit": "Editar jornada",
+  "journeyDelete": "Eliminar jornada",
+  "journeyDeleteConfirm": "¿Seguro que quiere eliminar esta jornada? Los viajes y las cargas permanecerán en su historial.",
+  "journeySessionsCount": "{trips} viajes · {charges} cargas",
+  "@journeySessionsCount": {
+    "placeholders": {
+      "trips": {
+        "type": "int"
+      },
+      "charges": {
+        "type": "int"
+      }
+    }
+  },
+  "journeySessionsInWindow": "Viajes y cargas en esta jornada",
+  "journeyNoSessionsInWindow": "No hay viajes ni cargas en esta ventana de tiempo.",
+  "journeyCost": "Costo de las cargas",
+  "journeyParkedDuration": "Estacionado durante {duration}",
+  "insightRouteVariants": "{count} caminos",
+  "insightVariantNotEnough": "Aún no hay viajes comparados suficientes de esta ruta ({count}).",
+  "insightVariantNotDistinguishable": "Estos dos caminos a {place} aún no se pueden distinguir ({count} comparados).",
+  "insightVariantUsedLess": "Este camino usó {difference} Wh/km menos que el otro camino a {place} ({count} comparados).",
+  "insightVariantUsedMore": "Este camino usó {difference} Wh/km más que el otro camino a {place} ({count} comparados).",
+  "insightNotEnoughData": "Aún no hay viajes medidos suficientes en los últimos 30 días ({count} utilizables).",
+  "insightSubjectUnusable": "Esta ruta no tiene energía medida del pack para comparar.",
+  "insightNotDistinguishable": "Esta ruta aún no se puede distinguir de sus últimos 30 días ({count} viajes).",
+  "insightTripUsedLess": "Esta ruta usó {difference} Wh/km menos que sus últimos 30 días ({count} viajes).",
+  "insightTripUsedMore": "Esta ruta usó {difference} Wh/km más que sus últimos 30 días ({count} viajes).",
+  "insightClaimTitle": "Afirmación Principal",
+  "insightBaselineTitle": "Línea de Base",
+  "insightBaseline30d": "Promedio de 30 días",
+  "insightBaselineVariant": "Otro camino de la ruta",
+  "insightConfidenceSupported": "Confirmado",
+  "insightConfidenceDistinguishable": "Dentro del ruido",
+  "insightConfidenceInsufficient": "Datos insuficientes",
+  "insightSupportSample": "{count} viajes considerados",
+  "insightMeasured": "Medido",
+  "insightReference": "Referencia",
+  "insightExclusionNeverRecorded": "{count, plural, =1{1 viaje sin datos de energía} other{{count} viajes sin datos de energía}}",
+  "insightExclusionNoMinuteBuckets": "{count, plural, =1{1 viaje sin intervalos por minuto} other{{count} viajes sin intervalos por minuto}}",
+  "insightExclusionSignContradiction": "{count, plural, =1{1 viaje con flujo de energía inconsistente} other{{count} viajes con flujo de energía inconsistente}}",
+  "insightExclusionUnconfirmedSign": "{count, plural, =1{1 viaje con flujo de energía no confirmado} other{{count} viajes con flujo de energía no confirmado}}",
+  "insightExclusionTooShort": "{count, plural, =1{1 viaje menor a 0,5 km} other{{count} viajes menores a 0,5 km}}",
+  "insightExclusionNotClosed": "{count, plural, =1{1 viaje no finalizado} other{{count} viajes no finalizados}}",
+  "insightExclusionVersionMismatch": "{count, plural, =1{1 viaje en formato anterior} other{{count} viajes en formato anterior}}",
+  "insightExclusionOutsideWindow": "{count, plural, =1{1 viaje fuera de la ventana de 30 días} other{{count} viajes fuera de la ventana de 30 días}}",
+  "insightExclusionNotOnRoute": "{count, plural, =1{1 viaje en otra ruta} other{{count} viajes en otra ruta}}",
+  "insightExclusionOtherVariant": "{count, plural, =1{1 viaje en otro camino} other{{count} viajes en otro camino}}",
+  "insightConsideredTripsTitle": "Viajes Considerados",
+  "insightNoConsideredTrips": "No hay viajes considerados aún",
+  "insightRouteTrendTitle": "Tendencia de la Ruta",
+  "insightNoRouteTrips": "No hay viajes en esta ruta aún",
+  "settingsNominatimTitle": "Sugerencia de nombre",
+  "settingsNominatimOptIn": "Sugerir nombre con Nominatim",
+  "settingsNominatimOptInDesc": "Usa Nominatim (OpenStreetMap) para sugerir una dirección cuando nombras un lugar. Caché por celda de 100 m durante 30 días, 1 petición por segundo. Desactivado por defecto.",
+  "settingsNominatimAttribution": "© OpenStreetMap contributors",
+  "settingsStorageTitle": "Almacenamiento usado",
+  "settingsStorageDesc": "Cuánto espacio ocupa el archivo en este teléfono.",
+  "settingsStorageLoading": "Comprobando…",
+  "settingsStorageFailed": "Error al comprobar almacenamiento: {error}",
+  "@settingsStorageFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsStorageValue": "{size} usados",
+  "@settingsStorageValue": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "controlCardTitle": "Controles del auto",
+  "controlCardDesc": "Cambian lo que el auto hace o registra. Solo tienen efecto cuando el auto los confirma.",
+  "controlStatusPending": "Esperando al auto",
+  "controlStatusConfirmed": "Confirmado por el auto",
+  "controlStatusStale": "Esperando — nuevo valor propuesto",
+  "controlStatusRefused": "Rechazado por el auto",
+  "controlStatusReportedOnly": "El auto usa esto sin propuesta",
+  "controlKeyPackCapacity": "Capacidad de la batería",
+  "controlKeyChargeCost": "Precio de carga por defecto",
+  "controlDesiredLabel": "Propuesto:",
+  "controlReportedLabel": "El auto muestra:",
+  "controlValueMissing": "no definido",
+  "controlProposeAction": "Proponer un nuevo valor",
+  "controlProposing": "Proponiendo…",
+  "controlProposeFieldHint": "Nuevo valor",
+  "controlProposeCancel": "Cancelar",
+  "controlProposeSend": "Proponer",
+  "controlProposedStatus": "Propuesto. Estado: {status}.",
+  "@controlProposedStatus": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "controlProposedStatusUnknown": "Propuesto. Esperando al auto.",
+  "controlNoRowsForKey": "Sin propuesta ni confirmación aún.",
+  "controlNoRows": "Sin controles propuestos aún.",
+  "controlNoVehicle": "Este teléfono no puede nombrar un auto que le pertenezca, así que se niega a proponer.",
+  "controlUnconfigured": "Inicia sesión y conecta este teléfono a la nube para cambiar los controles del auto.",
+  "controlLastError": "No se pudieron leer los controles del auto: {error}",
+  "@controlLastError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "controlRefresh": "Actualizar estado",
+  "controlRefreshing": "Actualizando…",
+  "pairingNotFound": "Code not found. Check the code and try again.",
+  "pairingExpired": "Code expired. Ask the car for a new code.",
+  "pairingAlreadyClaimed": "Code already used. Ask the car for a new code.",
+  "pairingVehicleAlreadyClaimed": "This vehicle is already paired to another account.",
+  "pairingNetworkError": "Network error. Try again.",
+  "pairingUnknownError": "Something went wrong. Try again.",
+  "pairingNoNetwork": "No internet. Check your connection and try again.",
+  "pairingBackendUnreachable": "Can't reach the server. Try again.",
+  "pairingRetry": "Retry",
+  "pairingSignedOut": "Sign in to pair this car.",
+  "syncPending": "Faltan enviar {count} ediciones de este teléfono.",
+  "syncNothingPending": "Nada espera para enviarse.",
+  "syncAutoNote": "La sincronización corre sola cada 10 minutos con la app abierta. Este botón es temporal: fuerza la sincronización ahora.",
+  "syncLastRunTitle": "Última sincronización"
+}

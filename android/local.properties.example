@@ -1,0 +1,37 @@
+# Copy this file to `local.properties` and fill it in.
+#
+# `local.properties` is not committed. Values here are read by
+# `android/app/build.gradle.kts` as BuildConfig fields:
+#   local.properties → gradle property → env var → default.
+#
+# The cloud-sync gate defaults ON when the line is absent; only set the
+# CLOUD_SYNC_ENABLED line to turn it off for a build that needs it.
+
+# Supabase Edge Functions base URL (typically <SUPABASE_URL>/functions/v1),
+# used by the native device-pairing client (DevicePairingClient.kt).
+# Required for the pairing feature to work at all; empty means pairing fails.
+# Value comes from the Supabase panel under Project Settings > API
+# (append /functions/v1 to SUPABASE_URL).
+SUPABASE_FUNCTIONS_URL=https://<project-ref>.supabase.co/functions/v1
+
+# Same Supabase project's REST/base URL, used by the native cloud-sync sinks
+# (HttpCloudSink.kt, PreferenceControlCloud.kt) when CLOUD_SYNC_ENABLED=true.
+# Value comes from the Supabase panel under Project Settings > API.
+SUPABASE_URL=https://<project-ref>.supabase.co
+
+# The project's anon/publishable key, used alongside SUPABASE_URL by the same
+# cloud-sync sinks (HttpCloudSink.kt, PreferenceControlCloud.kt).
+# Value comes from the Supabase panel under Project Settings > API.
+SUPABASE_ANON_KEY=
+
+# Boolean gate for Lanes A/B/C real cloud sync, defaults true/on.
+# This is a SEPARATE flag from the companion app's own
+# --dart-define=CLOUD_SYNC_ENABLED — both need to agree for cloud sync
+# to actually flow end-to-end.
+# Self-update manifest URLs (AppUpdateManager + ChargeControlAppManager).
+# Full HTTPS URLs of the latest.json-style manifests your release process
+# publishes (see scripts/create_release_manifest.sh). Empty (the default)
+# disables the channel with a clear error; the app never contacts a
+# repository you did not configure.
+# APP_UPDATE_MANIFEST_URL=https://github.com/<owner>/<releases>/releases/latest/download/latest.json
+# CHARGE_CONTROL_MANIFEST_URL=https://raw.githubusercontent.com/<owner>/<releases>/main/geelychargecontrol-latest.json

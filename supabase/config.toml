@@ -1,0 +1,17 @@
+
+[functions.privacy]
+enabled = true
+verify_jwt = true
+import_map = "./functions/privacy/deno.json"
+# Uncomment to specify a custom file path to the entrypoint.
+# Supported file extensions are: .ts, .js, .mjs, .jsx, .tsx
+entrypoint = "./functions/privacy/index.ts"
+# Specifies static files to be bundled with the function. Supports glob patterns.
+# For example, if you want to serve static HTML pages in your function:
+# static_files = [ "./functions/privacy/*.html" ]
+
+[functions.device-pairing]
+enabled = true
+verify_jwt = false
+import_map = "./functions/device-pairing/deno.json"
+entrypoint = "./functions/device-pairing/index.ts"

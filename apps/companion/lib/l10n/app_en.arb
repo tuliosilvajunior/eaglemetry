@@ -1,0 +1,754 @@
+{
+  "appTitle": "Capy Energy",
+  "pairingTitle": "Pair with the car",
+  "pairingBody": "Type the 6-digit code shown on the car.",
+  "pairingCodeHint": "000000",
+  "pairingAction": "Pair",
+  "pairingForget": "Forget this car",
+  "pairingInvalidCode": "Enter the 6 digits from the car.",
+  "pairingRejected": "The car refused this code.",
+  "pairingNotFound": "Code not found. Check the code and try again.",
+  "pairingExpired": "Code expired. Ask the car for a new code.",
+  "pairingAlreadyClaimed": "Code already used. Ask the car for a new code.",
+  "pairingVehicleAlreadyClaimed": "This vehicle is already paired to another account.",
+  "pairingNetworkError": "Network error. Try again.",
+  "pairingUnknownError": "Something went wrong. Try again.",
+  "pairingNoNetwork": "No internet. Check your connection and try again.",
+  "pairingBackendUnreachable": "Can't reach the server. Try again.",
+  "pairingRetry": "Retry",
+  "pairingSignedOut": "Sign in to pair this car.",
+  "homePairedTitle": "Paired",
+  "homePairedBody": "This phone reads the car's history from your cloud account.",
+  "homeNoteLabel": "Note",
+  "homeNoteBody": "The car is the source. This phone keeps the long history after a sync.",
+  "syncTitle": "Sync",
+  "syncAction": "SYNC NOW",
+  "syncRunning": "SYNCING",
+  "syncProgressLabel": "Cloud sync progress",
+  "syncProgressUpToDate": "100% in sync",
+  "syncProgressPending": "{count, plural, =1{1 pending} other{{count} pending}}",
+  "@syncProgressPending": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncProgressDetail": "{clean} of {total} records in the cloud",
+  "@syncProgressDetail": {
+    "placeholders": {
+      "clean": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "syncNeverRun": "Not synced yet",
+  "syncHolding": "{trips} trips, {charges} charges on this phone",
+  "@syncHolding": {
+    "placeholders": {
+      "trips": {
+        "type": "int"
+      },
+      "charges": {
+        "type": "int"
+      }
+    }
+  },
+  "syncLastRun": "Last sync: {time}",
+  "syncResultCompleted": "{records} records came down from the cloud.",
+  "syncResultNothing": "The car had nothing new.",
+  "syncResultFailed": "Sync did not reach the cloud. Check your connection and try again.",
+  "syncResultCloudDisabled": "Cloud sync is disabled in this build.",
+  "syncResultPhoneOffline": "This phone could not reach the cloud. Check its connection and try again.",
+  "syncResultCarSilent": "The car sent nothing to the cloud. If the car has new trips, check its connection.",
+  "syncStreamTrips": "Trips",
+  "syncStreamCharges": "Charges",
+  "syncStreamCycles": "Cycles",
+  "syncStreamIntervals": "Intervals",
+  "syncStreamEvents": "Events",
+  "syncStreamFrames": "Frames",
+  "syncStreamTracks": "Routes",
+  "syncProgressCounted": "{stream}: {done} of {total}",
+  "@syncProgressCounted": {
+    "placeholders": {
+      "stream": {},
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "syncProgressUnknown": "{stream}: {done}",
+  "@syncProgressUnknown": {
+    "placeholders": {
+      "stream": {},
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "syncProgressSession": "Session {index} of {count}",
+  "@syncProgressSession": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncWipeAction": "CLEAR LOCAL DATA",
+  "syncWipeTitle": "Clear local data?",
+  "syncWipeBody": "This phone deletes every trip, charge and record it pulled. The car keeps its own. The next sync copies the history again from the start.",
+  "syncWipeCancel": "CANCEL",
+  "syncWipeConfirm": "CLEAR",
+  "syncStreamWaiting": "Waiting",
+  "navSync": "Sync",
+  "navHistory": "History",
+  "navTrips": "Trips",
+  "navCharges": "Charges",
+  "navBattery": "Battery",
+  "navSettings": "Settings",
+  "navComingSoon": "Coming soon.",
+  "historyTrips": "Trips",
+  "historyCharges": "Charges",
+  "historyEmpty": "Nothing here yet. Sync with the car.",
+  "historyTripMeta": "{duration} · {distance} km",
+  "@historyTripMeta": {
+    "placeholders": {
+      "duration": {},
+      "distance": {}
+    }
+  },
+  "historyRowEnergy": "{energy} kWh",
+  "@historyRowEnergy": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyFailed": "The archive could not be read: {reason}",
+  "historyRoute": "Route",
+  "historyNoRoute": "This drive carries no position fix.",
+  "historyMapExpand": "Expand the map",
+  "historyMapCollapse": "Shrink the map",
+  "historyDuration": "Duration",
+  "historyDistance": "Distance",
+  "historySoc": "Charge",
+  "historyConsumed": "Used",
+  "historyRegenerated": "Recovered",
+  "historyEfficiency": "Efficiency",
+  "historyClimb": "Climb",
+  "historyTemperature": "Outside",
+  "historyStart": "Plugged in",
+  "historyEnd": "Unplugged",
+  "historyEnergy": "Energy",
+  "historyPeakPower": "Peak power",
+  "historyAveragePower": "Average power",
+  "historyPeakAndAverage": "Peak & average",
+  "historyChargingPower": "Charging power",
+  "historyChargeLocation": "Location",
+  "historyChargeCost": "Cost",
+  "historyEditCost": "Edit the price of this charge",
+  "chargeCostTitle": "Charge price",
+  "chargeCostDescription": "Applies to this charge only. Type a price per kWh, or the total you paid.",
+  "chargeCostFieldRate": "Price/kWh",
+  "chargeCostFieldTotal": "Total paid",
+  "chargeCostUnitRate": "/kWh",
+  "moneyKeypadSave": "Save",
+  "moneyKeypadClear": "Clear the amount",
+  "moneyKeypadDelete": "Delete the last digit",
+  "moneyKeypadClose": "Close the price keypad",
+  "historyVoltage": "Pack voltage",
+  "historyFrameCount": "{count} recorded samples",
+  "historyBattery": "Battery",
+  "historyEnergyBalance": "Energy balance",
+  "historyEvents": "Events",
+  "eventTripArmed": "Trip armed",
+  "eventTripStarted": "Trip started",
+  "eventTripPendingEnd": "Trip stopping",
+  "eventTripCancelled": "Trip cancelled",
+  "eventTripEnded": "Trip ended",
+  "eventTripRecovered": "Trip recovered",
+  "eventChargePlugConnected": "Plug connected",
+  "eventChargeStarted": "Charging started",
+  "eventChargeEnded": "Charging ended",
+  "eventChargePlugDisconnected": "Plug disconnected",
+  "eventChargeRecovered": "Charge recovered",
+  "eventChargeLimitReached": "Target charge reached",
+  "historyTraction": "Traction",
+  "historyAuxiliary": "Other systems",
+  "historyRecovered": "Recovered",
+  "historyTotalDelivered": "{energy} kWh delivered in total",
+  "@historyTotalDelivered": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyNetConsumed": "{energy} kWh net consumed",
+  "@historyNetConsumed": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyWh": "{energy} Wh",
+  "@historyWh": {
+    "placeholders": {
+      "energy": {}
+    }
+  },
+  "historyPerMinute": "Spent and recovered",
+  "historyPerColumn": "{minutes} min per column",
+  "@historyPerColumn": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "historyTerrain": "Terrain and weather",
+  "historyAltitude": "Altitude",
+  "historyOutsideTemp": "Outside temperature",
+  "historyDriveMode": "Drive mode",
+  "historyDriveModeNormal": "Normal",
+  "historyDriveModeEco": "Eco",
+  "historyDriveModeSport": "Sport",
+  "historyDriveModeOther": "Other",
+  "historyClimate": "Climate",
+  "historyClimateShare": "On for {percent}% of the drive",
+  "@historyClimateShare": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "historyClimateCooling": "Cooling",
+  "historyClimateHeating": "Heating",
+  "historyClimateBoth": "Cooling and heating",
+  "historyClimateBlower": "Fan {level}",
+  "@historyClimateBlower": {
+    "placeholders": {
+      "level": {}
+    }
+  },
+  "historyClimateSetpoint": "Cabin set to {degrees} °C",
+  "@historyClimateSetpoint": {
+    "placeholders": {
+      "degrees": {}
+    }
+  },
+  "historyClimateOff": "The climate system stayed off.",
+  "historyClimateInAux": "Its energy is counted in Other systems. The car does not report the amount.",
+  "historyDriveModeShare": "{mode} {percent}%",
+  "@historyDriveModeShare": {
+    "placeholders": {
+      "mode": {},
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingSkip": "Skip",
+  "onboardingNext": "Next",
+  "onboardingStart": "Get started",
+  "onboardingBack": "Back",
+  "onboardingSlide1Title": "Meet Capy",
+  "onboardingSlide1Body": "The energy of your car, recorded drive after drive.",
+  "onboardingSlide2Title": "See every trip and charge",
+  "onboardingSlide2Body": "Capy reads your trips and charges from the car through your cloud account.",
+  "onboardingSlide3Title": "Pair in seconds",
+  "onboardingSlide3Body": "Type the 6-digit code the car shows on its screen. The history stays on your phone.",
+  "onboardingPairTitle": "Pair with your car",
+  "onboardingPairBody": "Type the 6-digit code shown on the car screen, under Sync.",
+  "onboardingCodeLabel": "6-digit code",
+  "onboardingPairing": "Pairing",
+  "onboardingSyncingTitle": "Syncing",
+  "onboardingSyncingBody": "The phone pulls the records in this order: trips, charges, cycles, then frames.",
+  "onboardingStreamWaiting": "Waiting",
+  "onboardingWritten": "{done} written",
+  "@onboardingWritten": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingCounted": "{done} of {total}",
+  "@onboardingCounted": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingPairedTitle": "Car paired.",
+  "onboardingPairedBody": "{records} records are on this phone.",
+  "@onboardingPairedBody": {
+    "placeholders": {
+      "records": {
+        "type": "int"
+      }
+    }
+  },
+  "onboardingPairedNothing": "The car had nothing to send yet.",
+  "onboardingSyncFailed": "The car was not reached. Sync later from the Sync tab.",
+  "onboardingSyncCloudDisabled": "Cloud sync is disabled in this build. Sync stays on this phone.",
+  "onboardingSyncPhoneOffline": "This phone could not reach the cloud. Check its connection, then sync from the Sync tab.",
+  "onboardingSyncCarSilent": "The car sent nothing yet. If the car has trips, check its connection, then sync again.",
+  "onboardingContinue": "Continue",
+  "onboardingLoginTitle": "Welcome back",
+  "onboardingLoginBody": "Log in to your Capy Energy account.",
+  "onboardingCreateTitle": "Create your account",
+  "onboardingCreateBody": "One account for this app. The trips stay on this phone.",
+  "onboardingEmailLabel": "Email",
+  "onboardingEmailHint": "you@example.com",
+  "onboardingPasswordLabel": "Password",
+  "onboardingShowPassword": "Show the password",
+  "onboardingHidePassword": "Hide the password",
+  "onboardingLogIn": "Log in",
+  "onboardingLoggingIn": "Signing in",
+  "onboardingCreating": "Creating the account",
+  "onboardingForgotPassword": "Forgot password?",
+  "onboardingCreateAccount": "Create account",
+  "onboardingHaveAccount": "I have an account",
+  "onboardingWelcomeTitle": "You are in.",
+  "onboardingWelcomeBody": "Signed in as {email}. Next, pair with your car.",
+  "@onboardingWelcomeBody": {
+    "placeholders": {
+      "email": {}
+    }
+  },
+  "onboardingContinueToPairing": "Continue to pairing",
+  "accountInvalidEmail": "Type a valid email address.",
+  "accountWeakPassword": "The password must have at least {count} characters, including uppercase, lowercase letters, and digits.",
+  "@accountWeakPassword": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "accountWrongCredentials": "The email or the password is wrong.",
+  "accountEmailNotConfirmed": "Confirm the address from the email first.",
+  "accountAlreadyRegistered": "This address already has an account. Log in.",
+  "accountRateLimited": "Too many attempts. Wait, then try again.",
+  "accountNetwork": "The account server was not reached.",
+  "accountUnconfigured": "This build carries no account server.",
+  "accountUnknown": "The account server refused this action.",
+  "accountConfirmEmail": "Open your email and confirm the address.",
+  "accountResetSent": "If that address has an account, the reset email is on its way.",
+  "syncStreamAnnotations": "Annotations",
+  "settingsTitle": "Settings",
+  "settingsAppearance": "Appearance",
+  "settingsBeta": "Beta",
+  "settingsBetaDesc": "Features still under test. They can change or stop working.",
+  "settingsBetaAbrpSync": "Sync data with ABRP",
+  "settingsBetaAbrpSyncDesc": "Reads the live car data over Bluetooth and sends it to A Better Routeplanner. The phone asks for Bluetooth permission when you switch this on.",
+  "settingsAbrpTokenLabel": "Your ABRP token",
+  "settingsAbrpTokenHint": "e.g. 12345678-abcd-...",
+  "settingsAbrpTokenHelp": "Get the token in the ABRP app: Settings, Car model, Live Data, Generic (Iternio).",
+  "settingsAbrpApiKeyLabel": "Your ABRP API key",
+  "settingsAbrpApiKeyHint": "e.g. 12345678-abcd-...",
+  "settingsAbrpApiKeyHelp": "Required. Capy ships with no key of its own, because Iternio limits each key to a few requests per second. Create yours with the (i) button above.",
+  "settingsAbrpHelpTitle": "How to connect ABRP",
+  "settingsAbrpHelpClose": "Close the ABRP help",
+  "settingsAbrpHelpApiKeyTitle": "API key",
+  "settingsAbrpHelpApiKeySteps": "Open the ABRP API keys page below. Go to API Keys, then Create Key. Set App Name to Capy and press Create Key. Copy the new key into the API KEY field.",
+  "settingsAbrpHelpApiKeyLink": "https://abetterrouteplanner.com/home/app/api-keys/telemetry",
+  "settingsAbrpHelpLinkFailed": "Could not open the browser. The address is {url}",
+  "settingsAbrpHelpTokenTitle": "User token",
+  "settingsAbrpHelpTokenSteps": "Open the ABRP app. Go to Vehicle, then Live Data, then Generic. Press Copy Token and put the token in the token field.",
+  "settingsAbrpStateStreaming": "Sending live data to ABRP",
+  "settingsAbrpStateIdle": "Waiting for the car live stream",
+  "settingsAbrpStateError": "Error: {message}",
+  "@settingsAbrpStateError": {
+    "placeholders": {
+      "message": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsAbrpStateDisabled": "Sending is off",
+  "settingsThemeDesc": "The theme is shared with the car when the two sync.",
+  "settingsAccount": "Account",
+  "settingsSignedInAs": "Signed in as {email}",
+  "settingsSignOut": "Sign out",
+  "settingsSignedOut": "No account is signed in on this phone.",
+  "settingsNoAccountServer": "This build carries no account server.",
+  "settingsThemeNameLight": "Light",
+  "settingsThemeNameDark": "Petrol",
+  "settingsThemeNameMidnight": "Midnight",
+  "settingsThemeNameSepia": "Sepia",
+  "settingsThemeNameNordic": "Nordic",
+  "settingsThemeNameDaylight": "Daylight",
+  "settingsThemeNameTokyoNeon": "Tokyo Neon",
+  "settingsThemeNameSunsetDrive": "Sunset Drive",
+  "settingsThemeNameBubblegum": "Bubblegum",
+  "@settingsSignedInAs": {
+    "description": "Names the address that is signed in.",
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "insightNameStart": "Name start",
+  "insightNameEnd": "Name end",
+  "insightNameLocation": "Name location",
+  "insightPlaceTitle": "Name this place",
+  "insightPlaceHint": "Name",
+  "insightPlaceSave": "Save",
+  "insightPlaceCancel": "Cancel",
+  "navInsights": "Insights",
+  "insightsTitle": "Insights",
+  "insightsSubtitle": "Routes between your named places",
+  "insightsInfoTitle": "How insights work",
+  "insightsInfoBody": "Insights compare your measured trips between named places.\n\nA trip is measured when the car recorded its pack energy, minute buckets, and a battery reading that agrees.\n\nEach direction is separate: going to a place and coming back are two different routes.\n\nComparisons need at least 4 measured trips in the same direction. Until then the route stays locked and shows how many are missing.\n\nOpen a route to see every measured run ranked from most to least efficient.",
+  "insightsInfoClose": "Got it",
+  "insightRouteTrips": "{count} trips",
+  "@insightRouteTrips": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightMeasuredOf": "{measured} of {total} trips measured",
+  "@insightMeasuredOf": {
+    "placeholders": {
+      "measured": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "insightRankingTitle": "Route ranking",
+  "insightRankingBest": "Best run",
+  "insightRouteMissingTrips": "{count} more measured trips needed before comparisons start",
+  "@insightRouteMissingTrips": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightsNoRoutesTitle": "No routes yet",
+  "insightsNoRoutesBody": "Name the start and end places of your trips to group routes and see consumption statistics here.",
+  "navJourneys": "Journeys",
+  "journeysTitle": "Journeys",
+  "journeysNew": "New journey",
+  "journeysEmptyTitle": "No journeys yet",
+  "journeysEmptyDesc": "Group trips and charges into a named event, like a holiday or a weekend drive.",
+  "journeyName": "Name",
+  "journeyNameHint": "e.g. Holiday in Rio",
+  "journeyNote": "Note",
+  "journeyNoteHint": "Optional details or memories",
+  "journeyStartDate": "Start date",
+  "journeyEndDate": "End date",
+  "journeySave": "Save",
+  "journeyEdit": "Edit journey",
+  "journeyDelete": "Delete journey",
+  "journeyDeleteConfirm": "Are you sure you want to delete this journey? The trips and charges will remain in your history.",
+  "journeySessionsCount": "{trips} trips · {charges} charges",
+  "@journeySessionsCount": {
+    "placeholders": {
+      "trips": {
+        "type": "int"
+      },
+      "charges": {
+        "type": "int"
+      }
+    }
+  },
+  "journeySessionsInWindow": "Trips and charges in this journey",
+  "journeyNoSessionsInWindow": "No trips or charges found in this time window.",
+  "journeyCost": "Charges cost",
+  "journeyParkedDuration": "Parked for {duration}",
+  "@journeyParkedDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "insightRouteVariants": "{count} ways",
+  "@insightRouteVariants": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantNotEnough": "Not enough compared trips of this route yet ({count}).",
+  "@insightVariantNotEnough": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantNotDistinguishable": "These two ways to {place} cannot yet be told apart ({count} compared).",
+  "@insightVariantNotDistinguishable": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantUsedLess": "This way used {difference} Wh/km less than the other way to {place} ({count} compared).",
+  "@insightVariantUsedLess": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantUsedMore": "This way used {difference} Wh/km more than the other way to {place} ({count} compared).",
+  "@insightVariantUsedMore": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightNotEnoughData": "Not enough measured trips in the last 30 days yet ({count} usable).",
+  "@insightNotEnoughData": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightSubjectUnusable": "This route has no measured pack energy to compare.",
+  "insightNotDistinguishable": "This route cannot yet be told apart from your last 30 days ({count} trips).",
+  "@insightNotDistinguishable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightTripUsedLess": "This route used {difference} Wh/km less than your last 30 days ({count} trips).",
+  "@insightTripUsedLess": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightTripUsedMore": "This route used {difference} Wh/km more than your last 30 days ({count} trips).",
+  "@insightTripUsedMore": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightClaimTitle": "The Claim",
+  "insightBaselineTitle": "Baseline",
+  "insightBaseline30d": "Vehicle 30-day average",
+  "insightBaselineVariant": "Other route way",
+  "insightConfidenceSupported": "Supported",
+  "insightConfidenceDistinguishable": "Within noise",
+  "insightConfidenceInsufficient": "Insufficient data",
+  "insightSupportSample": "{count} trips considered",
+  "@insightSupportSample": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightMeasured": "Measured",
+  "insightReference": "Reference",
+  "insightExclusionNeverRecorded": "{count, plural, =1{1 trip without energy data} other{{count} trips without energy data}}",
+  "@insightExclusionNeverRecorded": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionNoMinuteBuckets": "{count, plural, =1{1 trip without interval data} other{{count} trips without interval data}}",
+  "@insightExclusionNoMinuteBuckets": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionSignContradiction": "{count, plural, =1{1 trip with inconsistent energy flow} other{{count} trips with inconsistent energy flow}}",
+  "@insightExclusionSignContradiction": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionUnconfirmedSign": "{count, plural, =1{1 trip with unconfirmed energy flow} other{{count} trips with unconfirmed energy flow}}",
+  "@insightExclusionUnconfirmedSign": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionTooShort": "{count, plural, =1{1 trip shorter than 0.5 km} other{{count} trips shorter than 0.5 km}}",
+  "@insightExclusionTooShort": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionNotClosed": "{count, plural, =1{1 trip not closed} other{{count} trips not closed}}",
+  "@insightExclusionNotClosed": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionVersionMismatch": "{count, plural, =1{1 trip in older format} other{{count} trips in older format}}",
+  "@insightExclusionVersionMismatch": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionOutsideWindow": "{count, plural, =1{1 trip outside 30-day window} other{{count} trips outside 30-day window}}",
+  "@insightExclusionOutsideWindow": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionNotOnRoute": "{count, plural, =1{1 trip on a different route} other{{count} trips on a different route}}",
+  "@insightExclusionNotOnRoute": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightExclusionOtherVariant": "{count, plural, =1{1 trip on another variant} other{{count} trips on another variant}}",
+  "@insightExclusionOtherVariant": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightConsideredTripsTitle": "Considered Trips",
+  "insightNoConsideredTrips": "No trips considered yet",
+  "insightRouteTrendTitle": "Route Trend",
+  "insightNoRouteTrips": "No trips on this route yet",
+  "settingsNominatimTitle": "Place name suggestion",
+  "settingsNominatimOptIn": "Suggest name via Nominatim",
+  "settingsNominatimOptInDesc": "Uses Nominatim (OpenStreetMap) to suggest an address when you name a place. Cached per 100 m cell for 30 days, 1 request per second. Off by default.",
+  "settingsNominatimAttribution": "© OpenStreetMap contributors",
+  "settingsStorageTitle": "Storage used",
+  "settingsStorageDesc": "How much disk the archive occupies on this phone.",
+  "settingsStorageLoading": "Checking…",
+  "settingsStorageFailed": "Storage check failed: {error}",
+  "@settingsStorageFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsStorageValue": "{size} used",
+  "@settingsStorageValue": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "controlCardTitle": "Car controls",
+  "controlCardDesc": "These change what the car does or records. They take effect only when the car confirms them.",
+  "controlStatusPending": "Waiting for the car",
+  "controlStatusConfirmed": "Confirmed by the car",
+  "controlStatusStale": "Waiting — a newer value proposed",
+  "controlStatusRefused": "Refused by the car",
+  "controlStatusReportedOnly": "The car runs this without a proposal",
+  "controlKeyPackCapacity": "Battery capacity",
+  "controlKeyChargeCost": "Default charge price",
+  "controlDesiredLabel": "Proposed:",
+  "controlReportedLabel": "Car shows:",
+  "controlValueMissing": "not set",
+  "controlProposeAction": "Propose a new value",
+  "controlProposing": "Proposing…",
+  "controlProposeFieldHint": "New value",
+  "controlProposeCancel": "Cancel",
+  "controlProposeSend": "Propose",
+  "controlProposedStatus": "Proposed. Status: {status}.",
+  "@controlProposedStatus": {
+    "placeholders": {
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "controlProposedStatusUnknown": "Proposed. Waiting for the car.",
+  "controlNoRowsForKey": "No proposal or report yet.",
+  "controlNoRows": "No control proposals yet.",
+  "controlNoVehicle": "This phone cannot name a car it owns, so it refuses to propose.",
+  "controlUnconfigured": "Sign in and connect this phone to the cloud to change car controls.",
+  "controlLastError": "Car controls could not be read: {error}",
+  "@controlLastError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "controlRefresh": "Refresh status",
+  "controlRefreshing": "Refreshing…",
+  "syncPending": "{count} of your own edits are still to send.",
+  "@syncPending": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "syncNothingPending": "Nothing is waiting to be sent.",
+  "syncAutoNote": "Sync runs on its own every 10 minutes while the app is open. This button is temporary: it forces a sync now.",
+  "syncLastRunTitle": "Last sync"
+}

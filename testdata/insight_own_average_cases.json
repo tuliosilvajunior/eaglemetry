@@ -1,0 +1,498 @@
+{
+  "about": [
+    "Slice 1: one closed trip against the 30-day",
+    "average. Every expected value was derived by hand from those rules,",
+    "not captured from the engine. A failure means the model changed.",
+    "",
+    "nowUtcMillis is 2026-08-16T12:00:00Z. The window is the 30 days before",
+    "that instant. Distance floor 0.5 km. At least four considered trips."
+  ],
+  "nowUtcMillis": 1786881600000,
+  "windowDays": 30,
+  "distanceFloorKm": 0.5,
+  "minReferenceTrips": 4,
+  "cases": [
+    {
+      "name": "no CAN energy is outside the universe",
+      "why": [
+        "canPackWh is the only energy this layer accepts. A trip without it",
+        "is never recorded, not missing, and it enters no statistic."
+      ],
+      "subjectId": "open",
+      "trips": [
+        {
+          "id": "open",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 12.0,
+          "canPackWh": null,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        }
+      ],
+      "expected": {
+        "kind": "none",
+        "absence": "subjectNeverRecorded",
+        "considered": 0
+      }
+    },
+    {
+      "name": "a contradicted sign is excluded, not repaired",
+      "why": [
+        "The integral gained energy while the SOC fell. That is the inverted",
+        "current regime. The trip is refused and named, not flipped."
+      ],
+      "subjectId": "flipped",
+      "trips": [
+        {
+          "id": "flipped",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 12.0,
+          "canPackWh": -1318.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": false,
+          "aggregationVersion": 1
+        }
+      ],
+      "expected": {
+        "kind": "none",
+        "absence": "subjectSignContradiction",
+        "considered": 0
+      }
+    },
+    {
+      "name": "four identical neighbours are not enough to tell 15 percent apart",
+      "why": [
+        "Eight reference trips: four at 100 Wh/km and four at 150 Wh/km, each",
+        "10 km. Ratio of sums is 125 Wh/km. Tukey IQR is 50 Wh/km. The",
+        "subject is 106.25 Wh/km, 15 percent below the average. The absolute",
+        "gap is 18.75, inside the IQR, so the layer must refuse the claim."
+      ],
+      "subjectId": "subject",
+      "trips": [
+        {
+          "id": "subject",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1062.5,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a1",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a2",
+          "endedAtUtcMillis": 1786708800000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a3",
+          "endedAtUtcMillis": 1786622400000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a4",
+          "endedAtUtcMillis": 1786536000000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b1",
+          "endedAtUtcMillis": 1786449600000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b2",
+          "endedAtUtcMillis": 1786363200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b3",
+          "endedAtUtcMillis": 1786276800000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b4",
+          "endedAtUtcMillis": 1786190400000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        }
+      ],
+      "expected": {
+        "kind": "present",
+        "confidence": "notDistinguishable",
+        "subjectWhPerKm": 106.25,
+        "referenceWhPerKm": 125.0,
+        "differenceWhPerKm": -18.75,
+        "considered": 8,
+        "aggregationVersion": 1
+      }
+    },
+    {
+      "name": "a gap larger than the IQR is a claim",
+      "why": [
+        "Same eight-trip reference as the 15 percent case, IQR still 50.",
+        "The subject is 50 Wh/km. The gap is 75, outside the IQR."
+      ],
+      "subjectId": "subject",
+      "trips": [
+        {
+          "id": "subject",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a1",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a2",
+          "endedAtUtcMillis": 1786708800000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a3",
+          "endedAtUtcMillis": 1786622400000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "a4",
+          "endedAtUtcMillis": 1786536000000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b1",
+          "endedAtUtcMillis": 1786449600000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b2",
+          "endedAtUtcMillis": 1786363200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b3",
+          "endedAtUtcMillis": 1786276800000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "b4",
+          "endedAtUtcMillis": 1786190400000,
+          "distanceKm": 10.0,
+          "canPackWh": 1500.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        }
+      ],
+      "expected": {
+        "kind": "present",
+        "confidence": "supported",
+        "subjectWhPerKm": 50.0,
+        "referenceWhPerKm": 125.0,
+        "differenceWhPerKm": -75.0,
+        "considered": 8,
+        "aggregationVersion": 1
+      }
+    },
+    {
+      "name": "three neighbours cannot name a reference",
+      "why": [
+        "The IQR of three trips is not a dispersion the layer will stand on.",
+        "The answer is not enough data, even though every trip is usable."
+      ],
+      "subjectId": "subject",
+      "trips": [
+        {
+          "id": "subject",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "n1",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "n2",
+          "endedAtUtcMillis": 1786708800000,
+          "distanceKm": 10.0,
+          "canPackWh": 1100.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "n3",
+          "endedAtUtcMillis": 1786622400000,
+          "distanceKm": 10.0,
+          "canPackWh": 1200.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        }
+      ],
+      "expected": {
+        "kind": "none",
+        "absence": "insufficientSupport",
+        "considered": 3
+      }
+    },
+    {
+      "name": "a trip older than the window does not enter the average",
+      "why": [
+        "The window is 30 days. Four usable neighbours sit inside it and",
+        "one sits 40 days back. The old one is counted as outsideWindow",
+        "and the average is the four, not the five."
+      ],
+      "subjectId": "subject",
+      "trips": [
+        {
+          "id": "subject",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 400.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "in1",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "in2",
+          "endedAtUtcMillis": 1786708800000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "in3",
+          "endedAtUtcMillis": 1786622400000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "in4",
+          "endedAtUtcMillis": 1786536000000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "old",
+          "endedAtUtcMillis": 1783425600000,
+          "distanceKm": 10.0,
+          "canPackWh": 5000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        }
+      ],
+      "expected": {
+        "kind": "present",
+        "confidence": "supported",
+        "subjectWhPerKm": 40.0,
+        "referenceWhPerKm": 100.0,
+        "differenceWhPerKm": -60.0,
+        "considered": 4,
+        "excluded": {
+          "outsideWindow": 1
+        },
+        "aggregationVersion": 1
+      }
+    },
+    {
+      "name": "a different aggregation version is not mixed in",
+      "why": [
+        "Four current-version neighbours at 100 Wh/km and four old-version",
+        "neighbours at 200 Wh/km. Mixing them would invent 150. The layer",
+        "keeps the current four and counts the rest as versionMismatch."
+      ],
+      "subjectId": "subject",
+      "trips": [
+        {
+          "id": "subject",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 400.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 2
+        },
+        {
+          "id": "v2a",
+          "endedAtUtcMillis": 1786795200000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 2
+        },
+        {
+          "id": "v2b",
+          "endedAtUtcMillis": 1786708800000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 2
+        },
+        {
+          "id": "v2c",
+          "endedAtUtcMillis": 1786622400000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 2
+        },
+        {
+          "id": "v2d",
+          "endedAtUtcMillis": 1786536000000,
+          "distanceKm": 10.0,
+          "canPackWh": 1000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 2
+        },
+        {
+          "id": "v1a",
+          "endedAtUtcMillis": 1786449600000,
+          "distanceKm": 10.0,
+          "canPackWh": 2000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "v1b",
+          "endedAtUtcMillis": 1786363200000,
+          "distanceKm": 10.0,
+          "canPackWh": 2000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "v1c",
+          "endedAtUtcMillis": 1786276800000,
+          "distanceKm": 10.0,
+          "canPackWh": 2000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        },
+        {
+          "id": "v1d",
+          "endedAtUtcMillis": 1786190400000,
+          "distanceKm": 10.0,
+          "canPackWh": 2000.0,
+          "hasMinuteBuckets": true,
+          "canAgreesWithSoc": true,
+          "aggregationVersion": 1
+        }
+      ],
+      "expected": {
+        "kind": "present",
+        "confidence": "supported",
+        "subjectWhPerKm": 40.0,
+        "referenceWhPerKm": 100.0,
+        "differenceWhPerKm": -60.0,
+        "considered": 4,
+        "excluded": {
+          "versionMismatch": 4
+        },
+        "aggregationVersion": 2
+      }
+    }
+  ]
+}

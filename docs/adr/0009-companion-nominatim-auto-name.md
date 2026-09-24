@@ -1,0 +1,5 @@
+# Companion-only Nominatim AutoName for InsightPlace
+
+Place names are never invented. We allow the companion to suggest a name via `Nominatim` reverse geocode, behind an opt-in off by default, cached per 100 m cell at 15 req/min (4 s), with `addressdetails=1` and short name `road + house_number` only (e.g. `Rua Visconde de Piraja, 100`). `InsightPlace` keeps `name` (user) and `autoName` (suggested); `name` always wins and syncs with higher origin (`car` > `phone` > `cloud`). Auto-naming runs as early as possible without manual tap: on companion start, after each sync, and when the Places screen loads, it fills `autoName` for existing empty-name places and creates a stored place for every `CandidatePlace` that can be resolved. No car-side request, no auto-overwrite of non-empty `name`/`autoName`, no request without consent.
+
+Considered: car-side geocode, background batch before short-name, auto-clustering, keeping long `display_name`. Rejected: violates offline/privacy, rate-limit risk, "no magic clustering" rule, and long names pollute the UI.

@@ -1,0 +1,259 @@
+{
+  "about": [
+    "Test cases for interval aggregation and rollup invariant.",
+    "Each case defines a series of minute intervals and the expected rollup quantities",
+    "folded from them (traction, regenerated, auxiliary, climate, distance, seconds).",
+    "Expected values are hand-derived from the minute-integral rules."
+  ],
+  "toleranceWh": 0.001,
+  "cases": [
+    {
+      "name": "steady driving with no regeneration",
+      "why": [
+        "Three one-minute intervals at steady traction, constant auxiliary draw and no regen."
+      ],
+      "intervals": [
+        {
+          "sessionId": "trip-steady",
+          "startUtcMillis": 1710000000000,
+          "tractionWh": 250.0,
+          "regeneratedWh": 0.0,
+          "auxiliaryWh": 20.0,
+          "climateWh": 12.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.8,
+          "odometerDistanceKm": 0.8,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        },
+        {
+          "sessionId": "trip-steady",
+          "startUtcMillis": 1710000060000,
+          "tractionWh": 260.0,
+          "regeneratedWh": 0.0,
+          "auxiliaryWh": 20.0,
+          "climateWh": 12.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.85,
+          "odometerDistanceKm": 0.85,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        },
+        {
+          "sessionId": "trip-steady",
+          "startUtcMillis": 1710000120000,
+          "tractionWh": 240.0,
+          "regeneratedWh": 0.0,
+          "auxiliaryWh": 20.0,
+          "climateWh": 12.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.75,
+          "odometerDistanceKm": 0.75,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        }
+      ],
+      "expected": {
+        "tractionWh": 750.0,
+        "regeneratedWh": 0.0,
+        "auxiliaryWh": 60.0,
+        "climateWh": 36.0,
+        "netPackWh": 810.0,
+        "integratedSeconds": 180.0,
+        "distanceKm": 2.4,
+        "efficiencyWhPerKm": 337.5,
+        "kmPerKwh": 2.962962962962963,
+        "regenerationRatio": 0.0
+      }
+    },
+    {
+      "name": "urban driving with active regeneration",
+      "why": [
+        "Stop and go driving with significant regenerated energy from braking."
+      ],
+      "intervals": [
+        {
+          "sessionId": "trip-urban",
+          "startUtcMillis": 1710000000000,
+          "tractionWh": 180.0,
+          "regeneratedWh": 40.0,
+          "auxiliaryWh": 15.0,
+          "climateWh": 8.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.5,
+          "odometerDistanceKm": 0.5,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        },
+        {
+          "sessionId": "trip-urban",
+          "startUtcMillis": 1710000060000,
+          "tractionWh": 120.0,
+          "regeneratedWh": 60.0,
+          "auxiliaryWh": 15.0,
+          "climateWh": 8.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.4,
+          "odometerDistanceKm": 0.4,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        },
+        {
+          "sessionId": "trip-urban",
+          "startUtcMillis": 1710000120000,
+          "tractionWh": 200.0,
+          "regeneratedWh": 50.0,
+          "auxiliaryWh": 15.0,
+          "climateWh": 8.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.6,
+          "odometerDistanceKm": 0.6,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        }
+      ],
+      "expected": {
+        "tractionWh": 500.0,
+        "regeneratedWh": 150.0,
+        "auxiliaryWh": 45.0,
+        "climateWh": 24.0,
+        "netPackWh": 395.0,
+        "integratedSeconds": 180.0,
+        "distanceKm": 1.5,
+        "efficiencyWhPerKm": 263.3333333333333,
+        "kmPerKwh": 3.79746835443038,
+        "regenerationRatio": 0.3
+      }
+    },
+    {
+      "name": "short trip under 1 km gate",
+      "why": [
+        "A short trip below 1 km publishes net energy and components, but no Wh/km efficiency."
+      ],
+      "intervals": [
+        {
+          "sessionId": "trip-short",
+          "startUtcMillis": 1710000000000,
+          "tractionWh": 80.0,
+          "regeneratedWh": 10.0,
+          "auxiliaryWh": 10.0,
+          "climateWh": 0.0,
+          "integratedSeconds": 45.0,
+          "speedDistanceKm": 0.3,
+          "odometerDistanceKm": 0.3,
+          "speedIntegratedSeconds": 45.0,
+          "climateIntegratedSeconds": 0.0
+        }
+      ],
+      "expected": {
+        "tractionWh": 80.0,
+        "regeneratedWh": 10.0,
+        "auxiliaryWh": 10.0,
+        "climateWh": 0.0,
+        "netPackWh": 80.0,
+        "integratedSeconds": 45.0,
+        "distanceKm": 0.3,
+        "efficiencyWhPerKm": null,
+        "kmPerKwh": null,
+        "regenerationRatio": 0.125
+      }
+    },
+    {
+      "name": "interval series with missing gap",
+      "why": [
+        "A stretch of missed minutes does not add to integrated seconds or energy."
+      ],
+      "intervals": [
+        {
+          "sessionId": "trip-gap",
+          "startUtcMillis": 1710000000000,
+          "tractionWh": 200.0,
+          "regeneratedWh": 20.0,
+          "auxiliaryWh": 15.0,
+          "climateWh": 5.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.7,
+          "odometerDistanceKm": 0.7,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        },
+        {
+          "sessionId": "trip-gap",
+          "startUtcMillis": 1710000180000,
+          "tractionWh": 220.0,
+          "regeneratedWh": 10.0,
+          "auxiliaryWh": 15.0,
+          "climateWh": 5.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.8,
+          "odometerDistanceKm": 0.8,
+          "speedIntegratedSeconds": 60.0,
+          "climateIntegratedSeconds": 60.0
+        }
+      ],
+      "expected": {
+        "tractionWh": 420.0,
+        "regeneratedWh": 30.0,
+        "auxiliaryWh": 30.0,
+        "climateWh": 10.0,
+        "netPackWh": 420.0,
+        "integratedSeconds": 120.0,
+        "distanceKm": 1.5,
+        "efficiencyWhPerKm": 280.0,
+        "kmPerKwh": 3.5714285714285716,
+        "regenerationRatio": 0.07142857142857142
+      }
+    },
+    {
+      "name": "charging session with delivered energy",
+      "why": [
+        "A charging session folds into minute intervals with deliveredWh, with drive terms absent and zero distance."
+      ],
+      "intervals": [
+        {
+          "sessionId": "charge-ac",
+          "startUtcMillis": 1710000000000,
+          "tractionWh": 0.0,
+          "regeneratedWh": 0.0,
+          "auxiliaryWh": 0.0,
+          "climateWh": 0.0,
+          "deliveredWh": 110.0,
+          "coveredSeconds": 60.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.0,
+          "odometerDistanceKm": 0.0,
+          "speedIntegratedSeconds": 0.0,
+          "climateIntegratedSeconds": 0.0
+        },
+        {
+          "sessionId": "charge-ac",
+          "startUtcMillis": 1710000060000,
+          "tractionWh": 0.0,
+          "regeneratedWh": 0.0,
+          "auxiliaryWh": 0.0,
+          "climateWh": 0.0,
+          "deliveredWh": 115.0,
+          "coveredSeconds": 60.0,
+          "integratedSeconds": 60.0,
+          "speedDistanceKm": 0.0,
+          "odometerDistanceKm": 0.0,
+          "speedIntegratedSeconds": 0.0,
+          "climateIntegratedSeconds": 0.0
+        }
+      ],
+      "expected": {
+        "tractionWh": 0.0,
+        "regeneratedWh": 0.0,
+        "auxiliaryWh": 0.0,
+        "climateWh": 0.0,
+        "deliveredWh": 225.0,
+        "netPackWh": 0.0,
+        "integratedSeconds": 120.0,
+        "distanceKm": 0.0,
+        "efficiencyWhPerKm": null,
+        "kmPerKwh": null,
+        "regenerationRatio": null
+      }
+    }
+  ]
+}

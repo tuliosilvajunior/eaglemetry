@@ -1,0 +1,1481 @@
+{
+  "appTitle": "Capy Energy",
+  "navBrand": "AUTO",
+  "navTrips": "Trips",
+  "navCharging": "Charging",
+  "navHistory": "History",
+  "navRoadcastTrace": "Trace",
+  "navHelpers": "Helpers",
+  "navSettings": "Settings",
+  "navCarplay": "CarPlay",
+  "navAndroidAuto": "Android Auto",
+  "appBarTitle": "GEELY TELEMETRY",
+  "gearD": "D",
+  "gearP": "P",
+  "gearR": "R",
+  "gearN": "N",
+  "plugNone": "NONE",
+  "plugAc": "AC",
+  "plugDc": "DC",
+  "plugIntegration": "INTEGRATION",
+  "unitKmh": "km/h",
+  "unitKm": "km",
+  "unitKw": "kW",
+  "unitKwh": "kWh",
+  "unitWatt": "W",
+  "unitPercent": "%",
+  "changeModeStatic": "STATIC",
+  "changeModeOnChange": "ON_CHANGE",
+  "changeModeContinuous": "CONTINUOUS",
+  "changeModeUnknown": "UNKNOWN({value})",
+  "helpersTitle": "HELPERS",
+  "helpersSubtitle": "Temperature mode",
+  "helpersTemperatureSection": "Temperature Mode",
+  "helpersTemperatureModeTitle": "Temperature mode",
+  "helpersTemperatureModeDesc": "Enable or disable media button interception for AC temperature and fan control.",
+  "helpersRetry": "RETRY",
+  "helpersHvacControlTitle": "HVAC write test",
+  "helpersHvacControlDesc": "Direct climate writes from the geelycontrol path: HVAC_TEMPERATURE_SET on left seat and HVAC_FAN_SPEED on area 5.",
+  "helpersHvacRefresh": "READ HVAC",
+  "helpersHvacTempDown": "TEMP -",
+  "helpersHvacTempUp": "TEMP +",
+  "helpersHvacFanDown": "FAN -",
+  "helpersHvacFanUp": "FAN +",
+  "helpersHvacNotTested": "NOT TESTED",
+  "helpersHvacOk": "OK",
+  "helpersHvacFailed": "FAILED",
+  "helpersHvacNoResult": "No HVAC command result yet",
+  "helpersHvacDetailsEmpty": "No native details",
+  "helpersFeedbackTitle": "Detector feedback",
+  "helpersFeedbackDisabled": "DISABLED",
+  "helpersFeedbackStandby": "STANDBY",
+  "helpersFeedbackActivated": "ACTIVATED",
+  "helpersFeedbackLastTrigger": "Last trigger",
+  "helpersFeedbackNever": "Never",
+  "helpersKnobTrigger": "Headlight knob",
+  "helpersSimulateKnob": "SIM KNOB",
+  "helpersKnobDetectorTitle": "Headlight knob trigger",
+  "helpersKnobSequence": "Sequence",
+  "helpersKnobTransitions": "Transitions",
+  "helpersKnobWindow": "Knob window",
+  "helpersSafetyTitle": "Fail-safes",
+  "helpersIdleTimeout": "Idle timeout",
+  "helpersHardCap": "Hard cap",
+  "helpersSafetyDesc": "These limits define when the future active mode must restore the media keyserver.",
+  "settingsTitle": "Settings",
+  "settingsDescription": "Data maintenance for the local vehicle telemetry log.",
+  "settingsSectionSystem": "SYSTEM CONFIGURATION",
+  "settingsSectionGeneral": "General Operation",
+  "settingsSectionData": "Data & Retention",
+  "settingsAppTheme": "App theme",
+  "settingsThemeDesc": "Choose the palette the app wears. Each tile shows the page, a card, and its text.",
+  "settingsDark": "DARK",
+  "settingsLight": "LIGHT",
+  "settingsThemeNameLight": "Light",
+  "settingsThemeNameDark": "Petrol",
+  "settingsThemeNameMidnight": "Midnight",
+  "settingsThemeNameSepia": "Sepia",
+  "settingsThemeNameNordic": "Nordic",
+  "settingsThemeNameDaylight": "Daylight",
+  "settingsThemeNameTokyoNeon": "Tokyo Neon",
+  "settingsThemeNameSunsetDrive": "Sunset Drive",
+  "settingsThemeNameBubblegum": "Bubblegum",
+  "settingsEfficiencyUnit": "Efficiency unit",
+  "settingsEfficiencyUnitDesc": "Choose how the app shows driving efficiency. Tap the reading itself anywhere in the app to cycle the same choice.",
+  "settingsRetention": "Raw data retention",
+  "settingsRetentionDesc": "Keeps trip and charging history, compacts ended sessions, and removes raw frames/events older than 30 days.",
+  "settingsRetentionRunning": "RUNNING",
+  "settingsRetentionRun": "RUN RETENTION",
+  "settingsAutoStart": "Auto-start telemetry on boot",
+  "settingsAutoStartDesc": "Starts the native collector after vehicle boot or package replacement.",
+  "settingsGps": "GPS collection during trips",
+  "settingsGpsDesc": "Stores latitude, longitude, altitude, and GPS accuracy on telemetry frames when native location is available.",
+  "settingsKeepBluetoothOnTitle": "Keep Bluetooth on",
+  "settingsKeepBluetoothOnDesc": "Switches the car radio back on when it goes off, so the phone keeps receiving the live stream. The car stops it on its own.",
+  "settingsKeepBluetoothOnFailed": "KEEP BLUETOOTH ON FAILED: {error}",
+  "settingsContinuousMode": "Continuous recording",
+  "settingsContinuousModeDesc": "Records one minute of energy for every minute the car is awake, even when parked or idle. Turning it off keeps what was already recorded.",
+  "settingsContinuousModeFailed": "CONTINUOUS RECORDING FAILED: {error}",
+  "settingsEventFile": "Debug event log file",
+  "settingsEventFileDesc": "Mirrors telemetry events to a JSONL file for debugging. Uses extra storage; existing files are removed when disabled.",
+  "settingsWipe": "Erase local telemetry database",
+  "settingsWipeDesc": "Permanently removes all trip sessions, charging sessions, telemetry frames, and telemetry events in one operation.",
+  "settingsWiping": "WIPING",
+  "settingsWipeHistory": "WIPE HISTORY",
+  "settingsWipeDialogTitle": "WIPE HISTORY",
+  "settingsWipeDialogContent": "This permanently deletes all local telemetry database rows. Charging logs cannot be deleted individually and this action cannot be undone.",
+  "settingsCancel": "CANCEL",
+  "settingsWipeAll": "WIPE ALL",
+  "settingsLoadFailed": "SETTINGS LOAD FAILED: {error}",
+  "settingsAutoStartEnabled": "AUTO-START ON BOOT ENABLED",
+  "settingsAutoStartDisabled": "AUTO-START ON BOOT DISABLED",
+  "settingsAutoStartError": "AUTO-START UPDATE FAILED: {error}",
+  "settingsGpsEnabled": "GPS COLLECTION ENABLED",
+  "settingsGpsDisabled": "GPS COLLECTION DISABLED",
+  "settingsGpsError": "GPS UPDATE FAILED: {error}",
+  "settingsClearFailed": "DATABASE CLEAR FAILED: {error}",
+  "settingsRetentionFailed": "RETENTION FAILED: {error}",
+  "roadcastTraceTitle": "ROADCAST TRACE",
+  "roadcastTraceSubtitle": "Live CAN activity",
+  "roadcastTraceRunning": "RUNNING",
+  "roadcastTraceStopped": "STOPPED",
+  "roadcastTraceStart": "START",
+  "roadcastTraceStop": "STOP",
+  "roadcastTraceBaseline": "BASELINE",
+  "roadcastTraceClear": "CLEAR",
+  "roadcastTraceChangedOnly": "CHANGED ONLY",
+  "roadcastTraceValidOnly": "VALID ONLY",
+  "roadcastTraceSearchHint": "Filter signal, CAN id, signal id",
+  "roadcastTraceMetricSignals": "SIGNALS",
+  "roadcastTraceMetricChanged": "CHANGED",
+  "roadcastTraceMetricSnapshots": "SNAPSHOTS",
+  "roadcastTraceMetricSamples": "SAMPLES",
+  "roadcastTraceMetricBaseline": "BASELINE",
+  "roadcastTraceNoBaseline": "--",
+  "roadcastTraceEmpty": "Start capture or adjust filters.",
+  "roadcastTraceHeaderSignal": "SIGNAL",
+  "roadcastTraceHeaderNow": "NOW",
+  "roadcastTraceRaw": "RAW",
+  "roadcastTraceHeaderBaseline": "BASELINE",
+  "roadcastTraceHeaderDelta": "DELTA",
+  "roadcastTraceHeaderChanges": "CHANGES",
+  "roadcastTraceHeaderLast": "LAST",
+  "roadcastTraceHeaderId": "ID",
+  "roadcastTraceSelectSignal": "Select a signal to inspect its timeline.",
+  "roadcastTraceChartEmpty": "Waiting for more samples",
+  "traceModeCan": "CAN",
+  "traceModeMigration": "MIGRATION",
+  "migrationSubtitle": "15 properties to be replaced",
+  "migrationPhaseATitle": "PHASE A · DIRECT READ",
+  "migrationPhaseADesc": "Same number on both sides. Migrate once one real trip and one real charge show no divergence.",
+  "migrationPhaseBTitle": "PHASE B · NEEDS MEASURING",
+  "migrationPhaseBDesc": "In the store, but what the raw value means has not been observed on the car yet. Needs one observation, not code.",
+  "migrationPhaseCTitle": "PHASE C · DOES NOT MIGRATE",
+  "migrationPhaseCDesc": "Either the store has no address for it (car_service builds the value), or it never produced a reading.",
+  "migrationNoteDirect": "Direct read",
+  "migrationNoteTranslated": "Store speaks PRND, the app speaks the AOSP bitmask — translated",
+  "migrationNoteChargerAc": "Charger AC input (211 V), not the 395 V pack",
+  "migrationNoteEncodingUnknown": "In the store, raw encoding not deciphered",
+  "migrationNoteSynthetic": "Built by car_service; no address in the store",
+  "migrationColumnRaw": "RAW",
+  "migrationRamAddress": "RAM {address}",
+  "migrationNoteDead": "No reading in 90,347 recorded frames",
+  "migrationStatusMatching": "MATCH",
+  "migrationStatusDiverging": "DIVERGES",
+  "migrationStatusRamOnly": "RAM ONLY",
+  "migrationStatusStoreOnly": "STORE ONLY",
+  "migrationStatusRejected": "REJECTED",
+  "migrationStatusWaiting": "WAITING",
+  "migrationColumnRam": "RAM",
+  "migrationColumnStore": "STORE",
+  "migrationColumnDiff": "DIFF",
+  "migrationShadowMode": "Shadow mode: RAM is read without writing to history.",
+  "migrationPublishing": "Publishing to the store — the migration already happened.",
+  "migrationBridgeOffline": "The CAN bridge daemon is not serving.",
+  "migrationLoadFailed": "Could not read the bridge status: {error}",
+  "migrationEcarxWarning": "Store value comes from the ECARX-resolved property: the two sides read different addresses.",
+  "chargingTitle": "GEELY TELEMETRY",
+  "chargingSubtitle": "Charging Sessions",
+  "chargingDbRows": "DB ROWS",
+  "chargingRunWrites": "RUN WRITES",
+  "chargingRefreshTooltip": "Refresh charging sessions",
+  "chargeMergeTitle": "INTERRUPTED CONTINUOUS SESSIONS",
+  "chargeMergeDescription": "One or more charging sessions ended with removed_while_charging and look continuous. Review the breakdown before merging.",
+  "chargeMergeSessionsLabel": "SESSIONS",
+  "chargeMergeGapLabel": "GAP",
+  "chargeMergeSocLabel": "SOC",
+  "chargeMergeFramesLabel": "FRAMES",
+  "chargeMergeBreakLabel": "BREAK",
+  "chargeMergeConfirm": "MERGE SESSIONS",
+  "chargeMergeMerging": "MERGING",
+  "chargeMergeSuccess": "Charging sessions merged.",
+  "chargeMergeError": "Could not merge sessions.",
+  "chartPackVoltage": "PACK VOLTAGE",
+  "chartVoltageUnit": "V",
+  "chartWaitingVoltage": "WAITING FOR LIVE VOLTAGE",
+  "chartPackCurrent": "PACK CURRENT",
+  "chartCurrentUnit": "A",
+  "chartWaitingCurrent": "WAITING FOR LIVE CURRENT",
+  "chartChargePower": "CHARGE POWER",
+  "chartPowerUnit": "kW",
+  "chartWaitingPower": "WAITING FOR LIVE POWER",
+  "historySectionTitle": "CHARGING SESSION HISTORY",
+  "historyRows": "ROWS",
+  "historyHeadersStatus": "STATUS",
+  "historyHeadersWindow": "SESSION WINDOW",
+  "historyHeadersPlug": "PLUG",
+  "historyHeadersSoc": "SOC START/END",
+  "historyHeadersOdometer": "ODOMETER",
+  "historyHeadersPower": "POWER",
+  "historyHeadersEndReason": "END REASON",
+  "historyHeadersId": "ID / UPDATED",
+  "historySampleBadge": "SAMPLE DATA",
+  "detailBack": "Back",
+  "detailTitle": "CHARGE DETAIL",
+  "detailFrames": "FRAMES",
+  "detailStatus": "STATUS",
+  "detailRefresh": "Refresh charge frames",
+  "detailDuration": "DURATION",
+  "detailSocRange": "SOC RANGE",
+  "detailSocDelta": "SOC DELTA",
+  "detailEnergyEst": "ENERGY EST",
+  "detailEnergyUnit": "kWh",
+  "chargeCostLabel": "COST",
+  "detailAvgPower": "AVG POWER",
+  "detailAvgPowerUnit": "kW",
+  "detailPlug": "PLUG",
+  "detailOdometer": "ODOMETER",
+  "detailEndReason": "END REASON",
+  "detailAmbientTemp": "OUTSIDE TEMP",
+  "chartSocTrace": "SOC TRACE",
+  "chartSocUnit": "%",
+  "chartNotEnough": "Not enough frames for chart.",
+  "chargeMapLocation": "Charging Location",
+  "chargeMapNoGps": "No GPS point recorded for this charging session.",
+  "statusCharging": "CHARGING",
+  "statusConnected": "CONNECTED",
+  "statusDisconnected": "DISCONNECTED",
+  "statusComplete": "COMPLETE",
+  "endReasonInProgress": "IN_PROGRESS",
+  "endReasonWaitingCharge": "WAITING_FOR_CHARGE",
+  "endReasonPlugDisconnected": "PLUG_DISCONNECTED",
+  "endReasonWaitingPower": "WAITING_FOR_POWER",
+  "endReasonCompleted": "COMPLETED",
+  "liveError": "LIVE ERROR",
+  "bridgeError": "BRIDGE_ERROR",
+  "noDbRows": "NO_DB_ROWS_YET / SAMPLE_VIEW",
+  "roomChargeSessions": "ROOM_CHARGE_SESSIONS",
+  "historyPageTitle": "Battery History",
+  "historyHeaderSubtitle": "Battery History",
+  "historyPageDesc": "Combined view of trips, charging sessions, and validated battery metrics.",
+  "historyRangeChip": "RANGE",
+  "historySessionsChip": "SESSIONS",
+  "historyRefreshTooltip": "Refresh history",
+  "rangeToday": "Today",
+  "range24h": "24h",
+  "range7d": "7d",
+  "range30d": "30d",
+  "historyTrips": "TRIPS",
+  "historyTripsUnit": "sessions",
+  "historyCharges": "CHARGES",
+  "historyChargesUnit": "sessions",
+  "historyDistance": "DISTANCE",
+  "historyDistanceUnitOdometer": "km ODOMETER",
+  "historyDistanceUnitSpeed": "km SPEED EST",
+  "historyDistanceUnitMissing": "km MISSING",
+  "historyChargedEnergy": "CHARGED ENERGY",
+  "historyEnergyUnit": "kWh estimate",
+  "historySocDelta": "SOC DELTA",
+  "historySocDeltaUnit": "%",
+  "historyParkedDrain": "PARKED DRAIN",
+  "historyDrainUnit": "kWh deferred",
+  "historyEfficiency": "EFFICIENCY",
+  "historyEfficiencyUnit": "Wh/km",
+  "historyRegen": "REGEN",
+  "timelineTitle": "ACTIVE TIMELINE",
+  "timelineTrip": "TRIP",
+  "timelineCharge": "CHARGE",
+  "timelineEmpty": "No sessions in selected period.",
+  "timelineParkedFor": "Parked for {duration}",
+  "timelineTick0000": "00:00",
+  "timelineTick0600": "06:00",
+  "timelineTick1200": "12:00",
+  "timelineTick1800": "18:00",
+  "timelineTick2359": "23:59",
+  "sessionLogTitle": "SESSION LOG",
+  "sessionLogEmpty": "No trip or charging sessions yet.",
+  "sessionLogHeaderSession": "SESSION",
+  "sessionLogHeaderStart": "START",
+  "sessionLogHeaderDuration": "DURATION",
+  "sessionLogHeaderSoc": "SOC",
+  "sessionLogHeaderEnergy": "ENERGY / DISTANCE",
+  "sessionLogHeaderStatus": "STATUS",
+  "sessionTypeCharging": "Charging",
+  "sessionTypeTrip": "Trip",
+  "historyEmptyPanel": "No history data available yet.",
+  "tripHeaderSubtitle": "Trip Sessions",
+  "tripPageTitle": "Automatic Trip Detection",
+  "tripDbRows": "DB ROWS",
+  "tripRunWrites": "RUN WRITES",
+  "tripRefreshTooltip": "Refresh trip sessions",
+  "tripHistoryBadge": "TRIP HISTORY",
+  "tripEmptyLatest": "Trip rows exist in the database, but the latest-session query returned no rows.",
+  "tripEmptyNone": "No trip sessions have been detected yet.",
+  "bridgeErrorStatus": "BRIDGE_ERROR",
+  "roomTripSessions": "ROOM_TRIP_SESSIONS",
+  "dbCountMismatch": "DB_COUNT_LIST_MISMATCH",
+  "noTripRows": "NO_TRIP_ROWS_YET",
+  "tripMetricDistance": "DISTANCE",
+  "tripMetricAvgSpeed": "AVG SPEED",
+  "tripMetricGearStart": "GEAR START",
+  "tripMetricSocRange": "SOC RANGE",
+  "tripMetricEndReason": "END REASON",
+  "tripMetricUpdated": "UPDATED",
+  "dischargeActive": "REAL-TIME DISCHARGE",
+  "dischargeEnded": "TRIP DISCHARGE",
+  "tripDetailHint": "Trip detail and per-frame telemetry drilldown will use session-linked frames in a later slice.",
+  "tripDetailTitle": "TRIP DETAIL",
+  "tripDetailFrames": "FRAMES",
+  "tripDetailRefresh": "Refresh trip frames",
+  "tripDetailDuration": "DURATION",
+  "tripDetailOdometerDist": "ODOMETER DIST",
+  "tripDetailSpeedEstDist": "SPEED EST DIST",
+  "tripDetailEfficiency": "EFFICIENCY",
+  "tripDetailRange": "RANGE",
+  "tripDetailNetEnergy": "NET ENERGY",
+  "tripDetailRegen": "REGEN",
+  "tripDetailSummary": "TRIP SUMMARY",
+  "tripDetailEstimatedCost": "ESTIMATED COST",
+  "tripDetailCostBasedOnLastCharge": "Based on the {price}/kWh rate from the latest priced charge.",
+  "tripDetailCostBasedOnSocAndLastCharge": "Estimated from the SOC change and the {price}/kWh rate from the latest priced charge.",
+  "tripDetailCostUnavailable": "No earlier charge has a price per kWh.",
+  "tripDetailEnergyAccounting": "ENERGY ACCOUNTING",
+  "tripDetailMeasuredPack": "NET BATTERY ENERGY",
+  "tripDetailMeasuredPackDescription": "Total energy drawn from the battery during the trip.",
+  "tripDetailMeasuredTraction": "VEHICLE MOTION",
+  "tripDetailMeasuredTractionDescription": "Energy used to move the vehicle.",
+  "tripDetailMeasuredRecovered": "REGENERATIVE RECOVERY",
+  "tripDetailMeasuredRecoveredDescription": "Energy returned during regenerative braking.",
+  "tripDetailMeasuredAuxiliary": "AUXILIARY SYSTEMS",
+  "tripDetailMeasuredAuxiliaryDescription": "Estimated climate, electronics, and 12 V consumption.",
+  "tripDetailMeasuredVerified": "MEASURED",
+  "tripDetailMeasuredUnavailable": "No measured energy split is available for this trip.",
+  "tripDetailMeasuredDisagrees": "Measured energy conflicts with the SOC estimate. Values are hidden.",
+  "tripChartSpeed": "Speed Trace",
+  "tripChartNotEnough": "Not enough speed frames for chart.",
+  "tripChartPower": "Measured Power",
+  "tripChartPackPower": "BATTERY",
+  "tripChartDrivePower": "TRACTION",
+  "tripChartPowerNotEnough": "Not enough measured power frames for chart.",
+  "tripChartPowerDisagrees": "Measured power is hidden because it conflicts with the SOC estimate.",
+  "tripChartElevationDistance": "Elevation Profile by Distance",
+  "tripChartElevationDistanceNotEnough": "Not enough GPS altitude points for the distance profile.",
+  "tripChartAltitude": "Altitude Trace",
+  "tripChartAltitudeNotEnough": "Not enough altitude frames for chart.",
+  "tripChartAmbientTemp": "Outside Temperature Trace",
+  "tripChartAmbientTempNotEnough": "Not enough temperature frames for chart.",
+  "tripDetailAmbientTemp": "OUTSIDE TEMP",
+  "tripChartSoc": "Battery Level Trace",
+  "tripChartSocNotEnough": "Not enough battery frames for chart.",
+  "tripChartExpandTooltip": "Expand chart",
+  "tripChartPointCount": "{count} points",
+  "@tripChartPointCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "tripMapRoute": "Route Map",
+  "tripMapNoGps": "No GPS points recorded for this trip.",
+  "mapSpeedSlow": "Slow {speed}",
+  "mapSpeedFast": "Fast {speed}",
+  "tripStatusActive": "ACTIVE",
+  "tripStatusPendingEnd": "PENDING END",
+  "tripEndReasonInProgress": "IN_PROGRESS",
+  "tripEndReasonWaitingIdle": "WAITING_FOR_IDLE",
+  "mockChargeState": "Disconnected",
+  "mockPlugLabel": "None",
+  "mockSourceDetails": "Web mock telemetry",
+  "dayMon": "MON",
+  "dayTue": "TUE",
+  "dayWed": "WED",
+  "dayThu": "THU",
+  "dayFri": "FRI",
+  "daySat": "SAT",
+  "daySun": "SUN",
+  "settingsAppVersion": "Version {version} (build {build})",
+  "settingsAppUpdateTitle": "App updates",
+  "settingsAppUpdateDescription": "Checks the public Capy Energy releases and installs a verified APK without erasing telemetry or settings. It also updates the Roadcast service.",
+  "settingsAppUpdateInstalled": "Installed: {version} (build {build})",
+  "settingsAppUpdateNotChecked": "Updates have not been checked",
+  "settingsAppUpdateUnavailable": "Update status unavailable",
+  "settingsAppUpdateChecking": "CHECKING",
+  "settingsAppUpdateAvailable": "Version {version} (build {build}) is available",
+  "settingsAppUpdateUpToDate": "Capy Energy is up to date",
+  "settingsAppUpdateIncompatible": "This update cannot be installed automatically: {reason}",
+  "settingsAppUpdateCheck": "CHECK",
+  "settingsAppUpdateInstall": "UPDATE",
+  "settingsAppUpdateInstalling": "UPDATING",
+  "settingsAppUpdateScheduled": "UPDATE VERIFIED. THE APP WILL RESTART AUTOMATICALLY.",
+  "settingsAppUpdateCheckFailed": "APP UPDATE CHECK FAILED: {reason}",
+  "settingsAppUpdateInstallFailed": "APP UPDATE FAILED: {reason}",
+  "settingsAppUpdateReleaseNotes": "What's new",
+  "settingsAppUpdateConfirmTitle": "Update to {version}?",
+  "settingsAppUpdateConfirmDescription": "The app will download and verify the update. It will update the Roadcast service before it installs the APK. The app will then restart.",
+  "settingsAppUpdateConfirmCancel": "CANCEL",
+  "settingsAppUpdateConfirmInstall": "INSTALL",
+  "settingsUpdateAlertTitle": "UPDATE ERROR",
+  "settingsUpdateAlertDismiss": "DISMISS",
+  "settingsSectionAbout": "ABOUT",
+  "settingsAboutDeveloper": "Developed by {handle}",
+  "settingsAboutTagline": "Made with love and coffee",
+  "settingsAppShellTitle": "App interface",
+  "settingsAppShellDescription": "Choose which interface opens when the app starts. Your choice is saved.",
+  "settingsAppShellNew": "New",
+  "settingsAppShellPrevious": "Previous",
+  "v2Overview": "Overview",
+  "v2Context": "Context",
+  "v2AppShellTitle": "Interface",
+  "v2AppShellDescription": "You are on the new interface, which the app opens by default. Trips and Settings have not migrated yet, so the previous interface still owns them. Switching back is saved and applies to the next launch too.",
+  "v2AppShellAction": "Use the previous interface",
+  "v2CarplayBetaOn": "On",
+  "v2CarplayBetaOff": "Off",
+  "v2MigrationPlaceholder": "Ready for feature migration",
+  "v2SettingsClose": "Close settings",
+  "v2SettingsSearch": "Search",
+  "v2SettingsSearchEmpty": "No category has this name.",
+  "v2HistoryTrips": "Trips",
+  "v2HistoryCharges": "Charging",
+  "v2HistoryExpand": "Expand the session detail",
+  "v2HistoryCollapse": "Collapse the session detail",
+  "v2HistoryExpandHint": "Select a session to open it.",
+  "v2HistoryCollapseHint": "Drag down to close",
+  "v2HistorySelectPrompt": "Select a session to see its detail.",
+  "v2HistoryFactsTitle": "Session",
+  "v2HistoryChartEmpty": "This session has no chart data.",
+  "v2TimeNotSynced": "Time not synced yet. Bars show measured energy.",
+  "energyAxisRelativeMinutes": "+{minutes} min",
+  "@energyAxisRelativeMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "v2HistoryStart": "Start",
+  "v2HistoryEnd": "End",
+  "v2HistoryDuration": "Duration",
+  "v2HistoryDistance": "Distance",
+  "v2HistorySoc": "SOC",
+  "v2HistoryTemperature": "Temperature",
+  "v2HistoryAltitude": "Climb",
+  "insightNameStart": "Name start",
+  "insightNameEnd": "Name end",
+  "insightPlaceTitle": "Name this place",
+  "insightPlaceHint": "Name",
+  "insightPlaceSave": "Save",
+  "insightPlaceCancel": "Cancel",
+  "insightRouteTrips": "{count} trips",
+  "@insightRouteTrips": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightRouteVariants": "{count} ways",
+  "@insightRouteVariants": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantNotEnough": "Not enough compared trips of this route yet ({count}).",
+  "@insightVariantNotEnough": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantNotDistinguishable": "These two ways to {place} cannot yet be told apart ({count} compared).",
+  "@insightVariantNotDistinguishable": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantUsedLess": "This way used {difference} Wh/km less than the other way to {place} ({count} compared).",
+  "@insightVariantUsedLess": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightVariantUsedMore": "This way used {difference} Wh/km more than the other way to {place} ({count} compared).",
+  "@insightVariantUsedMore": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "place": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "v2HistoryConsumed": "Consumed",
+  "v2HistoryRegen": "Regenerated",
+  "v2HistoryEfficiency": "Efficiency",
+  "v2HistoryEnergyAdded": "Energy added",
+  "v2HistoryAvgPower": "Avg power",
+  "v2HistoryPeakPower": "Peak power",
+  "v2HistoryPlug": "Plug",
+  "v2HistoryCost": "Est. cost",
+  "v2HistoryMapExpand": "Enlarge the map",
+  "v2HistoryMapCollapse": "Shrink the map",
+  "v2HistoryEmpty": "The car has recorded no session yet.",
+  "v2HistoryBattery": "Battery",
+  "v2CycleOrdinal": "#{ordinal}",
+  "@v2CycleOrdinal": {
+    "placeholders": {
+      "ordinal": {
+        "type": "int"
+      }
+    }
+  },
+  "v2CycleSemantics": "Battery {ordinal}, {percent} percent used",
+  "@v2CycleSemantics": {
+    "placeholders": {
+      "ordinal": {
+        "type": "int"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "v2CycleOpen": "In progress",
+  "v2CyclePartial": "Partial",
+  "v2CycleFrozen": "Final",
+  "v2CycleNoCapacity": "Capacity unknown",
+  "v2CycleMixedCurrency": "Two currencies",
+  "v2CyclePartlyPriced": "{percent}% priced",
+  "@v2CyclePartlyPriced": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "v2CycleDistance": "Distance",
+  "v2CycleEnergy": "Energy",
+  "v2CycleEfficiency": "Efficiency",
+  "v2CycleEfficiencyUnitAction": "Change efficiency unit",
+  "v2CycleCost": "Cost",
+  "v2CycleCostPerKwh": "Per kWh",
+  "v2CycleCapacity": "Usable",
+  "v2CycleEmpty": "The car has not used a whole battery yet.",
+  "v2CycleSelectPrompt": "Select a battery to see what it ran.",
+  "v2CycleTimelineTitle": "What this battery ran",
+  "v2CycleTimelineEmpty": "The sessions of this battery were deleted.",
+  "v2CycleTimelineDrive": "Drive",
+  "v2CycleTimelineCharge": "Charge",
+  "v2CycleTimelineParked": "Parked",
+  "v2CycleTimelineDeleted": "Session deleted",
+  "v2CycleTimelineShare": "{percent}% of this battery",
+  "@v2CycleTimelineShare": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "v2CycleTimelineSessions": "Sessions",
+  "v2SettingsDisplays": "Displays",
+  "v2SettingsCharge": "Charging",
+  "settingsChargeDisclaimerTitle": "Disclaimer",
+  "settingsChargeDisclaimerDesc": "Use of this feature is at your own risk. External charge control interacts directly with vehicle charging and actively controls vehicle functions.",
+  "v2ChargeLimitLevel": "Level",
+  "v2ChargeLimitGraph": "Graph",
+  "v2ChargeLimitCustom": "Custom",
+  "v2ChargeLimitDaily": "Daily",
+  "v2ChargeLimitExtended": "Extended",
+  "v2ChargeLimitMax": "Max",
+  "v2ChargeLimitProjection": "EST · {range} {unit} projected",
+  "@v2ChargeLimitProjection": {
+    "placeholders": {
+      "range": {
+        "type": "String"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "v2ChargeLimitSemantics": "Charge limit",
+  "v2ChargeLimitSemanticsValue": "{percent} percent",
+  "@v2ChargeLimitSemanticsValue": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "v2ChargeLimitInfoTitle": "Which charge limit should I pick?",
+  "v2ChargeLimitInfoDaily": "For daily driving and shorter charging times.",
+  "v2ChargeLimitInfoExtended": "Travel an extended distance on one charge.",
+  "v2ChargeLimitInfoMax": "For maximum range and longer charging times.",
+  "v2ChargeLimitInfoTooltip": "About charge limits",
+  "v2ChargeLimitInfoClose": "Close charge limit information",
+  "helpersChargeLimitValue": "{percent}%",
+  "@helpersChargeLimitValue": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SettingsData": "Data",
+  "v2SettingsDeveloper": "Developer",
+  "v2SettingsAppearance": "Appearance",
+  "v2SettingsImmersive": "Full screen",
+  "v2SettingsImmersiveDesc": "Hides the system bars of the head unit. Turn it off to show the status bar and the navigation bar. The screens are made for full screen, thus some layouts can look wrong when it is off.",
+  "v2SettingsHideStatusBar": "Hide the status bar",
+  "v2SettingsHideStatusBarDesc": "Keeps the status bar hidden while full screen is off. The navigation bar stays, because it is how you leave the app.",
+  "v2SettingsClimateBar": "Climate bar",
+  "v2SettingsClimateBarDesc": "Shows a temperature strip along the bottom edge, on every screen. It stays there when a card opens full screen. It is not connected to the vehicle yet, so the values are a preview.",
+  "climateBarDriverDecrease": "Decrease driver temperature",
+  "climateBarDriverIncrease": "Increase driver temperature",
+  "climateBarPassengerDecrease": "Decrease passenger temperature",
+  "climateBarPassengerIncrease": "Increase passenger temperature",
+  "nowPlayingIdle": "Nothing playing",
+  "v2SettingsOperation": "Operation",
+  "v2SettingsRetention": "Retention",
+  "v2SettingsDeveloperMode": "Developer mode",
+  "v2SettingsDeveloperModeDesc": "Shows the engineering screens: Roadcast Trace and Signal Lab.",
+  "v2SettingsRetentionDone": "Retention complete: {frames} frames removed, raw data kept for {days} days.",
+  "@v2SettingsRetentionDone": {
+    "placeholders": {
+      "frames": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SettingsSystem": "System",
+  "v2SettingsDanger": "Erase",
+  "v2SettingsEngineering": "Engineering screens",
+  "v2SettingsResendHistory": "Resend history to the cloud",
+  "v2SettingsResendHistoryDesc": "Marks all trips and charges on this car for upload again. Use it after you delete the cloud data for a test. Upload starts on the next sync.",
+  "v2SettingsResendHistoryAction": "MARK FOR UPLOAD",
+  "v2SettingsResendHistoryDone": "{count} records marked. They upload on the next sync.",
+  "@v2SettingsResendHistoryDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SettingsResendHistoryFailed": "Could not mark the history: {error}",
+  "@v2SettingsResendHistoryFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "v2SettingsExperience": "Experiments",
+  "v2SettingsNotMigrated": "Not available yet",
+  "v2SettingsTraceDesc": "Reads the negotiated CAN schema and the live value of each signal.",
+  "v2SettingsAutoStartFailed": "Auto-start update failed: {error}",
+  "@v2SettingsAutoStartFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "v2SettingsEventFileFailed": "Event log update failed: {error}",
+  "@v2SettingsEventFileFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "v2SettingsWipeDone": "Erased: {trips} trips, {charges} charges, {frames} frames.",
+  "@v2SettingsWipeDone": {
+    "placeholders": {
+      "trips": {
+        "type": "int"
+      },
+      "charges": {
+        "type": "int"
+      },
+      "frames": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SettingsWipeFailed": "Erase failed: {error}",
+  "@v2SettingsWipeFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "v2CarplayTitle": "CarPlay",
+  "v2AndroidAutoTitle": "Android Auto",
+  "v2CarplayStatusTitle": "Connection",
+  "v2AndroidAutoStatusTitle": "Connection",
+  "v2CarplayUnavailable": "This head unit does not expose the CarPlay service.",
+  "v2AndroidAutoUnavailable": "This head unit does not expose the Android Auto service.",
+  "v2CarplayConnecting": "Connecting to the CarPlay renderer…",
+  "v2AndroidAutoConnecting": "Connecting to the Android Auto renderer…",
+  "v2CarplayBlackScreenHint": "If the picture stays black, no CarPlay session is active. Connect your iPhone and the video starts on its own.",
+  "v2AndroidAutoBlackScreenHint": "If the picture stays black, no Android Auto session is active. Connect your Android phone and the video starts on its own.",
+  "v2ProjectionTouchTitle": "Touch calibration",
+  "v2ProjectionTouchHelp": "Touch the projected screen and nudge until the touch lands where you look. The value is saved.",
+  "v2ProjectionTouchStepFine": "Fine",
+  "v2ProjectionTouchStepCoarse": "Coarse",
+  "v2ProjectionTouchOffsetY": "Vertical shift",
+  "v2ProjectionTouchScaleY": "Vertical scale",
+  "v2ProjectionTouchOffsetX": "Horizontal shift",
+  "v2ProjectionTouchScaleX": "Horizontal scale",
+  "v2ProjectionTouchReset": "Reset calibration",
+  "v2CarplayDragHandle": "Drag to resize the CarPlay card",
+  "v2AndroidAutoDragHandle": "Drag to resize the Android Auto card",
+  "v2CarplayReattach": "Reconnect",
+  "v2AndroidAutoReattach": "Reconnect",
+  "v2CarplayBuffer": "Buffer",
+  "v2AndroidAutoBuffer": "Buffer",
+  "v2CarplayStateAvailable": "Service found",
+  "v2AndroidAutoStateAvailable": "Service found",
+  "v2CarplayStateBound": "Connected",
+  "v2AndroidAutoStateBound": "Connected",
+  "v2CarplayStateAttached": "Rendering",
+  "v2AndroidAutoStateAttached": "Rendering",
+  "v2CarplayErrorUnreachable": "The CarPlay service could not be reached.",
+  "v2AndroidAutoErrorUnreachable": "The Android Auto service could not be reached.",
+  "v2CarplayErrorRenderer": "The CarPlay renderer refused the request.",
+  "v2AndroidAutoErrorRenderer": "The Android Auto renderer refused the request.",
+  "v2CarplayErrorBuffer": "The render buffer size is invalid.",
+  "v2AndroidAutoErrorBuffer": "The render buffer size is invalid.",
+  "v2CarplayErrorGeneric": "CarPlay reported an error.",
+  "v2AndroidAutoErrorGeneric": "Android Auto reported an error.",
+  "v2CarplayExpand": "Expand CarPlay to fill the screen",
+  "v2AndroidAutoExpand": "Expand Android Auto to fill the screen",
+  "v2CarplayCollapse": "Collapse CarPlay",
+  "v2AndroidAutoCollapse": "Collapse Android Auto",
+  "v2ChargingEnergy": "Energy",
+  "v2ChargingAmperageTitle": "Charging amperage",
+  "v2ChargingAmperageDescription": "Reduce the current when you use a shared or unfamiliar circuit.",
+  "v2ChargingAmperageRange": "Vehicle range {min}–{max} A",
+  "@v2ChargingAmperageRange": {
+    "placeholders": {
+      "min": {"type": "int"},
+      "max": {"type": "int"}
+    }
+  },
+  "v2ChargingCommandFailed": "The car did not accept the charge command.",
+  "v2ChargingAmperageUnit": "A",
+  "v2ChargingAmperageValue": "{amps} A",
+  "@v2ChargingAmperageValue": {
+    "placeholders": {
+      "amps": {"type": "int"}
+    }
+  },
+  "v2ChargingAmperageDecrease": "Decrease charging amperage",
+  "v2ChargingAmperageIncrease": "Increase charging amperage",
+  "v2ChargingAmperageClose": "Close charging amperage control",
+  "v2ChargingStopButton": "Stop Charging",
+  "v2ChargingForceButton": "Force Charging",
+  "v2ChargingForceActive": "Force Charging Active",
+  "v2RangeVehicleRange": "Vehicle range",
+  "v2RangeEstimateCaption": "Estimate from closed trips",
+  "v2RangeEstimateDelayed": "Estimate delayed · history update pending",
+  "v2RangeEstimateReadDelayed": "Estimate delayed · range read failed",
+  "v2RangeEstimateUnavailable": "Estimate unavailable",
+  "v2RangeEstimateReadFailed": "Estimate unavailable · read failed",
+  "v2ChargeGraphLoadFailed": "The charge session did not load.",
+  "v2ChargeGraphEmpty": "No charge session is available.",
+  "v2ChargeGraphNoData": "This charge session has no chart data.",
+  "v2ChargeGraphPowerTick": "{power}",
+  "@v2ChargeGraphPowerTick": {
+    "placeholders": {
+      "power": {
+        "type": "int"
+      }
+    }
+  },
+  "v2ChargeGraphSemantics": "Charge session SOC and power over time",
+  "v2ChargeGraphRangeGainedEstimate": "Range gained · EST",
+  "v2ChargeGraphEnergyAdded": "Energy added",
+  "v2ChargeGraphCostEstimate": "Cost · EST",
+  "v2ChargeGraphDuration": "Duration",
+  "v2ChargeGraphTargetReached": "Limit reached",
+  "v2ChargeGraphDurationMinutes": "{minutes} min",
+  "@v2ChargeGraphDurationMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "v2ChargeGraphDurationHoursMinutes": "{hours} hr {minutes} min",
+  "@v2ChargeGraphDurationHoursMinutes": {
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "v2LastChargeSession": "Last charge session",
+  "v2ChargeSummaryNoEnergy": "This charge session has no measured energy.",
+  "v2ChargeClimateWarningTitle": "Climate is using your charge",
+  "v2ChargeClimateWarningHigh": "The climate system draws {climate} kW of the {charging} kW coming in. The battery gains much less than the charger shows.",
+  "v2ChargeClimateWarningOutweighs": "The climate system draws {climate} kW, as much as the charger delivers. The battery is gaining almost nothing.",
+  "@v2ChargeClimateWarningHigh": {
+    "placeholders": {
+      "climate": {
+        "type": "String"
+      },
+      "charging": {
+        "type": "String"
+      }
+    }
+  },
+  "@v2ChargeClimateWarningOutweighs": {
+    "placeholders": {
+      "climate": {
+        "type": "String"
+      }
+    }
+  },
+  "v2ChargeSummaryBatteryEnergy": "Energy delivered to the battery",
+  "v2ChargeSummaryClimateEnergy": "Energy used by the climate system during charging",
+  "v2ChargeSummarySemantics": "Charge-session energy split between the battery and the climate system",
+  "actionSave": "SAVE",
+  "actionClear": "CLEAR",
+  "settingsChargeCostTitle": "Default charge price",
+  "settingsChargeCostDesc": "Rate per kWh used to estimate charging cost. Type the value on the keypad.",
+  "settingsChargeCostSaved": "Saved: {value}",
+  "settingsChargeCostNotSaved": "No default price saved",
+  "settingsChargeCostEdit": "Set price",
+  "v2MoneyKeypadSave": "Save",
+  "v2MoneyKeypadClear": "Clear the amount",
+  "v2MoneyKeypadDelete": "Delete the last digit",
+  "v2MoneyKeypadClose": "Close the price keypad",
+  "v2ChargeCostTitle": "Charge price",
+  "v2ChargeCostDescription": "Applies to this charge only. Type a price per kWh, or the total you paid.",
+  "v2ChargeCostFieldRate": "Price/kWh",
+  "v2ChargeCostFieldTotal": "Total paid",
+  "v2ChargeCostUnitRate": "/kWh",
+  "v2ChargeCostEdit": "Edit the price of this charge",
+  "v2ChargeCostFailed": "The charge price was not saved",
+  "settingsRoadcastTitle": "Roadcast",
+  "settingsRoadcastUnavailable": "Daemon status unavailable",
+  "settingsRoadcastRunning": "{signalCount} signals, {frameCount} frames @ {hz} Hz",
+  "settingsRoadcastStopped": "Daemon is not serving",
+  "settingsRoadcastInstalled": "Installed: {commit}",
+  "settingsRoadcastNotChecked": "Edge updates have not been checked",
+  "settingsRoadcastUpdateAvailable": "Edge update available: {commit}",
+  "settingsRoadcastUpToDate": "Roadcast edge is up to date",
+  "settingsRoadcastIncompatible": "Incompatible update: {reason}",
+  "settingsRoadcastCheck": "CHECK",
+  "settingsRoadcastChecking": "CHECKING",
+  "settingsRoadcastUpdate": "UPDATE",
+  "settingsRoadcastUpdating": "UPDATING",
+  "settingsRoadcastRestart": "RESTART",
+  "settingsRoadcastRestarting": "RESTARTING",
+  "settingsRoadcastRestartSuccess": "ROADCAST DAEMON RESTARTED",
+  "settingsRoadcastRestartFailed": "ROADCAST RESTART FAILED: {reason}",
+  "settingsRoadcastCheckFailed": "ROADCAST UPDATE CHECK FAILED: {reason}",
+  "settingsRoadcastUpdateSuccess": "ROADCAST UPDATED TO {commit}",
+  "settingsRoadcastUpdateFailed": "ROADCAST UPDATE FAILED: {reason}",
+  "chargeCostDialogTitle": "CHARGE COST",
+  "chargeCostPerKwhLabel": "PRICE PER kWh",
+  "chargeCostPerKwhHint": "Set to zero to leave blank — used when the paid amount is empty.",
+  "chargeCostPaidLabel": "PAID AMOUNT",
+  "chargeCostPaidHint": "Takes priority over the price per kWh.",
+  "settingsSensorLab": "Motion sensor lab",
+  "settingsSensorLabDesc": "Watch the car's tilt and feel bumps live while driving.",
+  "settingsSensorLabOpen": "Open",
+  "sensorLabTitle": "Sensor lab",
+  "sensorLabCalibrate": "Zero here",
+  "sensorLabReset": "Reset",
+  "sensorLabUnavailable": "Motion sensors unavailable",
+  "sensorLabWaiting": "Waiting for sensors…",
+  "sensorLabLevel": "Level",
+  "sensorLabPitch": "Pitch",
+  "sensorLabRoll": "Roll",
+  "sensorLabForces": "Forces",
+  "sensorLabVertical": "Vertical (bumps)",
+  "sensorLabHorizontal": "Braking / cornering",
+  "sensorLabPeak": "peak",
+  "sensorLabRoadTrace": "Road trace (vertical)",
+  "sensorLabBumps": "Bumps",
+  "sensorLabSessionPeak": "Peak jolt",
+  "sensorLabRate": "Sample rate",
+  "canLiveMute": "Mute",
+  "canLiveUnmute": "Unmute",
+  "canLiveMutedList": "Muted",
+  "canLiveSortRecency": "Recent",
+  "canLiveSortRate": "Busiest",
+  "canLiveSortName": "Name",
+  "canLiveMetricActive": "Moving now",
+  "canLiveMetricRate": "Changes/s",
+  "canLiveWaiting": "Waiting for the CAN bridge daemon",
+  "canLiveStale": "Daemon stopped publishing",
+  "canLiveNeverChanged": "never changed",
+  "canLiveShowSilent": "Show silent",
+  "liveTripTitle": "LIVE TRIP",
+  "liveTripRowTitle": "ACTIVE TRIP SESSION",
+  "liveTripOpen": "OPEN LIVE TRIP",
+  "tripNoCompletedSessions": "No completed trips yet.",
+  "liveTripStatusLive": "LIVE",
+  "liveTripSpeed": "SPEED",
+  "liveTripVehicleSpeedUnavailable": "Vehicle speed stream unavailable",
+  "liveTripCanSpeedRaw": "CAN SPEED CANDIDATE",
+  "liveTripSoc": "SOC",
+  "liveTripSocStart": "START SOC",
+  "liveTripSocChange": "SOC CHANGE",
+  "liveTripSocCurrent": "CURRENT SOC",
+  "liveTripDrivePower": "DRIVE POWER",
+  "liveTripRoadIncline": "CURRENT ROAD INCLINE",
+  "inclineReadoutTitle": "Incline",
+  "compassReadoutTitle": "Compass",
+  "compassNorth": "N",
+  "compassNortheast": "NE",
+  "compassEast": "E",
+  "compassSoutheast": "SE",
+  "compassSouth": "S",
+  "compassSouthwest": "SW",
+  "compassWest": "W",
+  "compassNorthwest": "NW",
+  "compassHeld": "Stopped. Last direction.",
+  "compassNoFix": "No GPS signal",
+  "compassGpsOff": "GPS is off",
+  "compassNoPermission": "No location permission",
+  "liveTripEcoCoach": "ECO COACH",
+  "liveTripEcoBeta": "BETA",
+  "liveTripEcoObserving": "Gathering driving samples",
+  "liveTripEcoAcceleration": "ACC",
+  "liveTripEcoJerk": "JERK",
+  "liveTripEcoCycles": "ACC→BRAKE",
+  "liveTripEcoReasonStopped": "Stopped — score paused",
+  "liveTripEcoReasonEfficient": "Smooth, moderate demand",
+  "liveTripEcoReasonDemand": "High traction demand",
+  "liveTripEcoReasonAcceleration": "Abrupt acceleration",
+  "liveTripEcoReasonJerk": "Abrupt change in acceleration",
+  "liveTripEcoReasonCoasting": "Coasting without pedal or brake",
+  "liveTripEcoReasonRegen": "Regenerating energy",
+  "liveTripEcoReasonCycle": "Acceleration followed soon by braking",
+  "liveTripAverageConsumption": "VCU AVG CONSUMPTION",
+  "liveTripAverageConsumption1": "VCU AVG CONSUMPTION 1",
+  "liveTripTotalOdometerCandidate": "ODOMETER CANDIDATE",
+  "liveTripPedal": "ACCEL PEDAL",
+  "liveTripBrake": "BRAKE",
+  "liveTripBrakeOn": "PRESSED",
+  "liveTripBrakeOff": "RELEASED",
+  "liveTripRegenTorque": "REGEN TORQUE",
+  "liveTripRegenLevel": "REGEN LEVEL",
+  "liveTripPackPower": "PACK V x I",
+  "liveTripVhalPower": "VHAL POWER",
+  "liveTripGear": "GEAR",
+  "liveTripAltitude": "ALTITUDE",
+  "liveTripGps": "GPS FIX",
+  "liveTripBus": "CAN BUS",
+  "liveTripPollAge": "POLL AGE",
+  "liveTripImpliedScale": "IMPLIED SPEED SCALE",
+  "liveTripSectionInstant": "INSTANT SIGNALS",
+  "liveTripSectionTotals": "TRIP TOTALS",
+  "liveTripSourceVhal": "VHAL",
+  "liveTripBadgeDerived": "V x I",
+  "liveTripBadgeStale": "STALE",
+  "liveTripCanOffline": "CAN bridge offline: live Roadcast values are unavailable",
+  "liveTripMapTitle": "Live Route",
+  "liveTripChartPower": "Drive Power Trace",
+  "liveTripChartPowerNotEnough": "Not enough power samples for chart.",
+  "liveTripSourceCan": "CAN {frameId}",
+  "liveTripTotalsUpdated": "Room, {age} ago",
+  "liveTripWindowMinutes": "last {minutes} min",
+  "liveRoadcastWindowSeconds": "last {seconds} s in RAM",
+  "@liveRoadcastWindowSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "liveChargeTitle": "LIVE CHARGE",
+  "liveChargeOpen": "OPEN LIVE SESSION",
+  "liveChargeRowTitle": "ACTIVE SESSION",
+  "liveChargeSectionPack": "PACK",
+  "liveChargeSectionInput": "CHARGER INPUT",
+  "liveChargeSectionTotals": "SESSION TOTALS",
+  "liveChargeInputPower": "INPUT POWER",
+  "liveChargePackCurrent": "PACK CURRENT",
+  "liveChargePackPower": "PACK POWER",
+  "liveChargeCurrentRaw": "BUS COUNT",
+  "liveChargeCurrentScale": "SCALE",
+  "liveChargeCurrentScaleValue": "0.1 A/bit (confirmed)",
+  "liveChargeZeroAssumed": "ASSUMED ZERO",
+  "liveChargeZeroObserved": "OBSERVED ZERO",
+  "liveChargeZeroSamples": "{count} samples",
+  "@liveChargeZeroSamples": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "liveChargeZeroWaiting": "needs idle time",
+  "liveChargeZeroOffset": "OFFSET ERROR",
+  "liveChargeZeroNote": "Ampere values use an assumed zero of 5000 counts. The observed zero accumulates while the pack is idle; the gap between them is the error every ampere reading carries.",
+  "liveChargeObcInputVolts": "INPUT VOLTAGE",
+  "liveChargeObcInputCurrent": "INPUT CURRENT",
+  "liveChargeObcState": "CHARGER STATE",
+  "liveChargeObcEfficiency": "OBC EFFICIENCY",
+  "liveChargeChartPower": "Input Power",
+  "liveChargeChartCurrent": "Pack Current (est.)",
+  "liveChargeChartSoc": "State of Charge",
+  "liveChargeChartNotEnough": "Waiting for bus samples.",
+  "liveChargeEnergyAdded": "ENERGY ADDED",
+  "liveChargeEta": "TIME TO FULL",
+  "liveChargeEtaTarget": "TIME TO {percent}%",
+  "@liveChargeEtaTarget": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "liveChargeBadgeEstimate": "EST",
+  "liveChargeCanOffline": "CAN bridge offline: pack current and voltage are unavailable",
+  "liveChargeNoLiveSession": "No charge session is open.",
+  "chargeDetailCost": "COST",
+  "chargeDetailEditCost": "EDIT COST",
+  "chargeDetailCostPerKwh": "PER kWh",
+  "chargeDetailSectionOverview": "OVERVIEW",
+  "chargeDetailSectionEnergy": "ENERGY & COST",
+  "chargeDetailSectionCurves": "CURVES",
+  "chargeDetailSectionContext": "CONTEXT",
+  "chargeDetailPeakPower": "PEAK POWER",
+  "chargeDetailSocRate": "SOC RATE",
+  "chargeDetailEnergyRate": "ENERGY RATE",
+  "chargeDetailSocPerHour": "%/h",
+  "chargeDetailSamples": "{count} pts",
+  "@chargeDetailSamples": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "chargeDetailNoCost": "Tap to set a price",
+  "chargeDetailStartedAt": "STARTED",
+  "chargeDetailEndedAt": "ENDED",
+  "liveChargeLoss": "{kw} kW lost in the charger",
+  "liveChargeWallPower": "WALL POWER",
+  "liveChargeMeasured": "MEAS",
+  "energyMonitorTab": "Energy monitor",
+  "rangeReasonCollectionStopped": "Collection stopped.",
+  "rangeReasonWaitingForSignal": "Waiting for the signal.",
+  "rangeReasonSignalError": "Signal error.",
+  "rangeReasonUnpublishedSignal": "The car does not send this value.",
+  "rangeReasonOutOfRange": "The value is out of range.",
+  "rangeReasonEfficiencyLoading": "Reading the efficiency.",
+  "rangeReasonNoValidEfficiency": "No measured efficiency yet.",
+  "rangeReasonEfficiencyStale": "The efficiency is not up to date.",
+  "rangeDropTitle": "Range drop",
+  "rangeDropDistance": "Drove",
+  "rangeDropCarSpent": "Car spent",
+  "rangeDropCarGained": "Car gained",
+  "rangeDropAppSpent": "App spent",
+  "rangeDropAppGained": "App gained",
+  "rangeDropStretch": "Measured since {time}",
+  "@rangeDropStretch": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "rangeDropWaiting": "Waiting for a drive.",
+  "rangeDropTooShort": "The stretch is too short to compare.",
+  "rangeDropFrozen": "Stretch closed",
+  "energyUseTitle": "Energy use",
+  "energyUseAbout": "About energy use",
+  "energyWindowCurrentDrive": "Current drive",
+  "energyWindowSincePowerOn": "Since power on",
+  "energyWindowLast15Minutes": "Last 15 minutes",
+  "energyWindowLastHour": "Last hour",
+  "energyWindowLast8Hours": "Last 8 hours",
+  "energyWindowSelector": "Choose the stretch of driving to show",
+  "energyModeDrive": "Drive",
+  "energyModeParked": "Parked",
+  "energyStateCharge": "Charging",
+  "energyStatePoweredOn": "Powered on",
+  "energyChartEmpty": "No driving recorded in this window.",
+  "energyChartEmptyParked": "The car did not stand still in this window.",
+  "energyChartLoading": "Reading the drive…",
+  "energyChartFailed": "The drive could not be read.",
+  "energyChartSemantics": "Energy used per interval",
+  "energyBarOpen": "in progress",
+  "energyTraction": "Drivetrain",
+  "energyClimate": "Climate",
+  "energyAuxiliary": "Everything else",
+  "energyRegeneration": "Recovered",
+  "sessionDetailsTitle": "Session details",
+  "sessionDetailsAbout": "About this session",
+  "sessionDetailsInfoTitle": "What the ring shows",
+  "sessionDetailsInfoClose": "Close the session explanation",
+  "sessionDetailsInfoTraction": "Energy the pack sent to the motor to move the car.",
+  "sessionDetailsInfoClimate": "Energy the pack sent to heating and cooling. The car reports this itself.",
+  "sessionDetailsInfoAuxiliary": "Everything the pack supplied that traction and climate do not explain: steering, pumps, lamps, electronics. It is what is left after the drivetrain, so it carries the error of both readings. If the car does not report climate power, the climate load is inside this figure.",
+  "sessionDetailsInfoRegeneration": "Energy the motor returned while slowing down. Measured against what was drawn, not a slice of it — which is why it is the inner arc.",
+  "energyStatEfficiency": "Avg.",
+  "energyStatDistance": "Distance",
+  "energyStatSpeed": "Avg speed",
+  "energyStatCost": "Est. cost",
+  "energyStatParkedDrain": "Avg. drain",
+  "energyStatParkedTotal": "Total",
+  "energyStatParkedClimate": "Climate",
+  "energyLedgerIn": "In",
+  "energyLedgerOut": "Out",
+  "energyLedgerBalance": "Balance",
+  "energyLedgerSoc": "SOC",
+  "energyLedgerIncludesEstimate": "Includes the sleep estimate.",
+  "@energyLedgerIncludesEstimate": {
+    "description": "Shown under the Since-power-on ledger row when In, Out or Balance folds in the reconstructed overnight sleep-gap drain, so the reader knows part of the figure is an estimate, not a reading."
+  },
+  "unitKmPerKwh": "km/kWh",
+  "unitKwhPer50km": "kWh/50km",
+  "unitKwhPer100km": "kWh/100km",
+  "efficiencyAverageWindow": "Avg. · last 15 min",
+  "efficiencyTimeNotSynced": "Time not synced yet. Line shows measured efficiency.",
+  "efficiencyLessRange": "Less range",
+  "efficiencyAxisUnit": "Wh/km",
+  "@efficiencyAxisUnit": {
+    "description": "Unit label on the efficiency chart's axis. The axis is energy per distance; the large numeral beside it is distance per energy, so the axis must name its own unit."
+  },
+  "efficiencySmoothnessLabel": "Driving smoothness",
+  "@efficiencySmoothnessLabel": {
+    "description": "Caption naming what the pill beside the efficiency line measures. It is driving technique, not energy efficiency, and the label must not imply otherwise."
+  },
+  "efficiencySmoothnessWindow": "last 30 s",
+  "@efficiencySmoothnessWindow": {
+    "description": "Caption naming the window the driving-smoothness pill reads over."
+  },
+  "efficiencyAbout": "About this card",
+  "efficiencyInfoClose": "Close the efficiency explanation",
+  "efficiencyInfoTitle": "How to read this card",
+  "efficiencyInfoLinesLabel": "The two lines",
+  "efficiencyInfoLines": "The upper line is what the drive costs after regeneration gives energy back. The lower line is what the car takes before that credit. The green area between them is the returned energy.",
+  "efficiencyInfoScaleLabel": "The scale",
+  "efficiencyInfoScale": "The scale is Wh/km with zero at the top, so a higher line is better. The upper line is green when the drive is better than the car's range estimate. A break is an interval the car did not report.",
+  "efficiencyInfoAverageLabel": "The large number, and the car's figure",
+  "efficiencyInfoAverage": "This is the average of the last 15 minutes: the distance, divided by the energy the battery gave. Touch it to change the unit. The car calculates its own kWh/100 km across the last 100 km, which can be many trips and many days. Thus the two numbers differ, and both are correct.",
+  "@efficiencyInfoAverage": {
+    "description": "Says what the large numeral on the efficiency card is, and why it disagrees with the consumption figure on the car's own display. The two use different windows: the card uses the last 15 minutes, the car uses the literal last 100 km."
+  },
+  "efficiencyInfoSmoothnessLabel": "The bar at the side",
+  "efficiencyInfoSmoothness": "The bar shows how smoothly the car is driven, not efficiency. The knob is the last 30 seconds, the small mark the last 5 seconds. A mark above the knob shows smoother driving.",
+  "signalLabTitle": "Signal Lab",
+  "signalLabOpen": "Open Signal Lab",
+  "signalLabDescription": "Engineering view of every CAN signal the daemon decodes.",
+  "signalLabTabInspector": "INSPECTOR",
+  "signalLabTabScope": "SCOPE",
+  "signalLabSearchHint": "Signal name or 0x315",
+  "signalLabTierFresh": "Fresh",
+  "signalLabTierPublished": "Published",
+  "signalLabTierNever": "Never",
+  "signalLabColumnSignal": "Signal",
+  "signalLabColumnFrame": "Frame",
+  "signalLabColumnRaw": "Raw",
+  "signalLabColumnValue": "Value",
+  "signalLabColumnUnit": "Unit",
+  "signalLabColumnAge": "Age",
+  "signalLabColumnTier": "Tier",
+  "signalLabColumnRange": "Session min/max",
+  "signalLabRawCounts": "counts",
+  "signalLabUncalibrated": "EST",
+  "signalLabUncalibratedHint": "No negotiated scale. The count is the measurement.",
+  "signalLabInvalid": "INVALID",
+  "signalLabDisconnected": "Roadcast is not connected. No signal can be read.",
+  "signalLabEmpty": "No signal matches this filter.",
+  "signalLabScopeEmpty": "Select up to four signals in the inspector to trace them.",
+  "signalLabScopeFull": "The scope holds four traces. Remove one first.",
+  "signalLabFreeze": "Freeze",
+  "signalLabResume": "Resume",
+  "signalLabClearTraces": "Clear traces",
+  "signalLabResetSession": "Reset session",
+  "signalLabTrace": "Trace",
+  "signalLabCounts": "{fresh} fresh, {published} published, {never} never",
+  "@signalLabCounts": {
+    "placeholders": {
+      "fresh": {
+        "type": "int"
+      },
+      "published": {
+        "type": "int"
+      },
+      "never": {
+        "type": "int"
+      }
+    }
+  },
+  "v1WelcomeTitle": "Version 1.0 Experience",
+  "v1WelcomeBody": "Welcome to Version 1.0! This release introduces a new experience for the app. The new interface will continue receiving updates, improvements, and fixes based on your feedback.\n\nIf you ever wish to return to the previous mode, you can switch back at any time in Settings. The app will remember your preferred experience and always launch in it.",
+  "v1WelcomeConfirm": "Explore New Experience",
+  "v1WelcomeUseLegacy": "Use Legacy Mode",
+  "v2ProjectionBetaTitle": "CarPlay / Android Auto (Beta)",
+  "v2ProjectionBetaDescription": "Shows the tab for the phone that is connected and renders the picture in it. If no phone is connected, no tab appears. While off, the head unit's projection services are never started. Still in beta: expect rough edges.",
+  "settingsReplaceOemChargingTitle": "Replace factory charging screen",
+  "settingsReplaceOemChargingDesc": "Blocks the automatic factory charging popup, and opens this app on Charging when a charge begins. The factory app still opens from its icon. This app does not take the screen in camping or nap mode.",
+  "settingsExternalChargeControlTitle": "External Charge Control (Geely Charge Control)",
+  "settingsExternalChargeControlDesc": "Allows controlling charge limits and amperage by delegating actions to the dedicated Geely Charge Control app. By default, Capy Energy operates purely as a telemetry analyzer.",
+  "settingsChargeControlNotInstalled": "Geely Charge Control is not installed",
+  "settingsChargeControlInstalled": "Geely Charge Control installed (v{version})",
+  "@settingsChargeControlInstalled": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsChargeControlDownloadAndInstall": "Download and Install APK",
+  "settingsChargeControlOpenApp": "Open App",
+  "settingsChargeControlInstalling": "Installing APK...",
+  "settingsChargeControlDownloadingPercent": "Downloading... {percent}%",
+  "@settingsChargeControlDownloadingPercent": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsChargeControlInstalledSuccess": "Geely Charge Control installation scheduled/completed.",
+  "settingsChargeControlLaunchFailed": "Geely Charge Control did not open.",
+  "settingsPackCapacityTitle": "Battery capacity",
+  "settingsPackCapacityDesc": "The usable pack size the app uses for every energy and efficiency figure. The car does not report a usable one, so state it here. Default: 39.60 kWh.",
+  "settingsPackCapacitySaved": "Battery capacity set to {value}.",
+  "@settingsPackCapacitySaved": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "settingsChargeCostApplyTitle": "Price the past charges",
+  "settingsChargeCostApplyDesc": "Writes the default rate on every finished charge that has no price. A charge with a paid amount keeps it.",
+  "settingsChargeCostApply": "Apply to unpriced charges",
+  "settingsChargeCostApplying": "Applying...",
+  "settingsProposalDecision": "Answer proposal",
+  "settingsProposalPrompt": "A phone proposed this value.",
+  "settingsProposalAccept": "Accept",
+  "settingsProposalRefuse": "Refuse",
+  "settingsProposalDeciding": "Deciding...",
+  "settingsProposalUnknown": "Proposal",
+  "settingsChargeCostApplied": "{count} charges now carry the default rate.",
+  "@settingsChargeCostApplied": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsChargeCostApplyNone": "No charge needed a price.",
+  "settingsChargeCostApplyNoRate": "Save a default rate first.",
+  "insightNotEnoughData": "Not enough measured trips in the last 30 days yet ({count} usable).",
+  "@insightNotEnoughData": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightSubjectUnusable": "This trip has no measured pack energy to compare.",
+  "insightNotDistinguishable": "This trip cannot yet be told apart from your last 30 days ({count} trips).",
+  "@insightNotDistinguishable": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightTripUsedLess": "This trip used {difference} Wh/km less than your last 30 days ({count} trips).",
+  "@insightTripUsedLess": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "insightTripUsedMore": "This trip used {difference} Wh/km more than your last 30 days ({count} trips).",
+  "@insightTripUsedMore": {
+    "placeholders": {
+      "difference": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "navSync": "Sync",
+  "v2SyncCodeTitle": "Pairing code",
+  "v2SyncNoCode": "No code is open",
+  "v2SyncRegisteredSubtitle": "Car registered. Waiting for the phone to link it.",
+  "v2SyncRegisteredBody": "The car registered itself. Open the Capy Energy app on your phone and link the car to your account.",
+  "v2SyncRegistered": "REGISTERED",
+  "v2SyncRevokedSubtitle": "Access revoked. Make a new pairing code.",
+  "v2SyncRevokedBody": "Access to this car was revoked. Generate a new pairing code to link your phone again.",
+  "v2SyncRevoked": "REVOKED",
+  "v2SyncCodeExpired": "The code expired. Make a new one.",
+  "v2SyncCodeCancelled": "Code cancelled. Make a new one.",
+  "v2SyncCreateCode": "NEW CODE",
+  "v2SyncCancelCode": "CANCEL CODE",
+  "v2SyncRetry": "RETRY",
+  "v2SyncPaired": "PAIRED",
+  "v2SyncPairedConnected": "Phone paired. Connected.",
+  "v2SyncPairingRejected": "Phone declined the pairing.",
+  "v2SyncPairingInvalid": "Something went wrong.",
+  "v2SyncPairingStartFailed": "Couldn't start pairing. Try again.",
+  "v2SyncCheckingConnection": "Checking connection…",
+  "v2SyncCheckingBody": "Checking whether the car can reach the server…",
+  "v2SyncNoNetwork": "No network connection. Check your Wi-Fi or hotspot.",
+  "v2SyncNoNetworkBody": "The car has no network connection. Turn on Wi-Fi or a hotspot and try again.",
+  "v2SyncServerUnreachable": "Cannot reach the server. Check your connection.",
+  "v2SyncServerUnreachableBody": "The car is on a network but cannot reach the server. Check the connection and try again.",
+  "v2SyncPendingBody": "Open the Capy Energy app on your phone and type this code. It expires in 5 minutes.",
+  "v2SyncApprovedBody": "Your phone is paired. The car syncs to the cloud when it has a connection.",
+  "v2SyncExpiredBody": "This code timed out after 5 minutes. Generate a new one to try again.",
+  "v2SyncRejectedBody": "The phone declined the pairing. Generate a new code and try again.",
+  "v2SyncInvalidBody": "Something went wrong with the code. Generate a new one and try again.",
+  "v2SyncIdleBody": "Open the Capy Energy app on your phone. Generate a code here and type it there.",
+  "v2SyncExpiresInMinutes": "Expires in 5 minutes",
+  "v2SyncExpiresInClock": "Expires in {minutes}:{seconds}",
+  "@v2SyncExpiresInClock": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "seconds": {
+        "type": "String"
+      }
+    }
+  },
+  "v2SyncExpiresInSecs": "Expires in {seconds}s",
+  "@v2SyncExpiresInSecs": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SyncDevicesTitle": "Paired phones",
+  "v2SyncNoDevices": "No phone is paired",
+  "v2SyncNoDevicesBody": "The car serves data only to a paired phone. Make a code to pair one.",
+  "v2SyncDeviceCount": "{count} paired",
+  "v2SyncPairedOn": "Paired on {date}",
+  "v2SyncRevoke": "UNSYNC",
+  "v2SyncRevokeConfirmTitle": "Unsync {name}?",
+  "v2SyncRevokeConfirmMessage": "The phone loses access to the car. The car becomes free to sync with another phone. The history already on the phone stays there.",
+  "v2SyncRevokeConfirm": "UNSYNC",
+  "v2SyncRevokeCancel": "CANCEL",
+  "v2SyncForce": "FORCE SYNC",
+  "v2SyncCloudTitle": "Cloud sync",
+  "v2SyncCloudSubtitle": "Upload the car's data to the cloud now.",
+  "v2SyncCloudRunning": "Uploading…",
+  "v2SyncCloudNote": "Sends telemetry, annotations and preference changes to the cloud. Runs on its own every 15 minutes; this button runs it now.",
+  "v2SyncCloudMoved": "Uploaded {count} records.",
+  "@v2SyncCloudMoved": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SyncCloudEmpty": "Already up to date. Nothing to upload.",
+  "v2SyncCloudFailed": "Upload failed. Try again.",
+  "v2SyncCloudDisabled": "Cloud sync is off in this build. Nothing was uploaded.",
+  "v2SyncCloudNotPaired": "Pair this car with your phone first. Nothing was uploaded.",
+  "v2SyncLiveActive": "Live values: sending",
+  "v2SyncLiveIdle": "Live values: waiting for the phone",
+  "v2SyncProgressLabel": "Cloud sync progress",
+  "v2SyncProgressUpToDate": "100% in sync",
+  "v2SyncProgressPending": "{count, plural, =1{1 pending} other{{count} pending}}",
+  "@v2SyncProgressPending": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SyncProgressPendingClock": "{count, plural, =1{1 waiting for car clock} other{{count} waiting for car clock}}",
+  "@v2SyncProgressPendingClock": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SyncProgressPendingBoth": "{dirty, plural, =1{1 pending} other{{dirty} pending}}, {clock, plural, =1{1 waiting for car clock} other{{clock} waiting for car clock}}",
+  "@v2SyncProgressPendingBoth": {
+    "placeholders": {
+      "dirty": {
+        "type": "int"
+      },
+      "clock": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SyncProgressDetail": "{clean} of {total} records in the cloud",
+  "@v2SyncProgressDetail": {
+    "placeholders": {
+      "clean": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "v2SyncCompanionTitle": "Capy Companion",
+  "v2SyncCompanionBeta": "Beta available",
+  "v2SyncCompanionDescription": "Track your trips, charge history, and battery metrics on your phone.",
+  "v2SyncCompanionUpdateHint": "Can't sync? Download the new version of the companion!",
+  "v2SyncCompanionScanQr": "Scan the code to download the beta version:",
+  "v2SyncCompanionAndroid": "Android",
+  "v2SyncCompanionIos": "iOS",
+  "v2SyncCompanionForbidden": "403?",
+  "v2SyncCompanionBetaWarning": "The app is in beta (the iOS version is pending Apple approval). Features are missing and bugs exist. To give feedback, shake your phone!",
+  "v2SettingsStorage": "Storage",
+  "v2SettingsStorageTitle": "Stored history",
+  "v2SettingsStorageDesc": "How much disk the app's stored history occupies. Measured without scanning every record.",
+  "v2SettingsStorageLoading": "Checking…",
+  "v2SettingsStorageFailed": "Storage check failed: {error}",
+  "@v2SettingsStorageFailed": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "v2SettingsStorageValue": "{size} used",
+  "@v2SettingsStorageValue": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  }
+}

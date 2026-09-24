@@ -1,0 +1,103 @@
+{
+  "description": "Cases for the canonical session duration. Kotlin SessionTimeReconciler.canonicalDurationMillis and Dart sessionDurationMillis both read this file, so a failure states that the rule moved rather than that one language moved first. The duration is derived, never stored, which is why a synced row needs this rule at all. Expected values are derived by hand from the rules, not captured from either implementation.",
+  "maxTripWallDurationMillis": 172800000,
+  "maxChargeWallDurationMillis": 2678400000,
+  "cases": [
+    {
+      "name": "the monotonic clock answers when both ends share a boot",
+      "why": "1440 s of elapsed realtime. The wall clock agrees and is not consulted.",
+      "expected": 1440000,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 5000000000,
+      "startBootCount": 7,
+      "endUtcMillis": 1710001440000,
+      "endElapsedNanos": 1445000000000,
+      "endBootCount": 7,
+      "maxWallDurationMillis": 172800000
+    },
+    {
+      "name": "a wall clock that stepped does not overrule the monotonic clock",
+      "why": "The same 1440 s of elapsed time, with a wall clock that jumped back an hour mid-drive. Without this rule the drive lasts minus twenty minutes.",
+      "expected": 1440000,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 5000000000,
+      "startBootCount": 7,
+      "endUtcMillis": 1709997840000,
+      "endElapsedNanos": 1445000000000,
+      "endBootCount": 7,
+      "maxWallDurationMillis": 172800000
+    },
+    {
+      "name": "a span across two boots falls back to the wall clock",
+      "why": "Elapsed realtime restarts at a reboot, so the monotonic delta measures nothing. The wall clock is what is left, and it is inside the band.",
+      "expected": 1800000,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 900000000000,
+      "startBootCount": 7,
+      "endUtcMillis": 1710001800000,
+      "endElapsedNanos": 4000000000,
+      "endBootCount": 8,
+      "maxWallDurationMillis": 172800000
+    },
+    {
+      "name": "a row with no boot count falls back to the wall clock",
+      "why": "Rows recorded before the car stamped the boot count. The monotonic delta cannot be trusted without knowing the two ends share a boot.",
+      "expected": 600000,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 5000000000,
+      "startBootCount": null,
+      "endUtcMillis": 1710000600000,
+      "endElapsedNanos": 605000000000,
+      "endBootCount": null,
+      "maxWallDurationMillis": 172800000
+    },
+    {
+      "name": "a wall span past the cap is a corrupt stamp, not a long drive",
+      "why": "Two boots, so the monotonic clock is out, and a wall span of 60 h against a 48 h cap. Null, so a reader prints a dash instead of a drive that lasted two and a half days.",
+      "expected": null,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 900000000000,
+      "startBootCount": 7,
+      "endUtcMillis": 1710216000000,
+      "endElapsedNanos": 4000000000,
+      "endBootCount": 8,
+      "maxWallDurationMillis": 172800000
+    },
+    {
+      "name": "a negative wall span is refused",
+      "why": "The wall clock stepped back across a reboot, so neither clock can answer.",
+      "expected": null,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 900000000000,
+      "startBootCount": 7,
+      "endUtcMillis": 1709999000000,
+      "endElapsedNanos": 4000000000,
+      "endBootCount": 8,
+      "maxWallDurationMillis": 172800000
+    },
+    {
+      "name": "a charge may last days, and the cap says so",
+      "why": "The same 60 h wall span that is refused for a drive is an ordinary week of sitting plugged in.",
+      "expected": 216000000,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 900000000000,
+      "startBootCount": 7,
+      "endUtcMillis": 1710216000000,
+      "endElapsedNanos": 4000000000,
+      "endBootCount": 8,
+      "maxWallDurationMillis": 2678400000
+    },
+    {
+      "name": "an unstamped elapsed start cannot carry a monotonic span",
+      "why": "A zero elapsed stamp is an absent one, not the instant the car booted.",
+      "expected": 120000,
+      "startUtcMillis": 1710000000000,
+      "startElapsedNanos": 0,
+      "startBootCount": 7,
+      "endUtcMillis": 1710000120000,
+      "endElapsedNanos": 120000000000,
+      "endBootCount": 7,
+      "maxWallDurationMillis": 172800000
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Background color matching AppThemeColors.dark.canvas (`0xFF0F252E`)
+         in `packages/capy_ui`. -->
+    <color name="launch_background_color">#0F252E</color>
+</resources>

@@ -1,0 +1,186 @@
+/// Session records for tests, in the shape the store answers.
+///
+/// One builder for each kind, so a test states the two or three readings it
+/// cares about and nothing else. Every unstated quantity is `unreported`,
+/// which is what the car says about a signal it never sent.
+library;
+
+import 'package:telemetry_core/telemetry_core.dart';
+
+Measurement _m(double? value, String unit) => value == null
+    ? Measurement.unreported(unit: unit)
+    : Measurement.measured(value, unit: unit);
+
+SessionRollup rollup({
+  double? distanceKm,
+  double? tractionWh,
+  double? regenWh,
+  double? auxiliaryWh,
+  double? climateWh,
+  double? deliveredWh,
+  double? integratedSeconds,
+}) => SessionRollup(
+  distance: _m(distanceKm, 'km'),
+  traction: _m(tractionWh, 'Wh'),
+  regen: _m(regenWh, 'Wh'),
+  auxiliary: _m(auxiliaryWh, 'Wh'),
+  climate: _m(climateWh, 'Wh'),
+  delivered: _m(deliveredWh, 'Wh'),
+  integratedSeconds: _m(integratedSeconds, 's'),
+);
+
+SessionRecord tripRecord({
+  String id = 'trip-1',
+  String status = 'ENDED',
+  int startedAtUtcMillis = 1710000000000,
+  int? endedAtUtcMillis,
+  int startedAtElapsedNanos = 1000000000,
+  int? endedAtElapsedNanos,
+  double? startSoc,
+  double? endSoc,
+  double? startOdometerKm,
+  double? endOdometerKm,
+  double? meanAmbientTempC,
+  String? socAgreesWithIntegral,
+  String? endReason,
+  int? startGear,
+  SessionRollup? sessionRollup,
+  double? climbM,
+  double? descentM,
+}) => SessionRecord(
+  id: id,
+  vehicleId: 'test',
+  kind: SessionKind.trip,
+  status: status,
+  startedAtUtcMillis: startedAtUtcMillis,
+  startedAtElapsedNanos: startedAtElapsedNanos,
+  endedAtUtcMillis: endedAtUtcMillis,
+  endedAtElapsedNanos: endedAtElapsedNanos,
+  rollup: sessionRollup ?? rollup(),
+  startOdometer: _m(startOdometerKm, 'km'),
+  endOdometer: _m(endOdometerKm, 'km'),
+  startSoc: _m(startSoc, '%'),
+  endSoc: _m(endSoc, '%'),
+  minSoc: _m(endSoc, '%'),
+  maxSoc: _m(startSoc, '%'),
+  socAgreesWithIntegral: socAgreesWithIntegral,
+  startAmbientTemp: _m(meanAmbientTempC, '°C'),
+  endAmbientTemp: _m(meanAmbientTempC, '°C'),
+  meanAmbientTemp: _m(meanAmbientTempC, '°C'),
+  endReason: endReason,
+  startGear: startGear,
+  climbM: climbM,
+  descentM: descentM,
+  createdAtUtcMillis: startedAtUtcMillis,
+  updatedAtUtcMillis: endedAtUtcMillis ?? startedAtUtcMillis,
+);
+
+SessionRecord chargeRecord({
+  String id = 'charge-1',
+  String status = 'COMPLETE',
+  int startedAtUtcMillis = 1710000000000,
+  int startedAtElapsedNanos = 1000000000,
+  int? chargeStartedAtUtcMillis,
+  int? chargeEndedAtUtcMillis,
+  int? plugDisconnectedAtUtcMillis,
+  int? plugDisconnectedAtElapsedNanos,
+  double? startSoc,
+  double? endSoc,
+  double? deliveredWh,
+  double? costPerKwh,
+  double? paidAmount,
+  String? costCurrency,
+  int? plugType,
+  double? startAmbientTempC,
+  double? endAmbientTempC,
+  double? startLatitude,
+  double? startLongitude,
+  double? startPowerKw,
+  String? chargeEndReason,
+  String? endReason,
+}) => SessionRecord(
+  id: id,
+  vehicleId: 'test',
+  kind: SessionKind.charge,
+  status: status,
+  startedAtUtcMillis: startedAtUtcMillis,
+  startedAtElapsedNanos: startedAtElapsedNanos,
+  endedAtUtcMillis: plugDisconnectedAtUtcMillis ?? chargeEndedAtUtcMillis,
+  endedAtElapsedNanos: plugDisconnectedAtElapsedNanos,
+  rollup: rollup(deliveredWh: deliveredWh),
+  startOdometer: const Measurement.unreported(unit: 'km'),
+  endOdometer: const Measurement.unreported(unit: 'km'),
+  startSoc: _m(startSoc, '%'),
+  endSoc: _m(endSoc, '%'),
+  minSoc: _m(startSoc, '%'),
+  maxSoc: _m(endSoc, '%'),
+  startAmbientTemp: _m(startAmbientTempC, '°C'),
+  endAmbientTemp: _m(endAmbientTempC, '°C'),
+  meanAmbientTemp: _m(startAmbientTempC, '°C'),
+  plugType: plugType,
+  costPerKwh: costPerKwh,
+  paidAmount: paidAmount,
+  costCurrency: costCurrency,
+  chargeStartedAtUtcMillis: chargeStartedAtUtcMillis,
+  chargeEndedAtUtcMillis: chargeEndedAtUtcMillis,
+  plugDisconnectedAtUtcMillis: plugDisconnectedAtUtcMillis,
+  plugDisconnectedAtElapsedNanos: plugDisconnectedAtElapsedNanos,
+  chargeEndReason: chargeEndReason,
+  endReason: endReason,
+  startLatitude: startLatitude,
+  startLongitude: startLongitude,
+  startPowerKw: startPowerKw,
+  createdAtUtcMillis: startedAtUtcMillis,
+  updatedAtUtcMillis:
+      plugDisconnectedAtUtcMillis ??
+      chargeEndedAtUtcMillis ??
+      startedAtUtcMillis,
+);
+
+/// One stored minute, as the store returns it.
+IntervalRecord intervalRecord({
+  String sessionId = 'trip-1',
+  required int startUtcMillis,
+  double tractionWh = 0,
+  double regenWh = 0,
+  double auxiliaryWh = 0,
+  double climateWh = 0,
+  double deliveredWh = 0,
+  double distanceKm = 0,
+  double coveredSeconds = 60,
+  double climateCoveredSeconds = 0,
+  double speedCoveredSeconds = 60,
+  double deliveredCoveredSeconds = 0,
+  double? startSoc,
+  double? endSoc,
+}) => IntervalRecord(
+  sessionId: sessionId,
+  startUtcMillis: startUtcMillis,
+  widthMillis: 60000,
+  traction: Measurement.measured(tractionWh, unit: 'Wh'),
+  regen: Measurement.measured(regenWh, unit: 'Wh'),
+  auxiliary: Measurement.measured(auxiliaryWh, unit: 'Wh'),
+  climate: Measurement.measured(climateWh, unit: 'Wh'),
+  delivered: Measurement.measured(deliveredWh, unit: 'Wh'),
+  distance: Measurement.measured(distanceKm, unit: 'km'),
+  coveredSeconds: coveredSeconds,
+  climateCoveredSeconds: climateCoveredSeconds,
+  speedCoveredSeconds: speedCoveredSeconds,
+  deliveredCoveredSeconds: deliveredCoveredSeconds,
+  startSoc: _m(startSoc, '%'),
+  endSoc: _m(endSoc, '%'),
+);
+
+/// One sample, as the store returns it.
+SamplePoint samplePoint({
+  required int tUtcMillis,
+  required int tElapsedNanos,
+  required double value,
+  String unit = '',
+  String? groupId,
+}) => SamplePoint(
+  tUtcMillis: tUtcMillis,
+  tElapsedNanos: tElapsedNanos,
+  value: Measurement.measured(value, unit: unit),
+  groupId: groupId,
+);

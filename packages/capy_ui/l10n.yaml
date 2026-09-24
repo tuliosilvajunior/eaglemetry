@@ -1,0 +1,7 @@
+arb-dir: lib/l10n
+template-arb-file: capy_ui_en.arb
+output-localization-file: capy_ui_localizations.dart
+output-class: CapyUiL10n
+preferred-supported-locales: ["en", "es", "pt", "ru"]
+nullable-getter: false
+use-escaping: true

@@ -1,0 +1,23 @@
+{
+  "@@locale": "ru",
+  "settingsAppearance": "Оформление",
+  "settingsAppTheme": "Тема приложения",
+  "settingsThemeDesc": "Выберите палитру приложения. Каждая плитка показывает страницу, карточку и её текст.",
+  "settingsThemeNameLight": "Светлая",
+  "settingsThemeNameDark": "Петроль",
+  "settingsThemeNameMidnight": "Полночь",
+  "settingsThemeNameSepia": "Сепия",
+  "settingsThemeNameNordic": "Нордик",
+  "settingsThemeNameDaylight": "Дневной свет",
+  "settingsThemeNameTokyoNeon": "Токийский неон",
+  "settingsThemeNameSunsetDrive": "Закат",
+  "settingsThemeNameBubblegum": "Жвачка",
+  "settingsThemeReadOnlyLabel": "Подсказка",
+  "settingsThemeReadOnlyMessage": "Выбор темы недоступен, пока ввод заблокирован.",
+  "settingsTogglesTitle": "Переключатели",
+  "settingsTogglesDesc": "Переключатели учитывают режим вождения. При блокировке ввода они доступны только для чтения.",
+  "settingsReduceMotionLabel": "Уменьшение движения",
+  "settingsReduceMotionDesc": "Ограничить анимации и переходы для более спокойного интерфейса.",
+  "settingsTogglesReadOnlyLabel": "Подсказка",
+  "settingsTogglesReadOnlyMessage": "Переключатели недоступны, пока ввод заблокирован."
+}

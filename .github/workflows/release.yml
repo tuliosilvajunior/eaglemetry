@@ -1,0 +1,292 @@
+name: Build and publish release
+
+# Source and tags stay in the source repository. Only the signed APK and its
+# update manifest are published to the public releases repository named by
+# PUBLIC_RELEASE_REPOSITORY below — point it at your own before publishing.
+#
+# Bump rules for commits since the last v* tag:
+#   - "feat!:" / BREAKING CHANGE -> major
+#   - "feat:"                    -> minor
+#   - everything else            -> patch
+#
+# The Android versionCode is the source repository's total commit count.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Force a bump instead of deriving it from commits
+        type: choice
+        options: [auto, major, minor, patch]
+        default: auto
+      republish_tag:
+        description: Rebuild and republish an existing tag, for example v0.4.4
+        type: string
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: capy-release
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.44.6
+  PUBLIC_RELEASE_REPOSITORY: example/capy_releases
+  EXPECTED_SIGNING_CERT_SHA256: c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Releases are only allowed from main, including manual dispatches. A release
+    # commit pushed with GITHUB_TOKEN must not create another version.
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'workflow_dispatch' ||
+      !startsWith(github.event.head_commit.message, 'chore(release):'))
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate release secrets
+        env:
+          PLATFORM_KEYSTORE_BASE64: ${{ secrets.PLATFORM_KEYSTORE_BASE64 }}
+          PUBLIC_RELEASE_TOKEN: ${{ secrets.PUBLIC_RELEASE_TOKEN }}
+        run: |
+          set -euo pipefail
+          missing=()
+          for name in \
+            PLATFORM_KEYSTORE_BASE64 \
+            PUBLIC_RELEASE_TOKEN
+          do
+            if [[ -z "${!name:-}" ]]; then
+              missing+=("$name")
+            fi
+          done
+          if (( ${#missing[@]} > 0 )); then
+            echo "Missing required repository secrets: ${missing[*]}" >&2
+            exit 1
+          fi
+
+      - name: Resolve release version
+        id: version
+        env:
+          REQUESTED_BUMP: ${{ inputs.bump || 'auto' }}
+          REPUBLISH_TAG: ${{ inputs.republish_tag || '' }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "$REPUBLISH_TAG" ]]; then
+            [[ "$REPUBLISH_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]] || {
+              echo "Invalid republish tag: $REPUBLISH_TAG" >&2
+              exit 1
+            }
+            git rev-parse --verify "refs/tags/$REPUBLISH_TAG" >/dev/null || {
+              echo "Tag not found: $REPUBLISH_TAG" >&2
+              exit 1
+            }
+            git checkout --detach "$REPUBLISH_TAG"
+            full_version=$(sed -n 's/^version: \([^ ]*\).*/\1/p' pubspec.yaml)
+            next=${full_version%%+*}
+            build=${full_version##*+}
+            [[ "$full_version" == *"+"* && "$build" =~ ^[1-9][0-9]*$ ]] || {
+              echo "Invalid pubspec version at $REPUBLISH_TAG: $full_version" >&2
+              exit 1
+            }
+            {
+              echo "next=$next"
+              echo "build=$build"
+              echo "tag=$REPUBLISH_TAG"
+              echo "create_source_tag=false"
+            } >> "$GITHUB_OUTPUT"
+            echo "Republishing $REPUBLISH_TAG ($next+$build)"
+            exit 0
+          fi
+
+          current=$(sed -n 's/^version: \([0-9.]*\)+.*/\1/p' pubspec.yaml)
+          last_tag=$(git describe --tags --abbrev=0 --match 'v*' 2>/dev/null || true)
+          if [[ -n "$last_tag" ]]; then
+            range="$last_tag..HEAD"
+            base=${last_tag#v}
+          else
+            range="HEAD"
+            base=$current
+          fi
+
+          commits=$(git log --format='%s%n%b' "$range")
+          if [[ -n "$last_tag" && -z "$(git log --format='%h' "$range")" ]]; then
+            echo "No commits since $last_tag; use republish_tag to rebuild it." >&2
+            exit 1
+          fi
+
+          bump="$REQUESTED_BUMP"
+          if [[ "$bump" == "auto" ]]; then
+            if grep -qE '^[a-z]+(\([^)]*\))?!:|BREAKING CHANGE' <<< "$commits"; then
+              bump=major
+            elif grep -qE '^feat(\([^)]*\))?:' <<< "$commits"; then
+              bump=minor
+            else
+              bump=patch
+            fi
+          fi
+
+          IFS=. read -r major minor patch <<< "$base"
+          case "$bump" in
+            major) major=$((major + 1)); minor=0; patch=0 ;;
+            minor) minor=$((minor + 1)); patch=0 ;;
+            patch) patch=$((patch + 1)) ;;
+            *)
+              echo "Invalid bump: $bump" >&2
+              exit 1
+              ;;
+          esac
+
+          next="$major.$minor.$patch"
+          build=$(git rev-list --count HEAD)
+          {
+            echo "next=$next"
+            echo "build=$build"
+            echo "tag=v$next"
+            echo "create_source_tag=true"
+          } >> "$GITHUB_OUTPUT"
+          echo "Release: $base -> $next+$build ($bump)"
+
+      - name: Create source release commit and tag
+        if: steps.version.outputs.create_source_tag == 'true'
+        env:
+          VERSION: ${{ steps.version.outputs.next }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          sed -i "s/^version: .*/version: $VERSION+$BUILD_NUMBER/" pubspec.yaml
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pubspec.yaml
+          git commit -m "chore(release): $TAG"
+          git tag "$TAG"
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Restore platform signing key
+        env:
+          PLATFORM_KEYSTORE_BASE64: ${{ secrets.PLATFORM_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$PLATFORM_KEYSTORE_BASE64" \
+            | base64 --decode > "$RUNNER_TEMP/platform.jks"
+          chmod 600 "$RUNNER_TEMP/platform.jks"
+
+      - name: Build signed arm64 APK
+        env:
+          PLATFORM_KEYSTORE_PATH: ${{ runner.temp }}/platform.jks
+        run: |
+          set -euo pipefail
+          flutter pub get
+          flutter build apk --release --target-platform android-arm64
+
+      - name: Verify APK signature
+        run: |
+          set -euo pipefail
+          apksigner=$(find "$ANDROID_HOME/build-tools" -type f -name apksigner \
+            | sort -V | tail -1)
+          [[ -n "$apksigner" ]] || {
+            echo "apksigner not found under $ANDROID_HOME/build-tools" >&2
+            exit 1
+          }
+          verification=$("$apksigner" verify --verbose --print-certs \
+            build/app/outputs/flutter-apk/app-release.apk)
+          printf '%s\n' "$verification"
+          certificate_sha256=$(scripts/extract_apk_certificate_sha256.sh \
+            <<< "$verification")
+          if [[ "$certificate_sha256" != "$EXPECTED_SIGNING_CERT_SHA256" ]]; then
+            echo "Unexpected signing certificate: $certificate_sha256" >&2
+            exit 1
+          fi
+
+      - name: Prepare public release assets
+        env:
+          VERSION: ${{ steps.version.outputs.next }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          asset_name="capy-v$VERSION.apk"
+          cp build/app/outputs/flutter-apk/app-release.apk "dist/$asset_name"
+          manifest_args=( \
+            "dist/$asset_name" \
+            "$VERSION" \
+            "$BUILD_NUMBER" \
+            "https://github.com/$PUBLIC_RELEASE_REPOSITORY/releases/download/$TAG/$asset_name" \
+            dist/latest.json \
+            false \
+          )
+          if [[ -f release_notes/current.json ]]; then
+            manifest_args+=(release_notes/current.json)
+          fi
+          scripts/create_release_manifest.sh "${manifest_args[@]}"
+
+      - name: Publish assets in public repository
+        env:
+          GH_TOKEN: ${{ secrets.PUBLIC_RELEASE_TOKEN }}
+          VERSION: ${{ steps.version.outputs.next }}
+          BUILD_NUMBER: ${{ steps.version.outputs.build }}
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          set -euo pipefail
+          notes="Signed Android arm64 APK for Capy Energy v$VERSION (versionCode $BUILD_NUMBER)."
+          if [[ -f release_notes/current.json ]]; then
+            notes=$(jq -r \
+              --arg version "$VERSION" \
+              --arg build "$BUILD_NUMBER" \
+              '"Signed Android arm64 APK for Capy Energy v\($version) " +
+               "(versionCode \($build)).\n\n" +
+               (.en | map("- " + .) | join("\n"))' \
+              release_notes/current.json)
+          fi
+          if gh release view "$TAG" --repo "$PUBLIC_RELEASE_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" \
+              --repo "$PUBLIC_RELEASE_REPOSITORY" \
+              --clobber \
+              "dist/capy-v$VERSION.apk" \
+              dist/latest.json
+            gh release edit "$TAG" \
+              --repo "$PUBLIC_RELEASE_REPOSITORY" \
+              --title "Capy Energy v$VERSION" \
+              --notes "$notes" \
+              --latest
+          else
+            gh release create "$TAG" \
+              --repo "$PUBLIC_RELEASE_REPOSITORY" \
+              --target main \
+              --title "Capy Energy v$VERSION" \
+              --notes "$notes" \
+              --latest \
+              "dist/capy-v$VERSION.apk" \
+              dist/latest.json
+          fi
+
+      - name: Push private source release commit and tag
+        if: steps.version.outputs.create_source_tag == 'true'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: git push origin HEAD:main "$TAG"
+
+      - name: Remove signing key
+        if: always()
+        run: rm -f "$RUNNER_TEMP/platform.jks"

@@ -1,0 +1,885 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 19,
+    "identityHash": "6b74e1e90b2c90c7674cb7cfc79fc103",
+    "entities": [
+      {
+        "tableName": "telemetry_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `occurredAtUtcMillis` INTEGER NOT NULL, `occurredAtElapsedNanos` INTEGER NOT NULL, `sourceTimestampNanos` INTEGER, `timestampAccuracy` TEXT NOT NULL, `uncertaintyMillis` INTEGER NOT NULL, `signalId` TEXT, `value` TEXT, `previousValue` TEXT, `quality` TEXT, `source` TEXT, `details` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "occurredAtUtcMillis",
+            "columnName": "occurredAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "occurredAtElapsedNanos",
+            "columnName": "occurredAtElapsedNanos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceTimestampNanos",
+            "columnName": "sourceTimestampNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "timestampAccuracy",
+            "columnName": "timestampAccuracy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uncertaintyMillis",
+            "columnName": "uncertaintyMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "signalId",
+            "columnName": "signalId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "previousValue",
+            "columnName": "previousValue",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "quality",
+            "columnName": "quality",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "details",
+            "columnName": "details",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "trip_sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `status` TEXT NOT NULL, `startedAtUtcMillis` INTEGER NOT NULL, `startedAtElapsedNanos` INTEGER NOT NULL, `startedAtBootCount` INTEGER, `movementStartedAtUtcMillis` INTEGER, `movementStartedAtElapsedNanos` INTEGER, `movementStartedAtBootCount` INTEGER, `endedAtUtcMillis` INTEGER, `endedAtElapsedNanos` INTEGER, `endedAtBootCount` INTEGER, `startSoc` REAL, `endSoc` REAL, `startOdometerKm` REAL, `endOdometerKm` REAL, `startGear` INTEGER, `endReason` TEXT, `capacityWh` REAL, `createdAtUtcMillis` INTEGER NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtUtcMillis",
+            "columnName": "startedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtElapsedNanos",
+            "columnName": "startedAtElapsedNanos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtBootCount",
+            "columnName": "startedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "movementStartedAtUtcMillis",
+            "columnName": "movementStartedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "movementStartedAtElapsedNanos",
+            "columnName": "movementStartedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "movementStartedAtBootCount",
+            "columnName": "movementStartedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endedAtUtcMillis",
+            "columnName": "endedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endedAtElapsedNanos",
+            "columnName": "endedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endedAtBootCount",
+            "columnName": "endedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "startSoc",
+            "columnName": "startSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endSoc",
+            "columnName": "endSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startOdometerKm",
+            "columnName": "startOdometerKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endOdometerKm",
+            "columnName": "endOdometerKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startGear",
+            "columnName": "startGear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endReason",
+            "columnName": "endReason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "capacityWh",
+            "columnName": "capacityWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_trip_sessions_startedAtUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "startedAtUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_trip_sessions_startedAtUtcMillis` ON `${TABLE_NAME}` (`startedAtUtcMillis`)"
+          }
+        ]
+      },
+      {
+        "tableName": "charge_sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `status` TEXT NOT NULL, `plugConnectedAtUtcMillis` INTEGER NOT NULL, `plugConnectedAtElapsedNanos` INTEGER NOT NULL, `plugConnectedAtBootCount` INTEGER, `chargeStartedAtUtcMillis` INTEGER, `chargeStartedAtElapsedNanos` INTEGER, `chargeStartedAtBootCount` INTEGER, `chargeEndedAtUtcMillis` INTEGER, `chargeEndedAtElapsedNanos` INTEGER, `chargeEndedAtBootCount` INTEGER, `plugDisconnectedAtUtcMillis` INTEGER, `plugDisconnectedAtElapsedNanos` INTEGER, `plugDisconnectedAtBootCount` INTEGER, `startSoc` REAL, `endSoc` REAL, `startOdometerKm` REAL, `endOdometerKm` REAL, `plugType` INTEGER, `startPowerKw` REAL, `costPerKwh` REAL, `paidAmount` REAL, `costCurrency` TEXT, `startAmbientTempC` REAL, `endAmbientTempC` REAL, `startLatitude` REAL, `startLongitude` REAL, `startAltitudeM` REAL, `startGpsAccuracyM` REAL, `startLocationProvider` TEXT, `startLocationElapsedRealtimeNanos` INTEGER, `endReason` TEXT, `createdAtUtcMillis` INTEGER NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plugConnectedAtUtcMillis",
+            "columnName": "plugConnectedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plugConnectedAtElapsedNanos",
+            "columnName": "plugConnectedAtElapsedNanos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "plugConnectedAtBootCount",
+            "columnName": "plugConnectedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeStartedAtUtcMillis",
+            "columnName": "chargeStartedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeStartedAtElapsedNanos",
+            "columnName": "chargeStartedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeStartedAtBootCount",
+            "columnName": "chargeStartedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeEndedAtUtcMillis",
+            "columnName": "chargeEndedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeEndedAtElapsedNanos",
+            "columnName": "chargeEndedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeEndedAtBootCount",
+            "columnName": "chargeEndedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "plugDisconnectedAtUtcMillis",
+            "columnName": "plugDisconnectedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "plugDisconnectedAtElapsedNanos",
+            "columnName": "plugDisconnectedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "plugDisconnectedAtBootCount",
+            "columnName": "plugDisconnectedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "startSoc",
+            "columnName": "startSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endSoc",
+            "columnName": "endSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startOdometerKm",
+            "columnName": "startOdometerKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endOdometerKm",
+            "columnName": "endOdometerKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "plugType",
+            "columnName": "plugType",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "startPowerKw",
+            "columnName": "startPowerKw",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "costPerKwh",
+            "columnName": "costPerKwh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "paidAmount",
+            "columnName": "paidAmount",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "costCurrency",
+            "columnName": "costCurrency",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "startAmbientTempC",
+            "columnName": "startAmbientTempC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endAmbientTempC",
+            "columnName": "endAmbientTempC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLatitude",
+            "columnName": "startLatitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLongitude",
+            "columnName": "startLongitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startAltitudeM",
+            "columnName": "startAltitudeM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startGpsAccuracyM",
+            "columnName": "startGpsAccuracyM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLocationProvider",
+            "columnName": "startLocationProvider",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "startLocationElapsedRealtimeNanos",
+            "columnName": "startLocationElapsedRealtimeNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endReason",
+            "columnName": "endReason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_charge_sessions_plugConnectedAtUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "plugConnectedAtUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_charge_sessions_plugConnectedAtUtcMillis` ON `${TABLE_NAME}` (`plugConnectedAtUtcMillis`)"
+          }
+        ]
+      },
+      {
+        "tableName": "telemetry_frames",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `sessionId` TEXT, `sessionType` TEXT, `wallTimeUtcMillis` INTEGER NOT NULL, `elapsedRealtimeNanos` INTEGER NOT NULL, `timestampAccuracy` TEXT NOT NULL, `uncertaintyMillis` INTEGER NOT NULL, `speedKmh` REAL, `socPercent` REAL, `odometerKm` REAL, `voltageV` REAL, `currentA` REAL, `powerKw` REAL, `canDrivePowerKw` REAL, `canPackVoltageV` REAL, `canPackCurrentA` REAL, `canPackCurrentRaw` INTEGER, `canPackCurrentEstimated` INTEGER, `canSampleElapsedNanos` INTEGER, `canTotalDrivePowerKw` REAL, `canTotalDrivePowerRaw` INTEGER, `canAcInputVoltageV` REAL, `canAcInputCurrentA` REAL, `gear` INTEGER, `chargeState` INTEGER, `chargePlugType` INTEGER, `ambientTempC` REAL, `latitude` REAL, `longitude` REAL, `altitudeM` REAL, `gpsAccuracyM` REAL, `locationProvider` TEXT, `locationElapsedRealtimeNanos` INTEGER, `sampleCount` INTEGER NOT NULL, `freshnessMask` INTEGER NOT NULL, `qualityMask` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "sessionType",
+            "columnName": "sessionType",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "wallTimeUtcMillis",
+            "columnName": "wallTimeUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "elapsedRealtimeNanos",
+            "columnName": "elapsedRealtimeNanos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestampAccuracy",
+            "columnName": "timestampAccuracy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uncertaintyMillis",
+            "columnName": "uncertaintyMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "speedKmh",
+            "columnName": "speedKmh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "socPercent",
+            "columnName": "socPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "odometerKm",
+            "columnName": "odometerKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "voltageV",
+            "columnName": "voltageV",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "currentA",
+            "columnName": "currentA",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "powerKw",
+            "columnName": "powerKw",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canDrivePowerKw",
+            "columnName": "canDrivePowerKw",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canPackVoltageV",
+            "columnName": "canPackVoltageV",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canPackCurrentA",
+            "columnName": "canPackCurrentA",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canPackCurrentRaw",
+            "columnName": "canPackCurrentRaw",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "canPackCurrentEstimated",
+            "columnName": "canPackCurrentEstimated",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "canSampleElapsedNanos",
+            "columnName": "canSampleElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "canTotalDrivePowerKw",
+            "columnName": "canTotalDrivePowerKw",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canTotalDrivePowerRaw",
+            "columnName": "canTotalDrivePowerRaw",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "canAcInputVoltageV",
+            "columnName": "canAcInputVoltageV",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canAcInputCurrentA",
+            "columnName": "canAcInputCurrentA",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "gear",
+            "columnName": "gear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeState",
+            "columnName": "chargeState",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargePlugType",
+            "columnName": "chargePlugType",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "ambientTempC",
+            "columnName": "ambientTempC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "altitudeM",
+            "columnName": "altitudeM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "gpsAccuracyM",
+            "columnName": "gpsAccuracyM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "locationProvider",
+            "columnName": "locationProvider",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "locationElapsedRealtimeNanos",
+            "columnName": "locationElapsedRealtimeNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sampleCount",
+            "columnName": "sampleCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "freshnessMask",
+            "columnName": "freshnessMask",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "qualityMask",
+            "columnName": "qualityMask",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_telemetry_frames_sessionId_elapsedRealtimeNanos",
+            "unique": false,
+            "columnNames": [
+              "sessionId",
+              "elapsedRealtimeNanos"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_telemetry_frames_sessionId_elapsedRealtimeNanos` ON `${TABLE_NAME}` (`sessionId`, `elapsedRealtimeNanos`)"
+          }
+        ]
+      },
+      {
+        "tableName": "session_aggregates",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `sessionType` TEXT NOT NULL, `frameCount` INTEGER NOT NULL, `startedAtUtcMillis` INTEGER, `endedAtUtcMillis` INTEGER, `minSoc` REAL, `maxSoc` REAL, `avgPowerKw` REAL, `maxPowerKw` REAL, `avgSpeedKmh` REAL, `maxSpeedKmh` REAL, `energyKwhEstimate` REAL, `createdAtUtcMillis` INTEGER NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, `aggregationVersion` INTEGER NOT NULL DEFAULT 0, `finalizedAtUtcMillis` INTEGER, `finalizedThroughElapsedNanos` INTEGER, `tripConsumedKwh` REAL, `tripRegeneratedKwh` REAL, `tripNetSocDropPercent` REAL, `tripSocStepPercent` REAL, `speedDistanceKm` REAL, `chargeDisplayEnergyKwh` REAL, `canPackWh` REAL, `canTractionWh` REAL, `canRegeneratedWh` REAL, `canAuxiliaryWh` REAL, `canIntegratedSeconds` REAL, `canAgreesWithSoc` INTEGER, PRIMARY KEY(`sessionId`))",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionType",
+            "columnName": "sessionType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frameCount",
+            "columnName": "frameCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtUtcMillis",
+            "columnName": "startedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endedAtUtcMillis",
+            "columnName": "endedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "minSoc",
+            "columnName": "minSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "maxSoc",
+            "columnName": "maxSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "avgPowerKw",
+            "columnName": "avgPowerKw",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "maxPowerKw",
+            "columnName": "maxPowerKw",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "avgSpeedKmh",
+            "columnName": "avgSpeedKmh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "maxSpeedKmh",
+            "columnName": "maxSpeedKmh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "energyKwhEstimate",
+            "columnName": "energyKwhEstimate",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "aggregationVersion",
+            "columnName": "aggregationVersion",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "finalizedAtUtcMillis",
+            "columnName": "finalizedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "finalizedThroughElapsedNanos",
+            "columnName": "finalizedThroughElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "tripConsumedKwh",
+            "columnName": "tripConsumedKwh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "tripRegeneratedKwh",
+            "columnName": "tripRegeneratedKwh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "tripNetSocDropPercent",
+            "columnName": "tripNetSocDropPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "tripSocStepPercent",
+            "columnName": "tripSocStepPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "speedDistanceKm",
+            "columnName": "speedDistanceKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "chargeDisplayEnergyKwh",
+            "columnName": "chargeDisplayEnergyKwh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canPackWh",
+            "columnName": "canPackWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canTractionWh",
+            "columnName": "canTractionWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canRegeneratedWh",
+            "columnName": "canRegeneratedWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canAuxiliaryWh",
+            "columnName": "canAuxiliaryWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canIntegratedSeconds",
+            "columnName": "canIntegratedSeconds",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "canAgreesWithSoc",
+            "columnName": "canAgreesWithSoc",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "sessionId"
+          ]
+        }
+      },
+      {
+        "tableName": "energy_buckets",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `startUtcMillis` INTEGER NOT NULL, `tractionWh` REAL NOT NULL, `regeneratedWh` REAL NOT NULL, `auxiliaryWh` REAL NOT NULL, `integratedSeconds` REAL NOT NULL, `speedDistanceKm` REAL NOT NULL, `odometerDistanceKm` REAL NOT NULL, `speedIntegratedSeconds` REAL NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, PRIMARY KEY(`sessionId`, `startUtcMillis`))",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startUtcMillis",
+            "columnName": "startUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tractionWh",
+            "columnName": "tractionWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "regeneratedWh",
+            "columnName": "regeneratedWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "auxiliaryWh",
+            "columnName": "auxiliaryWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "integratedSeconds",
+            "columnName": "integratedSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "speedDistanceKm",
+            "columnName": "speedDistanceKm",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "odometerDistanceKm",
+            "columnName": "odometerDistanceKm",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "speedIntegratedSeconds",
+            "columnName": "speedIntegratedSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "sessionId",
+            "startUtcMillis"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_energy_buckets_startUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "startUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_energy_buckets_startUtcMillis` ON `${TABLE_NAME}` (`startUtcMillis`)"
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6b74e1e90b2c90c7674cb7cfc79fc103')"
+    ]
+  }
+}

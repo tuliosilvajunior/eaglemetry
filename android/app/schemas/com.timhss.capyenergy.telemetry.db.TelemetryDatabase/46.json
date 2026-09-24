@@ -1,0 +1,1710 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 46,
+    "identityHash": "08e99d5e56c06670b0cebde659b60b27",
+    "entities": [
+      {
+        "tableName": "telemetry_events",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT NOT NULL, `occurredAtUtcMillis` INTEGER NOT NULL, `occurredAtElapsedNanos` INTEGER NOT NULL, `sourceTimestampNanos` INTEGER, `timestampAccuracy` TEXT NOT NULL, `uncertaintyMillis` INTEGER NOT NULL, `signalId` TEXT, `value` TEXT, `previousValue` TEXT, `quality` TEXT, `source` TEXT, `details` TEXT NOT NULL, `sessionId` TEXT, `dirty` INTEGER NOT NULL, `accountId` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "occurredAtUtcMillis",
+            "columnName": "occurredAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "occurredAtElapsedNanos",
+            "columnName": "occurredAtElapsedNanos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceTimestampNanos",
+            "columnName": "sourceTimestampNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "timestampAccuracy",
+            "columnName": "timestampAccuracy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uncertaintyMillis",
+            "columnName": "uncertaintyMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "signalId",
+            "columnName": "signalId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "previousValue",
+            "columnName": "previousValue",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "quality",
+            "columnName": "quality",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "details",
+            "columnName": "details",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "dirty",
+            "columnName": "dirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_telemetry_events_sessionId_occurredAtUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "sessionId",
+              "occurredAtUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_telemetry_events_sessionId_occurredAtUtcMillis` ON `${TABLE_NAME}` (`sessionId`, `occurredAtUtcMillis`)"
+          },
+          {
+            "name": "index_telemetry_events_dirty_id",
+            "unique": false,
+            "columnNames": [
+              "dirty",
+              "id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_telemetry_events_dirty_id` ON `${TABLE_NAME}` (`dirty`, `id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "session",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`rowId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT NOT NULL, `vehicleId` TEXT NOT NULL, `kind` TEXT NOT NULL, `status` TEXT NOT NULL, `startedAtUtcMillis` INTEGER NOT NULL, `startedAtElapsedNanos` INTEGER NOT NULL, `startedAtBootCount` INTEGER, `endedAtUtcMillis` INTEGER, `endedAtElapsedNanos` INTEGER, `endedAtBootCount` INTEGER, `movementStartedAtUtcMillis` INTEGER, `movementStartedAtElapsedNanos` INTEGER, `movementStartedAtBootCount` INTEGER, `chargeStartedAtUtcMillis` INTEGER, `chargeStartedAtElapsedNanos` INTEGER, `chargeStartedAtBootCount` INTEGER, `chargeEndedAtUtcMillis` INTEGER, `chargeEndedAtElapsedNanos` INTEGER, `chargeEndedAtBootCount` INTEGER, `plugDisconnectedAtUtcMillis` INTEGER, `plugDisconnectedAtElapsedNanos` INTEGER, `plugDisconnectedAtBootCount` INTEGER, `rollupDistanceKm` REAL, `rollupTractionWh` REAL, `rollupRegenWh` REAL, `rollupAuxiliaryWh` REAL, `rollupClimateWh` REAL, `rollupDeliveredWh` REAL, `rollupIntegratedSeconds` REAL, `startOdometerKm` REAL, `endOdometerKm` REAL, `plugType` INTEGER, `startAmbientTempC` REAL, `endAmbientTempC` REAL, `meanAmbientTempC` REAL, `startSocPercent` REAL, `endSocPercent` REAL, `minSocPercent` REAL, `maxSocPercent` REAL, `socAgreesWithIntegral` TEXT, `noLongerReducible` INTEGER NOT NULL, `startPowerKw` REAL, `startLatitude` REAL, `startLongitude` REAL, `startAltitudeM` REAL, `startGpsAccuracyM` REAL, `startLocationProvider` TEXT, `startLocationElapsedRealtimeNanos` INTEGER, `costPerKwh` REAL, `paidAmount` REAL, `costCurrency` TEXT, `chargeEndReason` TEXT, `endReason` TEXT, `startGear` INTEGER, `lastSoc` REAL, `sleepSeconds` INTEGER, `sleepSocDeltaPercent` REAL, `sleepEnergyWhEstimate` REAL, `parkingMode` INTEGER, `climbM` REAL, `descentM` REAL, `fixCount` INTEGER, `createdAtUtcMillis` INTEGER NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, `updatedAtElapsedNanos` INTEGER, `dirty` INTEGER NOT NULL, `accountId` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "rowId",
+            "columnName": "rowId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vehicleId",
+            "columnName": "vehicleId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtUtcMillis",
+            "columnName": "startedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtElapsedNanos",
+            "columnName": "startedAtElapsedNanos",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtBootCount",
+            "columnName": "startedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endedAtUtcMillis",
+            "columnName": "endedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endedAtElapsedNanos",
+            "columnName": "endedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "endedAtBootCount",
+            "columnName": "endedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "movementStartedAtUtcMillis",
+            "columnName": "movementStartedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "movementStartedAtElapsedNanos",
+            "columnName": "movementStartedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "movementStartedAtBootCount",
+            "columnName": "movementStartedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeStartedAtUtcMillis",
+            "columnName": "chargeStartedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeStartedAtElapsedNanos",
+            "columnName": "chargeStartedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeStartedAtBootCount",
+            "columnName": "chargeStartedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeEndedAtUtcMillis",
+            "columnName": "chargeEndedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeEndedAtElapsedNanos",
+            "columnName": "chargeEndedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "chargeEndedAtBootCount",
+            "columnName": "chargeEndedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "plugDisconnectedAtUtcMillis",
+            "columnName": "plugDisconnectedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "plugDisconnectedAtElapsedNanos",
+            "columnName": "plugDisconnectedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "plugDisconnectedAtBootCount",
+            "columnName": "plugDisconnectedAtBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rollupDistanceKm",
+            "columnName": "rollupDistanceKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rollupTractionWh",
+            "columnName": "rollupTractionWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rollupRegenWh",
+            "columnName": "rollupRegenWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rollupAuxiliaryWh",
+            "columnName": "rollupAuxiliaryWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rollupClimateWh",
+            "columnName": "rollupClimateWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rollupDeliveredWh",
+            "columnName": "rollupDeliveredWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rollupIntegratedSeconds",
+            "columnName": "rollupIntegratedSeconds",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startOdometerKm",
+            "columnName": "startOdometerKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endOdometerKm",
+            "columnName": "endOdometerKm",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "plugType",
+            "columnName": "plugType",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "startAmbientTempC",
+            "columnName": "startAmbientTempC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endAmbientTempC",
+            "columnName": "endAmbientTempC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "meanAmbientTempC",
+            "columnName": "meanAmbientTempC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startSocPercent",
+            "columnName": "startSocPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endSocPercent",
+            "columnName": "endSocPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "minSocPercent",
+            "columnName": "minSocPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "maxSocPercent",
+            "columnName": "maxSocPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "socAgreesWithIntegral",
+            "columnName": "socAgreesWithIntegral",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "noLongerReducible",
+            "columnName": "noLongerReducible",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startPowerKw",
+            "columnName": "startPowerKw",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLatitude",
+            "columnName": "startLatitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLongitude",
+            "columnName": "startLongitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startAltitudeM",
+            "columnName": "startAltitudeM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startGpsAccuracyM",
+            "columnName": "startGpsAccuracyM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLocationProvider",
+            "columnName": "startLocationProvider",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "startLocationElapsedRealtimeNanos",
+            "columnName": "startLocationElapsedRealtimeNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "costPerKwh",
+            "columnName": "costPerKwh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "paidAmount",
+            "columnName": "paidAmount",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "costCurrency",
+            "columnName": "costCurrency",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "chargeEndReason",
+            "columnName": "chargeEndReason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "endReason",
+            "columnName": "endReason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "startGear",
+            "columnName": "startGear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastSoc",
+            "columnName": "lastSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "sleepSeconds",
+            "columnName": "sleepSeconds",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "sleepSocDeltaPercent",
+            "columnName": "sleepSocDeltaPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "sleepEnergyWhEstimate",
+            "columnName": "sleepEnergyWhEstimate",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "parkingMode",
+            "columnName": "parkingMode",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "climbM",
+            "columnName": "climbM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "descentM",
+            "columnName": "descentM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "fixCount",
+            "columnName": "fixCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtElapsedNanos",
+            "columnName": "updatedAtElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "dirty",
+            "columnName": "dirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "rowId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_session_id",
+            "unique": true,
+            "columnNames": [
+              "id"
+            ],
+            "orders": [],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_session_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_session_startedAtUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "startedAtUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_session_startedAtUtcMillis` ON `${TABLE_NAME}` (`startedAtUtcMillis`)"
+          },
+          {
+            "name": "index_session_kind_startedAtUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "kind",
+              "startedAtUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_session_kind_startedAtUtcMillis` ON `${TABLE_NAME}` (`kind`, `startedAtUtcMillis`)"
+          },
+          {
+            "name": "index_session_dirty_id",
+            "unique": false,
+            "columnNames": [
+              "dirty",
+              "id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_session_dirty_id` ON `${TABLE_NAME}` (`dirty`, `id`)"
+          }
+        ]
+      },
+      {
+        "tableName": "interval",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `startUtcMillis` INTEGER NOT NULL, `widthMillis` INTEGER NOT NULL, `tractionWh` REAL NOT NULL, `regenWh` REAL NOT NULL, `auxiliaryWh` REAL NOT NULL, `climateWh` REAL NOT NULL, `deliveredWh` REAL NOT NULL, `distanceKm` REAL NOT NULL, `coveredSeconds` REAL NOT NULL, `climateCoveredSeconds` REAL NOT NULL, `speedCoveredSeconds` REAL NOT NULL, `deliveredCoveredSeconds` REAL NOT NULL, `startSoc` REAL, `endSoc` REAL, `startVoltage` REAL, `endVoltage` REAL, `updatedAtUtcMillis` INTEGER NOT NULL, `startElapsedNanos` INTEGER, `startBootCount` INTEGER, `timeState` TEXT NOT NULL, `dirty` INTEGER NOT NULL, `accountId` TEXT, PRIMARY KEY(`sessionId`, `startUtcMillis`))",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startUtcMillis",
+            "columnName": "startUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "widthMillis",
+            "columnName": "widthMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tractionWh",
+            "columnName": "tractionWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "regenWh",
+            "columnName": "regenWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "auxiliaryWh",
+            "columnName": "auxiliaryWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "climateWh",
+            "columnName": "climateWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deliveredWh",
+            "columnName": "deliveredWh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distanceKm",
+            "columnName": "distanceKm",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "coveredSeconds",
+            "columnName": "coveredSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "climateCoveredSeconds",
+            "columnName": "climateCoveredSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "speedCoveredSeconds",
+            "columnName": "speedCoveredSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deliveredCoveredSeconds",
+            "columnName": "deliveredCoveredSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startSoc",
+            "columnName": "startSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endSoc",
+            "columnName": "endSoc",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startVoltage",
+            "columnName": "startVoltage",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endVoltage",
+            "columnName": "endVoltage",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startElapsedNanos",
+            "columnName": "startElapsedNanos",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "startBootCount",
+            "columnName": "startBootCount",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "timeState",
+            "columnName": "timeState",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dirty",
+            "columnName": "dirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "sessionId",
+            "startUtcMillis"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_interval_startUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "startUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_interval_startUtcMillis` ON `${TABLE_NAME}` (`startUtcMillis`)"
+          },
+          {
+            "name": "index_interval_sessionId_startUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "sessionId",
+              "startUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_interval_sessionId_startUtcMillis` ON `${TABLE_NAME}` (`sessionId`, `startUtcMillis`)"
+          },
+          {
+            "name": "index_interval_dirty",
+            "unique": false,
+            "columnNames": [
+              "dirty"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_interval_dirty` ON `${TABLE_NAME}` (`dirty`)"
+          }
+        ]
+      },
+      {
+        "tableName": "battery_cycles",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ordinal` INTEGER NOT NULL, `startUtcMillis` INTEGER NOT NULL, `endUtcMillis` INTEGER NOT NULL, `dischargePercent` REAL NOT NULL, `distanceKm` REAL NOT NULL, `tripEnergyKwh` REAL NOT NULL, `parkedEnergyKwh` REAL NOT NULL, `parkedSocPercent` REAL NOT NULL, `cost` REAL, `costCurrency` TEXT, `pricedEnergyKwh` REAL NOT NULL, `unpricedEnergyKwh` REAL NOT NULL, `isOpen` INTEGER NOT NULL, `isPartial` INTEGER NOT NULL, `energyIncomplete` INTEGER NOT NULL, `mixedCurrency` INTEGER NOT NULL, `openingPricedFraction` REAL NOT NULL, `openingBlendedPrice` REAL NOT NULL, `frozenAtUtcMillis` INTEGER, `createdAtUtcMillis` INTEGER NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, `dirty` INTEGER NOT NULL, `accountId` TEXT, PRIMARY KEY(`ordinal`))",
+        "fields": [
+          {
+            "fieldPath": "ordinal",
+            "columnName": "ordinal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startUtcMillis",
+            "columnName": "startUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endUtcMillis",
+            "columnName": "endUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dischargePercent",
+            "columnName": "dischargePercent",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distanceKm",
+            "columnName": "distanceKm",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tripEnergyKwh",
+            "columnName": "tripEnergyKwh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parkedEnergyKwh",
+            "columnName": "parkedEnergyKwh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parkedSocPercent",
+            "columnName": "parkedSocPercent",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cost",
+            "columnName": "cost",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "costCurrency",
+            "columnName": "costCurrency",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pricedEnergyKwh",
+            "columnName": "pricedEnergyKwh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unpricedEnergyKwh",
+            "columnName": "unpricedEnergyKwh",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isOpen",
+            "columnName": "isOpen",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "isPartial",
+            "columnName": "isPartial",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "energyIncomplete",
+            "columnName": "energyIncomplete",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "mixedCurrency",
+            "columnName": "mixedCurrency",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "openingPricedFraction",
+            "columnName": "openingPricedFraction",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "openingBlendedPrice",
+            "columnName": "openingBlendedPrice",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "frozenAtUtcMillis",
+            "columnName": "frozenAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dirty",
+            "columnName": "dirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "ordinal"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_battery_cycles_startUtcMillis",
+            "unique": false,
+            "columnNames": [
+              "startUtcMillis"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_battery_cycles_startUtcMillis` ON `${TABLE_NAME}` (`startUtcMillis`)"
+          },
+          {
+            "name": "index_battery_cycles_dirty_ordinal",
+            "unique": false,
+            "columnNames": [
+              "dirty",
+              "ordinal"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_battery_cycles_dirty_ordinal` ON `${TABLE_NAME}` (`dirty`, `ordinal`)"
+          }
+        ]
+      },
+      {
+        "tableName": "battery_cycle_sessions",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`cycleOrdinal` INTEGER NOT NULL, `sessionKind` TEXT NOT NULL, `sessionId` TEXT NOT NULL, `share` REAL NOT NULL, `startUtcMillis` INTEGER NOT NULL, `endUtcMillis` INTEGER NOT NULL, PRIMARY KEY(`cycleOrdinal`, `sessionKind`, `sessionId`))",
+        "fields": [
+          {
+            "fieldPath": "cycleOrdinal",
+            "columnName": "cycleOrdinal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionKind",
+            "columnName": "sessionKind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "share",
+            "columnName": "share",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startUtcMillis",
+            "columnName": "startUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endUtcMillis",
+            "columnName": "endUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "cycleOrdinal",
+            "sessionKind",
+            "sessionId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_battery_cycle_sessions_cycleOrdinal",
+            "unique": false,
+            "columnNames": [
+              "cycleOrdinal"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_battery_cycle_sessions_cycleOrdinal` ON `${TABLE_NAME}` (`cycleOrdinal`)"
+          },
+          {
+            "name": "index_battery_cycle_sessions_sessionId",
+            "unique": false,
+            "columnNames": [
+              "sessionId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_battery_cycle_sessions_sessionId` ON `${TABLE_NAME}` (`sessionId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "sync_cursors",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`deviceId` TEXT NOT NULL, `streamType` TEXT NOT NULL, `lastConfirmedRecordId` TEXT, `lastConfirmedHlcMillis` INTEGER, `lastConfirmedHlcCounter` INTEGER, `lastConfirmedHlcDeviceId` TEXT, `updatedAtUtcMillis` INTEGER NOT NULL, PRIMARY KEY(`deviceId`, `streamType`))",
+        "fields": [
+          {
+            "fieldPath": "deviceId",
+            "columnName": "deviceId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "streamType",
+            "columnName": "streamType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastConfirmedRecordId",
+            "columnName": "lastConfirmedRecordId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastConfirmedHlcMillis",
+            "columnName": "lastConfirmedHlcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastConfirmedHlcCounter",
+            "columnName": "lastConfirmedHlcCounter",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "lastConfirmedHlcDeviceId",
+            "columnName": "lastConfirmedHlcDeviceId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "deviceId",
+            "streamType"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_sync_cursors_streamType",
+            "unique": false,
+            "columnNames": [
+              "streamType"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_sync_cursors_streamType` ON `${TABLE_NAME}` (`streamType`)"
+          }
+        ]
+      },
+      {
+        "tableName": "trip_segments",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `ordinal` INTEGER NOT NULL, `startUtcMillis` INTEGER NOT NULL, `endUtcMillis` INTEGER NOT NULL, `distanceKm` REAL NOT NULL, `packWh` REAL, `tractionWh` REAL, `regeneratedWh` REAL, `auxiliaryWh` REAL, `integratedSeconds` REAL NOT NULL, `elapsedSeconds` REAL NOT NULL, `meanSpeedKmh` REAL, `altitudeGainM` REAL, `altitudeLossM` REAL, `ambientTempC` REAL, `startLatitude` REAL, `startLongitude` REAL, `endLatitude` REAL, `endLongitude` REAL, `path` TEXT NOT NULL, `accountId` TEXT, PRIMARY KEY(`sessionId`, `ordinal`))",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ordinal",
+            "columnName": "ordinal",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startUtcMillis",
+            "columnName": "startUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endUtcMillis",
+            "columnName": "endUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "distanceKm",
+            "columnName": "distanceKm",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "packWh",
+            "columnName": "packWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "tractionWh",
+            "columnName": "tractionWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "regeneratedWh",
+            "columnName": "regeneratedWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "auxiliaryWh",
+            "columnName": "auxiliaryWh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "integratedSeconds",
+            "columnName": "integratedSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "elapsedSeconds",
+            "columnName": "elapsedSeconds",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meanSpeedKmh",
+            "columnName": "meanSpeedKmh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "altitudeGainM",
+            "columnName": "altitudeGainM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "altitudeLossM",
+            "columnName": "altitudeLossM",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "ambientTempC",
+            "columnName": "ambientTempC",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLatitude",
+            "columnName": "startLatitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "startLongitude",
+            "columnName": "startLongitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endLatitude",
+            "columnName": "endLatitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "endLongitude",
+            "columnName": "endLongitude",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "path",
+            "columnName": "path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "sessionId",
+            "ordinal"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_trip_segments_sessionId",
+            "unique": false,
+            "columnNames": [
+              "sessionId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_trip_segments_sessionId` ON `${TABLE_NAME}` (`sessionId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "insight_places",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `radiusM` REAL NOT NULL, `createdAtUtcMillis` INTEGER NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, `accountId` TEXT, `origin` TEXT NOT NULL, `deletedAtUtcMillis` INTEGER, `autoName` TEXT, `autoNameUpdatedAtUtcMillis` INTEGER, `autoNameSource` TEXT, `hlcMillis` INTEGER NOT NULL, `hlcCounter` INTEGER NOT NULL, `hlcDeviceId` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "latitude",
+            "columnName": "latitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "longitude",
+            "columnName": "longitude",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "radiusM",
+            "columnName": "radiusM",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedAtUtcMillis",
+            "columnName": "deletedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "autoName",
+            "columnName": "autoName",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "autoNameUpdatedAtUtcMillis",
+            "columnName": "autoNameUpdatedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "autoNameSource",
+            "columnName": "autoNameSource",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hlcMillis",
+            "columnName": "hlcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcCounter",
+            "columnName": "hlcCounter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcDeviceId",
+            "columnName": "hlcDeviceId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "session_costs",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `costPerKwh` REAL, `paidAmount` REAL, `costCurrency` TEXT, `updatedAtUtcMillis` INTEGER NOT NULL, `origin` TEXT NOT NULL, `accountId` TEXT, `hlcMillis` INTEGER NOT NULL, `hlcCounter` INTEGER NOT NULL, `hlcDeviceId` TEXT NOT NULL, PRIMARY KEY(`sessionId`))",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "costPerKwh",
+            "columnName": "costPerKwh",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "paidAmount",
+            "columnName": "paidAmount",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "costCurrency",
+            "columnName": "costCurrency",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hlcMillis",
+            "columnName": "hlcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcCounter",
+            "columnName": "hlcCounter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcDeviceId",
+            "columnName": "hlcDeviceId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "sessionId"
+          ]
+        }
+      },
+      {
+        "tableName": "preferences",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`scope` TEXT NOT NULL, `key` TEXT NOT NULL, `value` TEXT, `updatedAtUtcMillis` INTEGER NOT NULL, `origin` TEXT NOT NULL, `accountId` TEXT, `deletedAtUtcMillis` INTEGER, `hlcMillis` INTEGER NOT NULL, `hlcCounter` INTEGER NOT NULL, `hlcDeviceId` TEXT NOT NULL, PRIMARY KEY(`scope`, `key`))",
+        "fields": [
+          {
+            "fieldPath": "scope",
+            "columnName": "scope",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "deletedAtUtcMillis",
+            "columnName": "deletedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hlcMillis",
+            "columnName": "hlcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcCounter",
+            "columnName": "hlcCounter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcDeviceId",
+            "columnName": "hlcDeviceId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "scope",
+            "key"
+          ]
+        }
+      },
+      {
+        "tableName": "preference_proposals",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `key` TEXT NOT NULL, `value` TEXT, `status` TEXT NOT NULL, `proposedAtUtcMillis` INTEGER NOT NULL, `decidedAtUtcMillis` INTEGER, `updatedAtUtcMillis` INTEGER NOT NULL, `origin` TEXT NOT NULL, `accountId` TEXT, `hlcMillis` INTEGER NOT NULL, `hlcCounter` INTEGER NOT NULL, `hlcDeviceId` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "key",
+            "columnName": "key",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "value",
+            "columnName": "value",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "proposedAtUtcMillis",
+            "columnName": "proposedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "decidedAtUtcMillis",
+            "columnName": "decidedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hlcMillis",
+            "columnName": "hlcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcCounter",
+            "columnName": "hlcCounter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcDeviceId",
+            "columnName": "hlcDeviceId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "journeys",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `startedAtUtcMillis` INTEGER NOT NULL, `endedAtUtcMillis` INTEGER NOT NULL, `note` TEXT, `createdAtUtcMillis` INTEGER NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, `accountId` TEXT, `origin` TEXT NOT NULL, `deletedAtUtcMillis` INTEGER, `hlcMillis` INTEGER NOT NULL, `hlcCounter` INTEGER NOT NULL, `hlcDeviceId` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startedAtUtcMillis",
+            "columnName": "startedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endedAtUtcMillis",
+            "columnName": "endedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "note",
+            "columnName": "note",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "deletedAtUtcMillis",
+            "columnName": "deletedAtUtcMillis",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "hlcMillis",
+            "columnName": "hlcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcCounter",
+            "columnName": "hlcCounter",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hlcDeviceId",
+            "columnName": "hlcDeviceId",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "track",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`sessionId` TEXT NOT NULL, `encodingVersion` INTEGER NOT NULL, `pointCount` INTEGER NOT NULL, `t` TEXT NOT NULL, `path` TEXT NOT NULL, `speed` TEXT NOT NULL, `alt` TEXT NOT NULL, `updatedAtUtcMillis` INTEGER NOT NULL, `dirty` INTEGER NOT NULL, `accountId` TEXT, PRIMARY KEY(`sessionId`))",
+        "fields": [
+          {
+            "fieldPath": "sessionId",
+            "columnName": "sessionId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "encodingVersion",
+            "columnName": "encodingVersion",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pointCount",
+            "columnName": "pointCount",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "t",
+            "columnName": "t",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "path",
+            "columnName": "path",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "speed",
+            "columnName": "speed",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "alt",
+            "columnName": "alt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAtUtcMillis",
+            "columnName": "updatedAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dirty",
+            "columnName": "dirty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "accountId",
+            "columnName": "accountId",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "sessionId"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_track_updatedAtUtcMillis_sessionId",
+            "unique": false,
+            "columnNames": [
+              "updatedAtUtcMillis",
+              "sessionId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_track_updatedAtUtcMillis_sessionId` ON `${TABLE_NAME}` (`updatedAtUtcMillis`, `sessionId`)"
+          },
+          {
+            "name": "index_track_dirty_sessionId",
+            "unique": false,
+            "columnNames": [
+              "dirty",
+              "sessionId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_track_dirty_sessionId` ON `${TABLE_NAME}` (`dirty`, `sessionId`)"
+          }
+        ]
+      },
+      {
+        "tableName": "vehicle_id_aliases",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`aliasId` TEXT NOT NULL, `canonicalId` TEXT NOT NULL, `createdAtUtcMillis` INTEGER NOT NULL, PRIMARY KEY(`aliasId`))",
+        "fields": [
+          {
+            "fieldPath": "aliasId",
+            "columnName": "aliasId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "canonicalId",
+            "columnName": "canonicalId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAtUtcMillis",
+            "columnName": "createdAtUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "aliasId"
+          ]
+        }
+      },
+      {
+        "tableName": "clock_bad_signatures",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`wallUtcMillis` INTEGER NOT NULL, `firstSeenUtcMillis` INTEGER NOT NULL, `hits` INTEGER NOT NULL, PRIMARY KEY(`wallUtcMillis`))",
+        "fields": [
+          {
+            "fieldPath": "wallUtcMillis",
+            "columnName": "wallUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstSeenUtcMillis",
+            "columnName": "firstSeenUtcMillis",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hits",
+            "columnName": "hits",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "wallUtcMillis"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '08e99d5e56c06670b0cebde659b60b27')"
+    ]
+  }
+}

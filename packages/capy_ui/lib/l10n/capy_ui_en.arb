@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "settingsAppearance": "Appearance",
+  "settingsAppTheme": "App theme",
+  "settingsThemeDesc": "Choose the palette the app wears. Each tile shows the page, a card, and its text.",
+  "settingsThemeNameLight": "Light",
+  "settingsThemeNameDark": "Petrol",
+  "settingsThemeNameMidnight": "Midnight",
+  "settingsThemeNameSepia": "Sepia",
+  "settingsThemeNameNordic": "Nordic",
+  "settingsThemeNameDaylight": "Daylight",
+  "settingsThemeNameTokyoNeon": "Tokyo Neon",
+  "settingsThemeNameSunsetDrive": "Sunset Drive",
+  "settingsThemeNameBubblegum": "Bubblegum",
+  "settingsThemeReadOnlyLabel": "Tip",
+  "settingsThemeReadOnlyMessage": "Theme selection is unavailable while keyboard input is blocked.",
+  "settingsTogglesTitle": "Toggles",
+  "settingsTogglesDesc": "Switches that respect driving mode. When input is blocked they are read-only.",
+  "settingsReduceMotionLabel": "Reduce motion",
+  "settingsReduceMotionDesc": "Limit animations and transitions for a still interface.",
+  "settingsTogglesReadOnlyLabel": "Tip",
+  "settingsTogglesReadOnlyMessage": "Toggles are unavailable while input is blocked."
+}

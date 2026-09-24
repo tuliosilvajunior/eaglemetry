@@ -1,0 +1,25 @@
+{
+  "notes": [
+    "Issue #227, Lane C vs Lane B. The one rule that decides which lane a",
+    "preference key belongs to:",
+    "  if it changes what the car does or records, it is control;",
+    "  if it only changes what a screen shows, it is annotation.",
+    "The classification must exist in Kotlin (PreferenceRepository.PREFERENCE_LANE)",
+    "and in Dart (kPreferenceLane in packages/telemetry_core), and both suites read",
+    "this one file so a divergence fails one of them.",
+    "Readers: android/.../PreferenceLaneClassificationTest.kt, test/preference_lane_classification_test.dart,",
+    "apps/companion/test/preference_lane_classification_test.dart",
+    "Add a new preference key here AND on both replica registries; the fixture",
+    "asserts exact equality so a missed side fails its suite."
+  ],
+  "lanes": {
+    "theme_id": "annotation",
+    "theme_mode": "annotation",
+    "efficiency_unit": "annotation",
+    "charge_cost_currency": "annotation",
+    "places.nominatimOptIn": "annotation",
+    "reduce_motion": "annotation",
+    "pack_capacity_wh": "control",
+    "default_charge_cost_per_kwh": "control"
+  }
+}

@@ -1,0 +1,94 @@
+{
+  "notes": [
+    "The one rule two replicas apply when two rows name one annotation.",
+    "excerpt: last writer wins — HLC millis -> counter -> deviceId lexicographic. Origin rank removed for general per-field merge (H-1 fix) to make convergence pure on HLC + deviceId. Auto_name alone keeps car>phone>cloud rank per ADR 0009 via a separate helper.",
+    "excerpt ends here: the same rule must exist in Kotlin (AnnotationConvergence) and in Dart (annotationShouldReplace), and both suites read this one file so a divergence fails one of them.",
+    "Readers: android/app/src/test/.../AnnotationConvergenceTest.kt and test/annotation_convergence_test.dart"
+  ],
+  "cases": [
+    {
+      "name": "a newer incoming row replaces an older one",
+      "existing": { "updatedAtUtcMillis": 100, "origin": "car" },
+      "incoming": { "updatedAtUtcMillis": 200, "origin": "phone" },
+      "winner": "incoming"
+    },
+    {
+      "name": "an older incoming row loses",
+      "existing": { "updatedAtUtcMillis": 200, "origin": "phone" },
+      "incoming": { "updatedAtUtcMillis": 100, "origin": "car" },
+      "winner": "existing"
+    },
+    {
+      "name": "a millisecond tie goes to the car",
+      "existing": { "updatedAtUtcMillis": 150, "origin": "phone" },
+      "incoming": { "updatedAtUtcMillis": 150, "origin": "car" },
+      "winner": "existing"
+    },
+    {
+      "name": "a millisecond tie goes against the phone",
+      "existing": { "updatedAtUtcMillis": 150, "origin": "car" },
+      "incoming": { "updatedAtUtcMillis": 150, "origin": "phone" },
+      "winner": "incoming"
+    },
+    {
+      "name": "a tie between the car and the cloud goes to the car",
+      "existing": { "updatedAtUtcMillis": 80, "origin": "cloud" },
+      "incoming": { "updatedAtUtcMillis": 80, "origin": "car" },
+      "winner": "existing"
+    },
+    {
+      "name": "equal origins and equal stamps are an idempotent replay",
+      "existing": { "updatedAtUtcMillis": 120, "origin": "phone" },
+      "incoming": { "updatedAtUtcMillis": 120, "origin": "phone" },
+      "winner": "incoming"
+    },
+    {
+      "name": "a cloud row younger than the car row wins",
+      "existing": { "updatedAtUtcMillis": 300, "origin": "car" },
+      "incoming": { "updatedAtUtcMillis": 400, "origin": "cloud" },
+      "winner": "incoming"
+    },
+    {
+      "name": "deviceId lexical tie-break: phone > other",
+      "existing": { "updatedAtUtcMillis": 90, "origin": "phone" },
+      "incoming": { "updatedAtUtcMillis": 90, "origin": "other" },
+      "winner": "existing"
+    },
+    {
+      "name": "slow-clock later edit from phone beats fast-clock earlier car edit (HLC decides)",
+      "existing": { "updatedAtUtcMillis": 10000, "origin": "car", "hlcMillis": 10000, "hlcCounter": 0, "hlcDeviceId": "car" },
+      "incoming": { "updatedAtUtcMillis": 8000, "origin": "phone", "hlcMillis": 10000, "hlcCounter": 1, "hlcDeviceId": "phone" },
+      "winner": "incoming"
+    },
+    {
+      "name": "stale fast-clock car edit loses to slow-clock later phone edit (existing HLC wins)",
+      "existing": { "updatedAtUtcMillis": 8000, "origin": "phone", "hlcMillis": 10000, "hlcCounter": 1, "hlcDeviceId": "phone" },
+      "incoming": { "updatedAtUtcMillis": 10000, "origin": "car", "hlcMillis": 10000, "hlcCounter": 0, "hlcDeviceId": "car" },
+      "winner": "existing"
+    },
+    {
+      "name": "HLC counter tie with same millis uses deviceId lexical - phone above car (origin rank removed)",
+      "existing": { "updatedAtUtcMillis": 5000, "origin": "phone", "hlcMillis": 5000, "hlcCounter": 0, "hlcDeviceId": "phone" },
+      "incoming": { "updatedAtUtcMillis": 5000, "origin": "car", "hlcMillis": 5000, "hlcCounter": 0, "hlcDeviceId": "car" },
+      "winner": "existing"
+    },
+    {
+      "name": "equal HLC millis and counter with same origin rank uses deviceId lexical",
+      "existing": { "updatedAtUtcMillis": 6000, "origin": "phone", "hlcMillis": 6000, "hlcCounter": 0, "hlcDeviceId": "phone-a" },
+      "incoming": { "updatedAtUtcMillis": 6000, "origin": "phone", "hlcMillis": 6000, "hlcCounter": 0, "hlcDeviceId": "phone-b" },
+      "winner": "incoming"
+    },
+    {
+      "name": "three-week offline stale car edit loses to intervening phone edits (late arrival, stale second)",
+      "existing": { "updatedAtUtcMillis": 1710000000000, "origin": "phone", "hlcMillis": 1710000000000, "hlcCounter": 5, "hlcDeviceId": "phone" },
+      "incoming": { "updatedAtUtcMillis": 1708185600000, "origin": "car", "hlcMillis": 1708185600000, "hlcCounter": 0, "hlcDeviceId": "car" },
+      "winner": "existing"
+    },
+    {
+      "name": "fresh phone edit wins over three-week stale car row even when stale was first",
+      "existing": { "updatedAtUtcMillis": 1708185600000, "origin": "car", "hlcMillis": 1708185600000, "hlcCounter": 0, "hlcDeviceId": "car" },
+      "incoming": { "updatedAtUtcMillis": 1710000000000, "origin": "phone", "hlcMillis": 1710000000000, "hlcCounter": 5, "hlcDeviceId": "phone" },
+      "winner": "incoming"
+    }
+  ]
+}

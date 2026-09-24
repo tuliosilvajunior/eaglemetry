@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Capy</string>
+    <string name="telemetry_notification_channel_name">Telemetry collection</string>
+    <string name="telemetry_notification_channel_description">Persistent vehicle telemetry collection status.</string>
+    <string name="telemetry_notification_title">Collecting telemetry</string>
+    <string name="telemetry_notification_text">Vehicle telemetry collector is running.</string>
+</resources>

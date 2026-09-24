@@ -1,0 +1,133 @@
+{
+  "about": [
+    "Slice 3: user-named places, the 150 m radius,",
+    "ordered routes, and the 100 m variant grid. Expected values were",
+    "derived by hand from those rules."
+  ],
+  "placeRadiusM": 150,
+  "variantGridM": 100,
+  "cases": [
+    {
+      "name": "a point inside the radius is the place",
+      "places": [
+        {"id": "home", "name": "Home", "latitude": -10.18, "longitude": -48.33}
+      ],
+      "point": {"latitude": -10.1805, "longitude": -48.33},
+      "expectedPlaceId": "home"
+    },
+    {
+      "name": "a point outside the radius is not the place",
+      "places": [
+        {"id": "home", "name": "Home", "latitude": -10.18, "longitude": -48.33}
+      ],
+      "point": {"latitude": -10.185, "longitude": -48.33},
+      "expectedPlaceId": null
+    },
+    {
+      "name": "the nearer place wins when two radii overlap",
+      "places": [
+        {"id": "a", "name": "A", "latitude": -10.18, "longitude": -48.33},
+        {"id": "b", "name": "B", "latitude": -10.1808, "longitude": -48.33}
+      ],
+      "point": {"latitude": -10.1802, "longitude": -48.33},
+      "expectedPlaceId": "a"
+    },
+    {
+      "name": "the same pair in reverse is a different route",
+      "places": [
+        {"id": "home", "name": "Home", "latitude": -10.18, "longitude": -48.33},
+        {"id": "work", "name": "Work", "latitude": -10.20, "longitude": -48.35}
+      ],
+      "subject": {
+        "start": {"latitude": -10.18, "longitude": -48.33},
+        "end": {"latitude": -10.20, "longitude": -48.35},
+        "path": "-10.18,-48.33;-10.20,-48.35"
+      },
+      "corpus": [
+        {
+          "start": {"latitude": -10.18, "longitude": -48.33},
+          "end": {"latitude": -10.20, "longitude": -48.35},
+          "path": "-10.18,-48.33;-10.20,-48.35"
+        },
+        {
+          "start": {"latitude": -10.20, "longitude": -48.35},
+          "end": {"latitude": -10.18, "longitude": -48.33},
+          "path": "-10.20,-48.35;-10.18,-48.33"
+        }
+      ],
+      "expectedFromId": "home",
+      "expectedToId": "work",
+      "expectedTripCount": 1,
+      "expectedVariantCount": 1
+    },
+    {
+      "name": "two ways 200 m apart are two variants",
+      "places": [
+        {"id": "home", "name": "Home", "latitude": -10.18, "longitude": -48.33},
+        {"id": "work", "name": "Work", "latitude": -10.20, "longitude": -48.35}
+      ],
+      "subject": {
+        "start": {"latitude": -10.18, "longitude": -48.33},
+        "end": {"latitude": -10.20, "longitude": -48.35},
+        "path": "-10.18,-48.33;-10.19,-48.332;-10.20,-48.35"
+      },
+      "corpus": [
+        {
+          "start": {"latitude": -10.18, "longitude": -48.33},
+          "end": {"latitude": -10.20, "longitude": -48.35},
+          "path": "-10.18,-48.33;-10.19,-48.332;-10.20,-48.35"
+        },
+        {
+          "start": {"latitude": -10.18, "longitude": -48.33},
+          "end": {"latitude": -10.20, "longitude": -48.35},
+          "path": "-10.18,-48.33;-10.19,-48.334;-10.20,-48.35"
+        }
+      ],
+      "expectedFromId": "home",
+      "expectedToId": "work",
+      "expectedTripCount": 2,
+      "expectedVariantCount": 2
+    },
+    {
+      "name": "two ways 20 m apart are one variant",
+      "places": [
+        {"id": "home", "name": "Home", "latitude": -10.18, "longitude": -48.33},
+        {"id": "work", "name": "Work", "latitude": -10.20, "longitude": -48.35}
+      ],
+      "subject": {
+        "start": {"latitude": -10.18, "longitude": -48.33},
+        "end": {"latitude": -10.20, "longitude": -48.35},
+        "path": "-10.18,-48.33;-10.19,-48.3300;-10.20,-48.35"
+      },
+      "corpus": [
+        {
+          "start": {"latitude": -10.18, "longitude": -48.33},
+          "end": {"latitude": -10.20, "longitude": -48.35},
+          "path": "-10.18,-48.33;-10.19,-48.3300;-10.20,-48.35"
+        },
+        {
+          "start": {"latitude": -10.18, "longitude": -48.33},
+          "end": {"latitude": -10.20, "longitude": -48.35},
+          "path": "-10.18,-48.33;-10.19,-48.33015;-10.20,-48.35"
+        }
+      ],
+      "expectedFromId": "home",
+      "expectedToId": "work",
+      "expectedTripCount": 2,
+      "expectedVariantCount": 1
+    },
+    {
+      "name": "an unnamed end is not a route",
+      "places": [
+        {"id": "home", "name": "Home", "latitude": -10.18, "longitude": -48.33}
+      ],
+      "subject": {
+        "start": {"latitude": -10.18, "longitude": -48.33},
+        "end": {"latitude": -10.20, "longitude": -48.35},
+        "path": ""
+      },
+      "corpus": [],
+      "expectedFromId": null
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+-- Drop `sample_session_key_idx`, the largest object in the database.
+--
+-- Measured on 2026-08-26 over `partitions.sample_2026_08` (326,585 rows):
+--
+--   index                                    size    index scans
+--   sample_session_key_idx (per partition)   68 MB             2
+--   sample_2026_08_pkey                      46 MB       514,005
+--   sample_2026_08_vehicle_id_group_id_idx  6.2 MB            16
+--
+-- 68 MB of 182 MB, for two scans. The planner does not choose it because its
+-- leading column pair is `(vehicle_id, session_id)` while every read path we
+-- have arrives with a `key` and a time window, which the primary key
+-- `(vehicle_id, key, t_utc_millis)` already serves. `session_id` is nullable by
+-- the back-stamp rule, so it cannot lead a selective search either.
+--
+-- The index is not bloated: `inspect db bloat` reports 1.0 on the heap and zero
+-- dead rows. The size is what the index honestly costs. Each entry repeats four
+-- `text` columns in full, which is why the indexes on this table weigh 121 MB
+-- against 62 MB of data.
+--
+-- Dropping the index on the partitioned parent drops the attached index on
+-- every partition, and stops `ensure_sample_partition` from making one for each
+-- new month.
+--
+-- To restore it, a query must first be shown to need it. `create index` on the
+-- parent takes an ACCESS EXCLUSIVE lock over all partitions, so build it
+-- `concurrently` per partition and attach, rather than reversing this file.
+drop index if exists public.sample_session_key_idx;

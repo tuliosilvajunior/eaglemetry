@@ -1,0 +1,148 @@
+{
+  "about": [
+    "Defines wire-level auth token format, signature rules, and HLC ordering/drift rules across Kotlin and Dart.",
+    "Token format: Bearer <timestampMillis>:<signatureHex>",
+    "Signature: HMAC-SHA256(sharedSecret, '<METHOD>:<pathWithQuery>:<timestampMillis>:<bodySha256Hex>')",
+    "HLC Ordering: compare millis first; if equal compare counter; if equal compare deviceId.",
+    "HLC Max Drift: 1800000 ms (30 minutes).",
+    "streamNames holds every stream the wire knows. The enum exists in both languages and cannot be deleted from either, so this list is what keeps the two spellings equal.",
+    "envelopeVersion & envelopeKeys fix the exact structure and version of SyncBatch across Kotlin and Dart.",
+    "Readers: android/app/src/test/.../SyncProtocolFixtureTest.kt, test/sync_protocol_fixture_test.dart, and apps/companion/test/sync_protocol_auth_test.dart.",
+    "remaining is how many records the stream still holds after the page. The car always sends it; a phone must treat it as optional, because a car built before 2026-08-18 does not send it and protocolVersion did not move.",
+    "An ack body may carry recordIds, a whole page confirmed at once. recordId still holds the last id of that page, so a car built before batching reads the ack it understands."
+  ],
+  "envelopeVersion": 2,
+  "envelopeKeys": [
+    "protocolVersion",
+    "streamType",
+    "items",
+    "nextCursor",
+    "hasMore",
+    "generatedAtUtcMillis",
+    "remaining"
+  ],
+  "cases": [
+    {
+      "name": "GET /sync/pull with query params and empty body",
+      "sharedSecret": "MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDE=",
+      "method": "GET",
+      "pathWithQuery": "/sync/pull?stream=tripSessions&limit=50",
+      "timestampMillis": 1700000000000,
+      "body": "",
+      "expectedBodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expectedToken": "Bearer 1700000000000:7f689742078a4c28152c9a74a5e88f83cff85e4b84e5f18228b1230fa5ec6a8b"
+    },
+    {
+      "name": "GET /sync/pull with cursor query params and empty body",
+      "sharedSecret": "MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDE=",
+      "method": "GET",
+      "pathWithQuery": "/sync/pull?after=trip-123&limit=50&stream=tripSessions",
+      "timestampMillis": 1700000002000,
+      "body": "",
+      "expectedBodySha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "expectedToken": "Bearer 1700000002000:25deac8e7fbc27d0eb0a221a92b6ebf0b0d1b8932535896bc84f12a62efeb2e0"
+    },
+    {
+      "name": "POST /sync/ack with JSON body and path without query",
+      "sharedSecret": "MDEyMzQ1Njc4OTAxMjM0NTY3ODkwMTIzNDU2Nzg5MDE=",
+      "method": "POST",
+      "pathWithQuery": "/sync/ack",
+      "timestampMillis": 1700000005000,
+      "body": "{\"deviceId\":\"phone-1\",\"streamType\":\"tripSessions\",\"recordId\":\"trip-42\",\"success\":true}",
+      "expectedBodySha256": "c5f8b49daed3f7471347ac34204006a45cf4a314bd6c8e6ec4e7cf73d35b8d6f",
+      "expectedToken": "Bearer 1700000005000:bbc330b903fe2f977b1f87f5ed66b1a804f4e987541df9f9c6498f7cbf9c48be"
+    }
+  ],
+  "streamNames": [
+    "sessions",
+    "telemetryFrames",
+    "batteryCycles",
+    "intervals",
+    "events",
+    "tracks",
+    "places",
+    "preferences",
+    "sessionCosts",
+    "preferenceProposals",
+    "journeys"
+  ],
+  "hlcMaxDriftMillis": 1800000,
+  "hlcOrderCases": [
+    {
+      "a": {
+        "millis": 1000,
+        "counter": 0,
+        "deviceId": "dev-a"
+      },
+      "b": {
+        "millis": 2000,
+        "counter": 0,
+        "deviceId": "dev-a"
+      },
+      "expectedSign": -1
+    },
+    {
+      "a": {
+        "millis": 2000,
+        "counter": 0,
+        "deviceId": "dev-a"
+      },
+      "b": {
+        "millis": 1000,
+        "counter": 5,
+        "deviceId": "dev-z"
+      },
+      "expectedSign": 1
+    },
+    {
+      "a": {
+        "millis": 1000,
+        "counter": 1,
+        "deviceId": "dev-a"
+      },
+      "b": {
+        "millis": 1000,
+        "counter": 2,
+        "deviceId": "dev-a"
+      },
+      "expectedSign": -1
+    },
+    {
+      "a": {
+        "millis": 1000,
+        "counter": 2,
+        "deviceId": "dev-a"
+      },
+      "b": {
+        "millis": 1000,
+        "counter": 2,
+        "deviceId": "dev-b"
+      },
+      "expectedSign": -1
+    },
+    {
+      "a": {
+        "millis": 1000,
+        "counter": 2,
+        "deviceId": "dev-a"
+      },
+      "b": {
+        "millis": 1000,
+        "counter": 2,
+        "deviceId": "dev-a"
+      },
+      "expectedSign": 0
+    }
+  ],
+  "ackKeys": [
+    "deviceId",
+    "streamType",
+    "recordId",
+    "syncedAtHlc",
+    "success"
+  ],
+  "ackOptionalKeys": [
+    "recordIds",
+    "error"
+  ]
+}

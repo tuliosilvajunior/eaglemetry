@@ -1,0 +1,23 @@
+{
+  "@@locale": "pt",
+  "settingsAppearance": "Aparência",
+  "settingsAppTheme": "Tema do app",
+  "settingsThemeDesc": "Escolha a paleta do app. Cada bloco mostra a página, um cartão e o seu texto.",
+  "settingsThemeNameLight": "Claro",
+  "settingsThemeNameDark": "Petróleo",
+  "settingsThemeNameMidnight": "Meia-noite",
+  "settingsThemeNameSepia": "Sépia",
+  "settingsThemeNameNordic": "Nórdico",
+  "settingsThemeNameDaylight": "Luz do dia",
+  "settingsThemeNameTokyoNeon": "Tokyo Neon",
+  "settingsThemeNameSunsetDrive": "Pôr do Sol",
+  "settingsThemeNameBubblegum": "Chiclete",
+  "settingsThemeReadOnlyLabel": "Dica",
+  "settingsThemeReadOnlyMessage": "A seleção de tema não está disponível enquanto a entrada estiver bloqueada.",
+  "settingsTogglesTitle": "Interruptores",
+  "settingsTogglesDesc": "Interruptores que respeitam o modo de condução. Quando a entrada está bloqueada ficam somente leitura.",
+  "settingsReduceMotionLabel": "Reduzir movimento",
+  "settingsReduceMotionDesc": "Limitar animações e transições para uma interface mais estática.",
+  "settingsTogglesReadOnlyLabel": "Dica",
+  "settingsTogglesReadOnlyMessage": "Os interruptores não estão disponíveis enquanto a entrada estiver bloqueada."
+}

@@ -1,0 +1,55 @@
+name: capy_ui
+description: "Shared v2 design system for the car app and the companion app."
+publish_to: 'none'
+version: 0.1.0
+resolution: workspace
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
+  flutter_map: ^8.3.1
+  latlong2: ^0.10.1
+  telemetry_core:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  generate: true
+  uses-material-design: true
+
+  # Vehicle line art for `TiltGauge`. Ink in the alpha channel on black RGB;
+  # the widget tints it with the theme colour through `BlendMode.srcIn`.
+  assets:
+    - assets/images/car_side.webp
+    - assets/images/car_front.webp
+    # The mascot: one file per expression, per direction. Full-colour art,
+    # unlike the line art above: it is never tinted. Cut from the authored
+    # sheets; do not commit a sheet.
+    - assets/images/mascot/
+
+  # Inter is the UI typeface. It is bundled rather than resolved by name
+  # because Android Automotive images do not ship it. These faces are SUBSET
+  # to the scripts the apps render (Latin, Cyrillic, and composed symbols).
+  # Regenerate with `scripts/subset_fonts.sh` after upgrading Inter.
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Inter-ExtraBold.ttf
+          weight: 800

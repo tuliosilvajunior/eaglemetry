@@ -1,0 +1,1229 @@
+{
+ "about": [
+  "Shared test vectors for the Track format. One row per Session.",
+  "Dart encodes, Kotlin encodes, Python inspects. Vectors keep three from drifting.",
+  "All coordinates are synthetic fixtures for codec tests, not real positions.",
+  "Precision: lat/lon 1e-5 deg, time 1 ms delta, speed 0.1 km/h, altitude 0.1 m delta, polyline 1e5.",
+  "Version 1 only. Decoder refuses unknown version.",
+  "Simplification is Douglas-Peucker at 10.0 m, never dropping first, last, or protected.",
+  "A point is protected when its own flag is set or the protected array marks its index.",
+  "The two are a union: the array never disarms a flag the point carries.",
+  "simplified_expected and simplified_piecewise_expected hold indexes into points.",
+  "piecewise_cuts names where the path is split before each section is simplified."
+ ],
+ "encoding_version": 1,
+ "precision": {
+  "lat_lon_deg": 0.00001,
+  "time_seconds": 0.001,
+  "speed_kmh": 0.1,
+  "altitude_m": 0.1
+ },
+ "tolerance_m": 10.0,
+ "cases": [
+  {
+   "name": "empty",
+   "points": [],
+   "protected": [],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 0,
+    "t": [],
+    "path": "",
+    "speed": [],
+    "alt": []
+   },
+   "simplified_expected": []
+  },
+  {
+   "name": "one_point",
+   "points": [
+    {
+     "lat": 48.85837,
+     "lon": 2.29448,
+     "t": 0.0,
+     "speed": 0.0,
+     "alt": 35.0
+    }
+   ],
+   "protected": [
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 1,
+    "t": [
+     0
+    ],
+    "path": "yseiHoc_M",
+    "speed": [
+     0
+    ],
+    "alt": [
+     350
+    ]
+   },
+   "simplified_expected": [
+    0
+   ]
+  },
+  {
+   "name": "two_identical_points",
+   "points": [
+    {
+     "lat": 37.7749,
+     "lon": -122.4194,
+     "t": 0.0,
+     "speed": 10.0,
+     "alt": 10.0
+    },
+    {
+     "lat": 37.7749,
+     "lon": -122.4194,
+     "t": 5.0,
+     "speed": 10.0,
+     "alt": 10.0
+    }
+   ],
+   "protected": [
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 2,
+    "t": [
+     0,
+     5000
+    ],
+    "path": "c|peFf`ejV??",
+    "speed": [
+     100,
+     100
+    ],
+    "alt": [
+     100,
+     0
+    ]
+   },
+   "simplified_expected": [
+    0,
+    1
+   ]
+  },
+  {
+   "name": "antimeridian_crossing",
+   "points": [
+    {
+     "lat": 0.0,
+     "lon": 179.8,
+     "t": 0.0,
+     "speed": 50.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.5,
+     "lon": -179.9,
+     "t": 10.0,
+     "speed": 55.0,
+     "alt": 5.0
+    },
+    {
+     "lat": 1.0,
+     "lon": 179.7,
+     "t": 20.0,
+     "speed": 50.0,
+     "alt": 10.0
+    }
+   ],
+   "protected": [
+    false,
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 3,
+    "t": [
+     0,
+     10000,
+     10000
+    ],
+    "path": "?_elha@_t`B~{lrcA_t`B_kyqcA",
+    "speed": [
+     500,
+     550,
+     500
+    ],
+    "alt": [
+     0,
+     50,
+     50
+    ]
+   },
+   "simplified_expected": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "name": "equator_crossing",
+   "points": [
+    {
+     "lat": -1.0,
+     "lon": 10.0,
+     "t": 0.0,
+     "speed": 30.0,
+     "alt": 100.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 10.1,
+     "t": 12.0,
+     "speed": 32.0,
+     "alt": 105.0
+    },
+    {
+     "lat": 1.0,
+     "lon": 10.0,
+     "t": 25.0,
+     "speed": 30.0,
+     "alt": 102.0
+    }
+   ],
+   "protected": [
+    false,
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 3,
+    "t": [
+     0,
+     12000,
+     13000
+    ],
+    "path": "~hbE_c`|@_ibE_pR_ibE~oR",
+    "speed": [
+     300,
+     320,
+     300
+    ],
+    "alt": [
+     1000,
+     50,
+     -30
+    ]
+   },
+   "simplified_expected": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "name": "straight_line_five",
+   "points": [
+    {
+     "lat": 0.0,
+     "lon": 0.0,
+     "t": 0.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.001,
+     "t": 5.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.002,
+     "t": 10.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.003,
+     "t": 15.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.004,
+     "t": 20.0,
+     "speed": 30.0,
+     "alt": 0.0
+    }
+   ],
+   "protected": [
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 5,
+    "t": [
+     0,
+     5000,
+     5000,
+     5000,
+     5000
+    ],
+    "path": "???gE?gE?gE?gE",
+    "speed": [
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "alt": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "simplified_expected": [
+    0,
+    4
+   ]
+  },
+  {
+   "name": "bend_kept",
+   "points": [
+    {
+     "lat": 0.0,
+     "lon": 0.0,
+     "t": 0.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.001,
+     "lon": 0.001,
+     "t": 5.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.002,
+     "t": 10.0,
+     "speed": 30.0,
+     "alt": 0.0
+    }
+   ],
+   "protected": [
+    false,
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 3,
+    "t": [
+     0,
+     5000,
+     5000
+    ],
+    "path": "??gEgEfEgE",
+    "speed": [
+     300,
+     300,
+     300
+    ],
+    "alt": [
+     0,
+     0,
+     0
+    ]
+   },
+   "simplified_expected": [
+    0,
+    1,
+    2
+   ]
+  },
+  {
+   "name": "protected_middle_on_straight",
+   "points": [
+    {
+     "lat": 0.0,
+     "lon": 0.0,
+     "t": 0.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.001,
+     "t": 5.0,
+     "speed": 30.0,
+     "alt": 0.0,
+     "protected": true
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.002,
+     "t": 10.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.003,
+     "t": 15.0,
+     "speed": 30.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.004,
+     "t": 20.0,
+     "speed": 30.0,
+     "alt": 0.0
+    }
+   ],
+   "protected": [
+    false,
+    true,
+    false,
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 5,
+    "t": [
+     0,
+     5000,
+     5000,
+     5000,
+     5000
+    ],
+    "path": "???gE?gE?gE?gE",
+    "speed": [
+     300,
+     300,
+     300,
+     300,
+     300
+    ],
+    "alt": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "simplified_expected": [
+    0,
+    1,
+    4
+   ]
+  },
+  {
+   "name": "stop_protected_ends",
+   "points": [
+    {
+     "lat": 0.0,
+     "lon": 0.0,
+     "t": 0.0,
+     "speed": 40.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.001,
+     "t": 5.0,
+     "speed": 5.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.001,
+     "t": 65.0,
+     "speed": 0.0,
+     "alt": 0.0,
+     "protected": true
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.001,
+     "t": 125.0,
+     "speed": 0.0,
+     "alt": 0.0,
+     "protected": true
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.0015,
+     "t": 130.0,
+     "speed": 10.0,
+     "alt": 0.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 0.003,
+     "t": 135.0,
+     "speed": 40.0,
+     "alt": 0.0
+    }
+   ],
+   "protected": [
+    false,
+    false,
+    true,
+    true,
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 6,
+    "t": [
+     0,
+     5000,
+     60000,
+     60000,
+     5000,
+     5000
+    ],
+    "path": "???gE?????cB?kH",
+    "speed": [
+     400,
+     50,
+     0,
+     0,
+     100,
+     400
+    ],
+    "alt": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "simplified_expected": [
+    0,
+    2,
+    3,
+    5
+   ]
+  },
+  {
+   "name": "piecewise_equivalence_protected_cuts",
+   "about": [
+    "Cuts at indices 0, 7, 14 and 20, each marked protected.",
+    "Simplifying the whole path equals simplifying each section and joining them.",
+    "Douglas-Peucker is not incremental: this equality holds only for cuts on",
+    "protected indices. See piecewise_cuts and piecewise_diverges_off_cut."
+   ],
+   "points": [
+    {
+     "lat": 0.000002,
+     "lon": 0.0,
+     "t": 0.0,
+     "speed": 40.0,
+     "alt": 0.0,
+     "protected": true
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0002,
+     "t": 3.0,
+     "speed": 40.0,
+     "alt": 1.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0004,
+     "t": 6.0,
+     "speed": 40.0,
+     "alt": 2.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0006,
+     "t": 9.0,
+     "speed": 40.0,
+     "alt": 3.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0008,
+     "t": 12.0,
+     "speed": 40.0,
+     "alt": 4.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.001,
+     "t": 15.0,
+     "speed": 40.0,
+     "alt": 5.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0012,
+     "t": 18.0,
+     "speed": 40.0,
+     "alt": 6.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0014,
+     "t": 21.0,
+     "speed": 40.0,
+     "alt": 7.0,
+     "protected": true
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0016,
+     "t": 24.0,
+     "speed": 40.0,
+     "alt": 8.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0018,
+     "t": 27.0,
+     "speed": 40.0,
+     "alt": 9.0
+    },
+    {
+     "lat": 0.0002,
+     "lon": 0.002,
+     "t": 30.0,
+     "speed": 40.0,
+     "alt": 10.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0022,
+     "t": 33.0,
+     "speed": 40.0,
+     "alt": 11.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0024,
+     "t": 36.0,
+     "speed": 40.0,
+     "alt": 12.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0026,
+     "t": 39.0,
+     "speed": 40.0,
+     "alt": 13.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0028,
+     "t": 42.0,
+     "speed": 40.0,
+     "alt": 14.0,
+     "protected": true
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.003,
+     "t": 45.0,
+     "speed": 40.0,
+     "alt": 15.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0032,
+     "t": 48.0,
+     "speed": 40.0,
+     "alt": 16.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0034,
+     "t": 51.0,
+     "speed": 40.0,
+     "alt": 17.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0036,
+     "t": 54.0,
+     "speed": 40.0,
+     "alt": 18.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0038,
+     "t": 57.0,
+     "speed": 40.0,
+     "alt": 19.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.004,
+     "t": 60.0,
+     "speed": 40.0,
+     "alt": 20.0,
+     "protected": true
+    }
+   ],
+   "protected": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "piecewise_cuts": [
+    0,
+    7,
+    14,
+    20
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 21,
+    "t": [
+     0,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "path": "???g@?g@?g@?g@?g@?g@?g@?g@?g@g@g@f@g@?g@?g@?g@?g@?g@?g@?g@?g@?g@",
+    "speed": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "alt": [
+     0,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10
+    ]
+   },
+   "simplified_expected": [
+    0,
+    7,
+    9,
+    10,
+    11,
+    14,
+    20
+   ],
+   "simplified_piecewise_expected": [
+    0,
+    7,
+    9,
+    10,
+    11,
+    14,
+    20
+   ],
+   "piecewise_equal": true
+  },
+  {
+   "name": "piecewise_diverges_off_cut",
+   "about": [
+    "The same path cut every 6 points, which is not where the protected points",
+    "sit. Whole and joined must differ. This vector is what stops an",
+    "implementation from claiming incremental simplification is safe."
+   ],
+   "points": [
+    {
+     "lat": 0.000002,
+     "lon": 0.0,
+     "t": 0.0,
+     "speed": 40.0,
+     "alt": 0.0,
+     "protected": true
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0002,
+     "t": 3.0,
+     "speed": 40.0,
+     "alt": 1.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0004,
+     "t": 6.0,
+     "speed": 40.0,
+     "alt": 2.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0006,
+     "t": 9.0,
+     "speed": 40.0,
+     "alt": 3.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0008,
+     "t": 12.0,
+     "speed": 40.0,
+     "alt": 4.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.001,
+     "t": 15.0,
+     "speed": 40.0,
+     "alt": 5.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0012,
+     "t": 18.0,
+     "speed": 40.0,
+     "alt": 6.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0014,
+     "t": 21.0,
+     "speed": 40.0,
+     "alt": 7.0,
+     "protected": true
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0016,
+     "t": 24.0,
+     "speed": 40.0,
+     "alt": 8.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0018,
+     "t": 27.0,
+     "speed": 40.0,
+     "alt": 9.0
+    },
+    {
+     "lat": 0.0002,
+     "lon": 0.002,
+     "t": 30.0,
+     "speed": 40.0,
+     "alt": 10.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0022,
+     "t": 33.0,
+     "speed": 40.0,
+     "alt": 11.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0024,
+     "t": 36.0,
+     "speed": 40.0,
+     "alt": 12.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0026,
+     "t": 39.0,
+     "speed": 40.0,
+     "alt": 13.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0028,
+     "t": 42.0,
+     "speed": 40.0,
+     "alt": 14.0,
+     "protected": true
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.003,
+     "t": 45.0,
+     "speed": 40.0,
+     "alt": 15.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0032,
+     "t": 48.0,
+     "speed": 40.0,
+     "alt": 16.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0034,
+     "t": 51.0,
+     "speed": 40.0,
+     "alt": 17.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.0036,
+     "t": 54.0,
+     "speed": 40.0,
+     "alt": 18.0
+    },
+    {
+     "lat": -0.000002,
+     "lon": 0.0038,
+     "t": 57.0,
+     "speed": 40.0,
+     "alt": 19.0
+    },
+    {
+     "lat": 0.000002,
+     "lon": 0.004,
+     "t": 60.0,
+     "speed": 40.0,
+     "alt": 20.0,
+     "protected": true
+    }
+   ],
+   "protected": [
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    true
+   ],
+   "piecewise_cuts": [
+    0,
+    6,
+    12,
+    18,
+    20
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 21,
+    "t": [
+     0,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000,
+     3000
+    ],
+    "path": "???g@?g@?g@?g@?g@?g@?g@?g@?g@g@g@f@g@?g@?g@?g@?g@?g@?g@?g@?g@?g@",
+    "speed": [
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400,
+     400
+    ],
+    "alt": [
+     0,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10,
+     10
+    ]
+   },
+   "simplified_expected": [
+    0,
+    7,
+    9,
+    10,
+    11,
+    14,
+    20
+   ],
+   "simplified_piecewise_expected": [
+    0,
+    6,
+    7,
+    9,
+    10,
+    11,
+    12,
+    14,
+    18,
+    20
+   ],
+   "piecewise_equal": false
+  },
+  {
+   "name": "antimeridian_bend_simplified",
+   "about": [
+    "A bend of about 16 m sitting on the 180th meridian.",
+    "Distance must be measured across the seam, not through 360 degrees."
+   ],
+   "points": [
+    {
+     "lat": 0.0,
+     "lon": 179.9994,
+     "t": 0.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 179.9996,
+     "t": 2.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.0,
+     "lon": 179.9998,
+     "t": 4.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.0,
+     "lon": -180.0,
+     "t": 6.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.00015,
+     "lon": -179.9998,
+     "t": 8.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.0,
+     "lon": -179.9996,
+     "t": 10.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.0,
+     "lon": -179.9994,
+     "t": 12.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.0,
+     "lon": -179.9992,
+     "t": 14.0,
+     "speed": 45.0,
+     "alt": 12.0
+    },
+    {
+     "lat": 0.0,
+     "lon": -179.999,
+     "t": 16.0,
+     "speed": 45.0,
+     "alt": 12.0
+    }
+   ],
+   "protected": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false
+   ],
+   "encoded": {
+    "encoding_version": 1,
+    "point_count": 9,
+    "t": [
+     0,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000,
+     2000
+    ],
+    "path": "?gcsia@?g@?g@?vmgtcA]g@\\g@?g@?g@?g@",
+    "speed": [
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450,
+     450
+    ],
+    "alt": [
+     120,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "simplified_expected": [
+    0,
+    3,
+    4,
+    5,
+    8
+   ]
+  }
+ ]
+}
