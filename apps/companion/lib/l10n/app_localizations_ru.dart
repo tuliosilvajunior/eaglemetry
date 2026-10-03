@@ -591,8 +591,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingLoginTitle => 'С возвращением';
 
   @override
-  String get onboardingLoginBody =>
-      'Войдите в свою учётную запись Eaglemetry.';
+  String get onboardingLoginBody => 'Войдите в свою учётную запись Eaglemetry.';
 
   @override
   String get onboardingCreateTitle => 'Создайте учётную запись';
