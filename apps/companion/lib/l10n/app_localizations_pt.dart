@@ -502,7 +502,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get onboardingBack => 'Voltar';
 
   @override
-  String get onboardingSlide1Title => 'Conheça o Capy';
+  String get onboardingSlide1Title => 'Conheça o Eaglemetry';
 
   @override
   String get onboardingSlide1Body =>
@@ -513,7 +513,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get onboardingSlide2Body =>
-      'O Capy lê as suas viagens e cargas do carro pela sua conta na nuvem.';
+      'O Eaglemetry lê as suas viagens e cargas do carro pela sua conta na nuvem.';
 
   @override
   String get onboardingSlide3Title => 'Emparelhe em segundos';
@@ -722,7 +722,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get settingsAbrpApiKeyHelp =>
-      'Obrigatoria. O Capy nao traz chave propria, porque a Iternio limita cada chave a poucas requisicoes por segundo. Crie a sua com o botao (i) acima.';
+      'Obrigatoria. O Eaglemetry nao traz chave propria, porque a Iternio limita cada chave a poucas requisicoes por segundo. Crie a sua com o botao (i) acima.';
 
   @override
   String get settingsAbrpHelpTitle => 'Como conectar o ABRP';
@@ -735,7 +735,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get settingsAbrpHelpApiKeySteps =>
-      'Abra a pagina de API keys do ABRP abaixo. Va em API Keys e depois Create Key. Ponha App Name = Capy e aperte Create Key. Copie a chave gerada no campo API KEY.';
+      'Abra a pagina de API keys do ABRP abaixo. Va em API Keys e depois Create Key. Ponha App Name = Eaglemetry e aperte Create Key. Copie a chave gerada no campo API KEY.';
 
   @override
   String get settingsAbrpHelpApiKeyLink =>
