@@ -42,7 +42,7 @@ enum CapyMood {
   /// A future Eaglemetry expression set can map these states to distinct art
   /// without changing the widgets that consume them.
   String assetFor(CapyDirection direction) =>
-      'assets/images/branding/eaglemetry_icon.png';
+      'assets/images/branding/eaglemetry_icon_transparent.png';
 }
 
 /// Which way the mascot faces.
