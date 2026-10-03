@@ -9,7 +9,7 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => 'Capy Energy';
+  String get appTitle => 'Eaglemetry Companion';
 
   @override
   String get pairingTitle => 'Emparelhar com o carro';
@@ -590,7 +590,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get onboardingLoginTitle => 'Bem-vindo de volta';
 
   @override
-  String get onboardingLoginBody => 'Entre na sua conta do Capy Energy.';
+  String get onboardingLoginBody => 'Entre na sua conta do Eaglemetry.';
 
   @override
   String get onboardingCreateTitle => 'Crie a sua conta';

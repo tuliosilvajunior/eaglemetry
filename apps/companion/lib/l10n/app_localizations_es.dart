@@ -9,7 +9,7 @@ class AppLocalizationsEs extends AppLocalizations {
   AppLocalizationsEs([String locale = 'es']) : super(locale);
 
   @override
-  String get appTitle => 'Capy Energy';
+  String get appTitle => 'Eaglemetry Companion';
 
   @override
   String get pairingTitle => 'Emparejar con el vehículo';
@@ -592,7 +592,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get onboardingLoginTitle => 'Bienvenido de nuevo';
 
   @override
-  String get onboardingLoginBody => 'Inicie sesión en su cuenta Capy Energy.';
+  String get onboardingLoginBody => 'Inicie sesión en su cuenta Eaglemetry.';
 
   @override
   String get onboardingCreateTitle => 'Cree su cuenta';
