@@ -1,5 +1,5 @@
 {
-  "appTitle": "Capy Energy",
+  "appTitle": "Eaglemetry Companion",
   "pairingTitle": "Сопряжение с автомобилем",
   "pairingBody": "Введите 6-значный код с экрана автомобиля.",
   "pairingCodeHint": "000000",
@@ -187,7 +187,7 @@
   "onboardingSyncCarSilent": "Автомобиль пока ничего не отправил. Если в нём есть поездки, проверьте его связь и попробуйте снова.",
   "onboardingContinue": "Продолжить",
   "onboardingLoginTitle": "С возвращением",
-  "onboardingLoginBody": "Войдите в свою учётную запись Capy Energy.",
+  "onboardingLoginBody": "Войдите в свою учётную запись Eaglemetry.",
   "onboardingCreateTitle": "Создайте учётную запись",
   "onboardingCreateBody": "Одна учётная запись для этого приложения. Поездки остаются на телефоне.",
   "onboardingEmailLabel": "Эл. почта",

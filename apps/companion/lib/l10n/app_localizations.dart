@@ -105,7 +105,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'Capy Energy'**
+  /// **'Eaglemetry Companion'**
   String get appTitle;
 
   /// No description provided for @pairingTitle.
@@ -1119,7 +1119,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingLoginBody.
   ///
   /// In en, this message translates to:
-  /// **'Log in to your Capy Energy account.'**
+  /// **'Log in to your Eaglemetry account.'**
   String get onboardingLoginBody;
 
   /// No description provided for @onboardingCreateTitle.

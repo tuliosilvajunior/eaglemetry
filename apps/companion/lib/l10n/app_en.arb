@@ -1,5 +1,5 @@
 {
-  "appTitle": "Capy Energy",
+  "appTitle": "Eaglemetry Companion",
   "pairingTitle": "Pair with the car",
   "pairingBody": "Type the 6-digit code shown on the car.",
   "pairingCodeHint": "000000",
@@ -306,7 +306,7 @@
   "onboardingSyncCarSilent": "The car sent nothing yet. If the car has trips, check its connection, then sync again.",
   "onboardingContinue": "Continue",
   "onboardingLoginTitle": "Welcome back",
-  "onboardingLoginBody": "Log in to your Capy Energy account.",
+  "onboardingLoginBody": "Log in to your Eaglemetry account.",
   "onboardingCreateTitle": "Create your account",
   "onboardingCreateBody": "One account for this app. The trips stay on this phone.",
   "onboardingEmailLabel": "Email",
