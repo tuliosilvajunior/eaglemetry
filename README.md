@@ -26,7 +26,8 @@ This project remains licensed under the [Apache License 2.0](LICENSE).
 The original license and copyright notices are unchanged.
 
 This initial rebrand changes the displayed app names and user-facing text
-to **Eaglemetry** and **Eaglemetry Companion**. It keeps the existing icons.
+to **Eaglemetry** and **Eaglemetry Companion**, with the approved eagle icon.
+The source artwork and regeneration steps are in [assets/branding](assets/branding/README.md).
 Technical identifiers (`capy_energy`, `capy_ui`, `capy_companion`, and
 `com.timhss.*`), database names, and integrations remain unchanged.
 
