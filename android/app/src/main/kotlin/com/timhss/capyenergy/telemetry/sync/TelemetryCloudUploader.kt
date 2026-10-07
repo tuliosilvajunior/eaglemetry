@@ -483,7 +483,7 @@ class TelemetryCloudUploader(
             }
         }
         for (chunk in scoped.chunked(chunkSize)) {
-            val sinkRows = chunk.map { (event, vehicleId) ->
+            val rawRows = chunk.map { (event, vehicleId) ->
                 // Drop local autoincrement id from cloud key; keep natural key cols.
                 val filtered = event.toMap().filterKeys { it != "id" }
                 val row = snakeCaseMap(filtered)
@@ -493,6 +493,16 @@ class TelemetryCloudUploader(
                 if (row["signal_id"] == null) row["signal_id"] = ""
                 row
             }
+
+            // PostgREST requires every object in a bulk insert payload to have
+            // exactly the same set of keys. Telemetry events contain optional
+            // fields, so normalize the whole chunk and explicitly send null for
+            // keys that are absent from a particular event.
+            val allKeys = rawRows.flatMap { it.keys }.toSet()
+            val sinkRows = rawRows.map { row ->
+                allKeys.associateWith { key -> row[key] }
+            }
+
             try {
                 sink.upsert(EVENT_TABLE, sinkRows, EVENT_CONFLICT, merge = false)
             } catch (e: Exception) {

@@ -1316,7 +1316,8 @@ class AppLocalizationsPt extends AppLocalizations {
   }
 
   @override
-  String get settingsAboutTagline => 'Feito com amor e café';
+  String get settingsAboutTagline =>
+      'Baseado no Capy Energy de Timoteo Sousa (@timhss). Licença Apache 2.0.';
 
   @override
   String get settingsAppShellTitle => 'Interface do app';

@@ -409,7 +409,7 @@
   "settingsUpdateAlertDismiss": "FECHAR",
   "settingsSectionAbout": "SOBRE",
   "settingsAboutDeveloper": "Desenvolvido por {handle}",
-  "settingsAboutTagline": "Feito com amor e café",
+  "settingsAboutTagline": "Baseado no Capy Energy de Timoteo Sousa (@timhss). Licença Apache 2.0.",
   "settingsAppShellTitle": "Interface do app",
   "settingsAppShellDescription": "Escolha qual interface abre ao iniciar o app. Sua escolha fica salva.",
   "settingsAppShellNew": "Nova",

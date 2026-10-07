@@ -409,7 +409,7 @@
   "settingsUpdateAlertDismiss": "ЗАКРЫТЬ",
   "settingsSectionAbout": "О ПРИЛОЖЕНИИ",
   "settingsAboutDeveloper": "Разработано {handle}",
-  "settingsAboutTagline": "Сделано с любовью и кофе",
+  "settingsAboutTagline": "На основе Capy Energy, автор Timoteo Sousa (@timhss). Лицензия Apache 2.0.",
   "settingsAppShellTitle": "Интерфейс приложения",
   "settingsAppShellDescription": "Выберите, какой интерфейс открывается при запуске. Выбор сохраняется.",
   "settingsAppShellNew": "Новый",

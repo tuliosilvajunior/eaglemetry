@@ -148,20 +148,6 @@ class TelemetryRuntime internal constructor(
 
     private fun runBootRegistrationIfNeeded() = bootRegistration.run()
 
-    /**
-     * One upload pass over telemetry, annotations and preference control
-     * sync, catching all failures so the caller never crashes.
-     *
-     * Permanent faults (401/403, constraint) are logged as non-retryable;
-     * transient faults set [CloudUploadPass.retrySoon] so the pairing retry
-     * loop can come back sooner. The 15-minute tick ignores that flag.
-     */
-    internal data class CloudUploadPass(
-        val telemetryMoved: Int,
-        val annotationsMoved: Int,
-        val retrySoon: Boolean,
-    )
-
     internal val revocationDetector: RevocationDetector by lazy {
         RevocationDetector(
             settings = graph.settings,
@@ -173,66 +159,34 @@ class TelemetryRuntime internal constructor(
     internal fun isRlsDenial(error: Throwable): Boolean = revocationDetector.isRlsDenial(error)
     internal fun handlePermanentUploadFailure(error: Throwable) = revocationDetector.handlePermanentUploadFailure(error)
     internal fun onRevoked() = revocationDetector.onRevoked()
-    internal suspend fun updateCutoverReadiness(active: Boolean) = revocationDetector.updateCutoverReadiness(active)
+    internal suspend fun updateCutoverReadiness(active: Boolean) = revocationDetector.updateCutoverReadiness(active, propagateFailure = active)
 
-    internal fun runCloudUploadPass(): CloudUploadPass {
-        var retrySoon = false
-        var telemetryMoved = 0
-        try {
-            val report = kotlinx.coroutines.runBlocking { graph.telemetryCloudUploader.upload() }
-            telemetryMoved = report.perStream.values.sum()
-        } catch (e: com.timhss.capyenergy.telemetry.sync.TelemetryCloudUploadException) {
-            if (e.retryable) {
-                Log.w(TAG, "Cloud upload transient failure for ${e.table}, will retry", e)
-                retrySoon = true
-            } else {
-                Log.w(TAG, "Cloud upload permanent failure for ${e.table}, not retrying", e)
-                handlePermanentUploadFailure(e)
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "Cloud upload failed", e)
-            retrySoon = true
-        }
-        var annotationsMoved = 0
-        try {
-            val report = kotlinx.coroutines.runBlocking { graph.annotationCloudUploader.upload() }
-            annotationsMoved = report.perStream.values.sum()
-            // Also treat telemetry moved as success for cutover guard
-        } catch (e: com.timhss.capyenergy.telemetry.sync.AnnotationCloudUploadException) {
-            if (e.retryable) {
-                Log.w(TAG, "Annotation cloud upload transient failure for ${e.table}, will retry", e)
-                retrySoon = true
-            } else {
-                Log.w(TAG, "Annotation cloud upload permanent failure for ${e.table}, not retrying", e)
-                handlePermanentUploadFailure(e)
-            }
-        } catch (e: Exception) {
-            Log.w(TAG, "Annotation cloud upload failed", e)
-            retrySoon = true
-        }
-        try {
+    /**
+     * One upload pass over telemetry, annotations and preference control
+     * sync, catching all failures so the caller never crashes.
+     *
+     * All faults set failed, including permanent faults (401/403, constraint);
+     * transient faults set [CloudUploadPass.retrySoon] so the pairing retry
+     * loop can come back sooner. The 15-minute tick ignores that flag.
+     */
+    internal fun runCloudUploadPass(): CloudUploadPass = runCloudUploadPass(
+        uploadTelemetry = {
+            kotlinx.coroutines.runBlocking { graph.telemetryCloudUploader.upload() }.perStream.values.sum()
+        },
+        uploadAnnotations = {
+            kotlinx.coroutines.runBlocking { graph.annotationCloudUploader.upload() }.perStream.values.sum()
+        },
+        syncPreferences = {
             kotlinx.coroutines.runBlocking { graph.preferenceControlSync.sync() }
-        } catch (e: com.timhss.capyenergy.telemetry.control.PreferenceControlCloudException) {
-            if (e.retryable) {
-                Log.w(TAG, "Preference control sync transient failure, will retry", e)
-                retrySoon = true
-            } else {
-                Log.w(TAG, "Preference control sync permanent failure, not retrying", e)
-                handlePermanentUploadFailure(e)
+            Unit
+        },
+        handlePermanentUploadFailure = { handlePermanentUploadFailure(it) },
+        updateReadiness = {
+            if (graph.settings.pairingStatus() == TelemetrySettings.PAIRING_STATUS_APPROVED) {
+                kotlinx.coroutines.runBlocking { updateCutoverReadiness(active = true) }
             }
-        } catch (e: Exception) {
-            Log.w(TAG, "Preference control sync failed", e)
-            retrySoon = true
-        }
-        if (graph.settings.pairingStatus() == TelemetrySettings.PAIRING_STATUS_APPROVED && !retrySoon) {
-            runCatching {
-                kotlinx.coroutines.runBlocking {
-                    updateCutoverReadiness(active = true)
-                }
-            }
-        }
-        return CloudUploadPass(telemetryMoved, annotationsMoved, retrySoon)
-    }
+        },
+    )
 
     /**
      * Triggers one cloud upload run, catching all failures so the background
@@ -269,13 +223,7 @@ class TelemetryRuntime internal constructor(
             Log.w(TAG, "Force cloud upload failed", error)
             return mapOf("cloudReady" to true, "paired" to true, "movedRows" to 0, "failed" to true)
         }
-        val failed = pass.retrySoon && (pass.telemetryMoved + pass.annotationsMoved) == 0
-        return mapOf(
-            "cloudReady" to true,
-            "paired" to true,
-            "movedRows" to (pass.telemetryMoved + pass.annotationsMoved),
-            "failed" to failed,
-        )
+        return pass.forceSyncResult()
     }
 
     /**

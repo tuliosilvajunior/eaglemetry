@@ -1290,4 +1290,17 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get syncLastRunTitle => 'Última sincronización';
+
+  @override
+  String get aboutTitle => 'Acerca de';
+
+  @override
+  String get aboutVersion => 'Versión';
+
+  @override
+  String get aboutDeveloper => 'Desarrollado por @tuliosilvajunior';
+
+  @override
+  String get aboutOrigin =>
+      'Basado en Capy Energy de Timoteo Sousa (@timhss). Licencia Apache 2.0.';
 }

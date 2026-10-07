@@ -192,5 +192,9 @@ android/.kotlin/
 # `apps/companion/.env.example` for the companion app's copy.
 .env
 
+# Local cloud build configuration and one-off source backups.
+car_env.json
+*.bak-*
+
 # Local treehouse worktree pool (machine-local disposable checkouts).
 .treehouse/

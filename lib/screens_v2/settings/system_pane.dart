@@ -339,6 +339,8 @@ class _SystemPaneState extends State<SystemPane>
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(loc.appTitle, style: AppText.body.copyWith(color: colors.ink)),
+          const SizedBox(height: AppSpacing.x1),
           Text(
             info == null
                 ? '--'
@@ -349,7 +351,7 @@ class _SystemPaneState extends State<SystemPane>
           ),
           const SizedBox(height: AppSpacing.x1),
           Text(
-            loc.settingsAboutDeveloper('@timhss'),
+            loc.settingsAboutDeveloper('@tuliosilvajunior'),
             style: AppText.label.copyWith(color: colors.inkMuted),
           ),
           Text(

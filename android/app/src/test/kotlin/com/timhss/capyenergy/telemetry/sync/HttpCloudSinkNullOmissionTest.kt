@@ -34,6 +34,30 @@ import org.junit.Test
  */
 class HttpCloudSinkNullOmissionTest {
 
+    @Test
+    fun `event batch keeps nullable keys so PostgREST sees a uniform shape`() = runBlocking {
+        val body = AtomicReference("")
+        withBodyServer(body) { base ->
+            HttpCloudSink(baseUrl = base, anonKey = "test-key").upsert(
+                "telemetry_events",
+                listOf(
+                    mapOf("type" to "SIGNAL_CHANGED", "value" to "42", "previous_value" to null),
+                    mapOf("type" to "SESSION_ENDED", "value" to null, "previous_value" to "ACTIVE"),
+                ),
+                listOf("vehicle_id", "timestamp_nanos", "type", "signal_id"),
+                merge = false,
+            )
+        }
+        val rows = JSONArray(body.get())
+        val first = rows.getJSONObject(0)
+        val second = rows.getJSONObject(1)
+        assertEquals(first.keys().asSequence().toSet(), second.keys().asSequence().toSet())
+        assertTrue(first.has("previous_value"))
+        assertTrue(first.isNull("previous_value"))
+        assertTrue(second.has("value"))
+        assertTrue(second.isNull("value"))
+    }
+
     @Before
     fun reset() {
         ClockAnchorStore.reset()

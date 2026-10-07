@@ -1285,4 +1285,17 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get syncLastRunTitle => 'Último sync';
+
+  @override
+  String get aboutTitle => 'Sobre';
+
+  @override
+  String get aboutVersion => 'Versão';
+
+  @override
+  String get aboutDeveloper => 'Desenvolvido por @tuliosilvajunior';
+
+  @override
+  String get aboutOrigin =>
+      'Baseado no Capy Energy de Timoteo Sousa (@timhss). Licença Apache 2.0.';
 }

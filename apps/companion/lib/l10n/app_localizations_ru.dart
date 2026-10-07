@@ -1298,4 +1298,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get syncLastRunTitle => 'Последняя синхронизация';
+
+  @override
+  String get aboutTitle => 'О приложении';
+
+  @override
+  String get aboutVersion => 'Версия';
+
+  @override
+  String get aboutDeveloper => 'Разработчик: @tuliosilvajunior';
+
+  @override
+  String get aboutOrigin =>
+      'На основе Capy Energy, автор Timoteo Sousa (@timhss). Лицензия Apache 2.0.';
 }

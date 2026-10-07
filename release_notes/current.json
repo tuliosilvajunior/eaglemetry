@@ -1,44 +1,44 @@
 {
   "en": [
+    "Both apps show the Eaglemetry name. About includes the original Capy Energy credits and Apache 2.0 license.",
     "Eaglemetry and Eaglemetry Companion now show the new eagle icon. Trip and charge times stay correct when the car clock jumps. Energy charts show the real recorded minutes.",
     "While the car waits for the real time, sessions show a 'time not synced' mark. The app does not delete them early.",
     "Trips recorded before the time sync show bars in driving order on the car and on the phone.",
     "When the real time arrives, corrected minutes replace the old minutes in the cloud and on the phone. No wrong minute stays.",
     "The car uploads your trips directly to the cloud. Cloud sync is on by default. The phone stops duplicate uploads.",
     "Cars that are not linked yet stop uploading, and cars linked again keep every trip. The cloud keeps only linked cars' history.",
-    "Unlinked cars no longer send data; pair to a live account to upload.",
+    "Local cloud test builds now open faster on the car by using the optimized release mode.",
     "A car cannot read the charging preferences of a different account on the same vehicle.",
-    "If the car is not paired, FORCE SYNC tells you to pair it first.",
+    "If the car is not paired, FORCE SYNC tells you to pair it first. FORCE SYNC now reports cloud upload failures, including authentication errors, even when some records were sent.",
     "The car and the phone show how much of your history is in the cloud, how much is still to send, and what waits for the car clock. A dot shows live values.",
-    "If the phone does not link within 5 minutes, the car offers a new pairing code instead of staying stuck.",
-    "After you reinstall the phone app and sign in, your car link returns by itself. No new pairing code is needed."
+    "The car app has an optional offline emulator build for testing screens without the vehicle system signature. Registered cars can now create a pairing code."
   ],
   "pt": [
+    "Os dois apps mostram o nome Eaglemetry. Sobre inclui os créditos originais do Capy Energy e a licença Apache 2.0.",
     "Eaglemetry e Eaglemetry Companion agora exibem o novo ícone de águia. Os horários de viagem e recarga ficam corretos quando o relógio do carro salta. Os gráficos de energia mostram os minutos reais gravados.",
     "Enquanto o carro aguarda a hora real, as sessões mostram 'hora não sincronizada'. O app não apaga essas sessões antes da hora.",
     "Viagens gravadas antes da sincronização da hora mostram as barras na ordem em que você dirigiu, no carro e no celular.",
     "Quando a hora real chega, os minutos corrigidos substituem os antigos na nuvem e no celular. Nenhum minuto errado fica.",
     "O carro envia suas viagens direto para a nuvem. O sync na nuvem vem ligado por padrão. O celular para de enviar duplicados.",
     "Carros ainda nao vinculados deixam de enviar; vincule a sua conta para manter cada viagem na nuvem.",
-    "Carros ainda nao vinculados deixam de enviar; vincule a sua conta para manter cada viagem na nuvem.",
+    "As versões locais para testar o sync agora abrem mais rápido no carro com o modo release otimizado.",
     "Um carro não consegue ler as preferências de carga de outra conta no mesmo veículo.",
     "Viagens e rotas registram a conta dona delas.",
-    "Se o carro não estiver pareado, FORÇAR SYNC avisa para parear primeiro.",
-    "Se o celular não vincular em 5 minutos, o carro oferece um novo código em vez de travar na tela.",
-    "Depois de reinstalar o app do celular e entrar na conta, seu carro volta vinculado sozinho. Nenhum código novo é preciso."
+    "Se o carro não estiver pareado, FORÇAR SYNC avisa para parear primeiro. FORÇAR SYNC agora mostra falhas no envio à nuvem, inclusive erros de autenticação, mesmo quando alguns registros foram enviados.",
+    "O app do carro tem uma versão opcional para testar telas no emulador, sem nuvem e sem a assinatura de sistema do veículo. Carros registrados agora podem criar um código de pareamento."
   ],
   "ru": [
+    "Оба приложения показывают название Eaglemetry. В разделе о приложении указаны автор Capy Energy и лицензия Apache 2.0.",
     "Eaglemetry и Eaglemetry Companion теперь показывают новый значок орла. Время поездок и зарядок остаётся верным при скачке часов автомобиля. Графики энергии показывают реально записанные минуты.",
     "Пока автомобиль ждёт точное время, сессии помечены как «время не синхронизировано». Приложение не удаляет их раньше срока.",
     "Поездки, записанные до синхронизации времени, показывают столбцы в порядке движения на автомобиле и на телефоне.",
     "Когда приходит точное время, исправленные минуты заменяют старые в облаке и на телефоне. Неверные минуты не остаются.",
     "Автомобиль выгружает поездки напрямую в облако. Облачная синхронизация включена по умолчанию. Телефон не выгружает дубликаты.",
-    "Выгрузка в облако стала быстрее.",
+    "Локальные сборки для проверки синхронизации теперь быстрее открываются в автомобиле благодаря оптимизированному режиму release.",
     "Автомобили без привязки не выгружают данные; привяжите аккаунт, чтобы сохранить поездки.",
     "Автомобиль не может читать настройки зарядки другого аккаунта на том же автомобиле.",
     "Поездки и маршруты записывают аккаунт, которому они принадлежат.",
-    "Если автомобиль не сопряжён, ФОРСИРОВАТЬ SYNC предложит сначала выполнить сопряжение.",
-    "Если телефон не привяжется за 5 минут, автомобиль предложит новый код вместо зависшего экрана.",
-    "После переустановки приложения и входа автомобиль привязывается сам. Новый код не нужен."
+    "Если автомобиль не сопряжён, ФОРСИРОВАТЬ SYNC предложит сначала выполнить сопряжение. ФОРСИРОВАТЬ SYNC теперь сообщает об ошибках выгрузки, включая ошибки авторизации, даже если часть записей отправлена.",
+    "Приложение автомобиля можно собрать для проверки экранов в эмуляторе без облака и системной подписи автомобиля. Зарегистрированные автомобили теперь могут создать код сопряжения."
   ]
 }

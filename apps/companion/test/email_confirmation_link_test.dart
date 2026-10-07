@@ -29,6 +29,6 @@ void main() {
   test('the redirect matches the scheme the two platforms declare', () {
     // Three declarations of one address. This test is the fourth reader, and
     // it exists because a mismatch fails silently in a browser tab.
-    expect(SupabaseConfig.redirectUrl, 'capyenergy://auth-callback');
+    expect(SupabaseConfig.redirectUrl, 'eaglemetry://auth-callback');
   });
 }

@@ -1,7 +1,7 @@
 name: capy_companion
 description: "Eaglemetry Companion for Android and iOS."
 publish_to: "none"
-version: 0.1.1+5
+version: 0.1.0+6
 resolution: workspace
 
 environment:
@@ -24,6 +24,7 @@ dependencies:
   flutter_blue_plus: ^2.3.12
   pointycastle: ^3.9.1
   url_launcher: ^6.3.2
+  package_info_plus: ^8.3.1
 
 dev_dependencies:
   flutter_test:

@@ -32,8 +32,8 @@ abstract final class SupabaseConfig {
   ///
   /// Supabase refuses any `redirect_to` that is not in the project's
   /// **Redirect URLs** allow list, and falls back to the Site URL without
-  /// saying so. Add `capyenergy://auth-callback` there before you build.
-  static const redirectUrl = 'capyenergy://auth-callback';
+  /// saying so. Add `eaglemetry://auth-callback` there before you build.
+  static const redirectUrl = 'eaglemetry://auth-callback';
 
   /// Whether this build can talk to a project at all.
   ///

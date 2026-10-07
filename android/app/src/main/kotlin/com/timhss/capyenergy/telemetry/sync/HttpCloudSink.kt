@@ -149,7 +149,11 @@ class HttpCloudSink(
      * so omitting nulls there is both smaller and safer.
      */
     private val preserveNullsTables = setOf(
-        "insight_places", "session_costs", "journeys", "preferences"
+        "insight_places",
+        "session_costs",
+        "journeys",
+        "preferences",
+        "telemetry_events"
     )
 
     // Null keys are omitted, not sent as JSON null: under

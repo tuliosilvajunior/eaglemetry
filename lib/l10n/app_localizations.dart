@@ -2523,7 +2523,7 @@ abstract class AppLocalizations {
   /// No description provided for @settingsAboutTagline.
   ///
   /// In en, this message translates to:
-  /// **'Made with love and coffee'**
+  /// **'Based on Capy Energy by Timoteo Sousa (@timhss). Apache License 2.0.'**
   String get settingsAboutTagline;
 
   /// No description provided for @settingsAppShellTitle.

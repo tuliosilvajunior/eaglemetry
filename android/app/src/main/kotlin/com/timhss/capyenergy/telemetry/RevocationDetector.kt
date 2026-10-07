@@ -100,7 +100,7 @@ internal class RevocationDetector(
         settings.markRevoked()
     }
 
-    suspend fun updateCutoverReadiness(active: Boolean) {
+    suspend fun updateCutoverReadiness(active: Boolean, propagateFailure: Boolean = false) {
         val accountId = settings.accountId() ?: return
         val vehicleId = vehicleIdProvider()
         if (vehicleId.isBlank() || vehicleId == "unassigned") return
@@ -119,6 +119,7 @@ internal class RevocationDetector(
             )
         } catch (e: Exception) {
             Log.w(TAG, "Failed to update cutover readiness car_direct_upload_active=$active", e)
+            if (propagateFailure) throw e
         }
     }
 

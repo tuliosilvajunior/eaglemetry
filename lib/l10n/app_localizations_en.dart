@@ -1311,7 +1311,8 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get settingsAboutTagline => 'Made with love and coffee';
+  String get settingsAboutTagline =>
+      'Based on Capy Energy by Timoteo Sousa (@timhss). Apache License 2.0.';
 
   @override
   String get settingsAppShellTitle => 'App interface';

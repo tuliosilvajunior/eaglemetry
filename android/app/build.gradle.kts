@@ -7,6 +7,8 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val emulatorBuild = System.getenv("EAGLEMETRY_EMULATOR") == "true"
+
 val supabaseFunctionsUrl: String by lazy {
     val props = Properties()
     val localPropsFile = rootProject.file("local.properties")
@@ -174,6 +176,10 @@ android {
         }
     }
 
+    if (emulatorBuild) {
+        sourceSets.getByName("debug").manifest.srcFile("src/emulator/AndroidManifest.xml")
+    }
+
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("platformRelease")
@@ -190,7 +196,12 @@ android {
         // non-signing tasks still configure successfully — the release build
         // will still fail with an actionable message (see below).
         debug {
-            signingConfig = if (platformKeystoreFile.exists()) {
+            if (emulatorBuild) {
+                applicationIdSuffix = ".emulator"
+                buildConfigField("boolean", "CLOUD_SYNC_ENABLED", "false")
+                versionNameSuffix = "-debug"
+            }
+            signingConfig = if (!emulatorBuild && platformKeystoreFile.exists()) {
                 signingConfigs.getByName("platformRelease")
             } else {
                 signingConfigs.getByName("debug")

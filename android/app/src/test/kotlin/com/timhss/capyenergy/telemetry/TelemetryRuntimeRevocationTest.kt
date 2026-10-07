@@ -39,6 +39,7 @@ class TelemetryRuntimeRevocationTest {
     }
 
     private class FakeCloudSink : CloudSink {
+        var failure: Exception? = null
         val upsertCalls = mutableListOf<Triple<String, List<Map<String, Any?>>, List<String>>>()
 
         override suspend fun upsert(
@@ -47,6 +48,7 @@ class TelemetryRuntimeRevocationTest {
             conflictColumns: List<String>,
             merge: Boolean
         ) {
+            failure?.let { throw it }
             upsertCalls.add(Triple(table, rows, conflictColumns))
         }
 
@@ -55,6 +57,22 @@ class TelemetryRuntimeRevocationTest {
             vehicleId: String,
             keys: List<Triple<String, String, Long>>
         ) {}
+    }
+
+    @Test
+    fun `active readiness propagates authentication failure when requested`() = runBlocking {
+        val (detector, sink) = detectorWith()
+        settings.setAccountId("account-1")
+        val error = TelemetryCloudUploadException("phone_cutover_readiness", HttpCloudSinkException(401, "Invalid API key"), false)
+        sink.failure = error
+        // Revocation cleanup remains best effort.
+        detector.updateCutoverReadiness(active = false)
+        try {
+            detector.updateCutoverReadiness(active = true, propagateFailure = true)
+            org.junit.Assert.fail("Expected authentication failure")
+        } catch (actual: TelemetryCloudUploadException) {
+            org.junit.Assert.assertSame(error, actual)
+        }
     }
 
     @Test
