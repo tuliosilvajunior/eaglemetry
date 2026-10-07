@@ -58,6 +58,39 @@ class HttpCloudSinkNullOmissionTest {
         assertTrue(second.isNull("value"))
     }
 
+    @Test
+    fun `mixed session shapes use uniform batches without adding nulls or reordering`() = runBlocking {
+        val bodies = java.util.Collections.synchronizedList(mutableListOf<String>())
+        withBodyServer(AtomicReference(""), requestCount = 3, bodies = bodies) { base ->
+            HttpCloudSink(baseUrl = base, anonKey = "test-key").upsert(
+                "session",
+                listOf(
+                    mapOf("id" to "a", "end_soc_percent" to null),
+                    mapOf("end_soc_percent" to 42, "id" to "b"),
+                    mapOf("id" to "c", "end_soc_percent" to 43),
+                    mapOf("id" to "d", "end_soc_percent" to null),
+                ),
+                listOf("id"),
+                merge = true,
+            )
+        }
+        assertEquals(3, bodies.size)
+        val batches = bodies.map { JSONArray(it) }
+        assertEquals(listOf(1, 2, 1), batches.map { it.length() })
+        assertFalse(batches[0].getJSONObject(0).has("end_soc_percent"))
+        assertFalse(batches[2].getJSONObject(0).has("end_soc_percent"))
+        assertEquals(42, batches[1].getJSONObject(0).getInt("end_soc_percent"))
+        val ids = mutableListOf<String>()
+        for (batch in batches) {
+            val keys = batch.getJSONObject(0).keys().asSequence().toSet()
+            for (i in 0 until batch.length()) {
+                assertEquals(keys, batch.getJSONObject(i).keys().asSequence().toSet())
+                ids.add(batch.getJSONObject(i).getString("id"))
+            }
+        }
+        assertEquals(listOf("a", "b", "c", "d"), ids)
+    }
+
     @Before
     fun reset() {
         ClockAnchorStore.reset()
@@ -168,40 +201,43 @@ class HttpCloudSinkNullOmissionTest {
         }
     }
 
-    private suspend fun withBodyServer(body: AtomicReference<String>, block: suspend (baseUrl: String) -> Unit) {
+    private suspend fun withBodyServer(body: AtomicReference<String>, requestCount: Int = 1, bodies: MutableList<String>? = null, block: suspend (baseUrl: String) -> Unit) {
         val serverSocket = ServerSocket(0)
         val latch = CountDownLatch(1)
         val thread = Thread {
             try {
                 serverSocket.soTimeout = 5000
-                val socket: Socket = serverSocket.accept()
-                socket.use { s ->
-                    val reader = BufferedReader(InputStreamReader(s.getInputStream(), StandardCharsets.UTF_8))
-                    var contentLength = 0
-                    while (true) {
-                        val l = reader.readLine() ?: break
-                        if (l.isEmpty()) break
-                        if (l.lowercase().startsWith("content-length:")) {
-                            contentLength = l.substringAfter(":").trim().toIntOrNull() ?: 0
+                repeat(requestCount) {
+                    val socket: Socket = serverSocket.accept()
+                    socket.use { s ->
+                        val reader = BufferedReader(InputStreamReader(s.getInputStream(), StandardCharsets.UTF_8))
+                        var contentLength = 0
+                        while (true) {
+                            val l = reader.readLine() ?: break
+                            if (l.isEmpty()) break
+                            if (l.lowercase().startsWith("content-length:")) {
+                                contentLength = l.substringAfter(":").trim().toIntOrNull() ?: 0
+                            }
                         }
+                        val buf = CharArray(contentLength)
+                        var read = 0
+                        while (read < contentLength) {
+                            val n = reader.read(buf, read, contentLength - read)
+                            if (n == -1) break
+                            read += n
+                        }
+                        body.set(String(buf, 0, read))
+                        bodies?.add(body.get())
+                        val response = "[]".toByteArray(StandardCharsets.UTF_8)
+                        val out = s.getOutputStream()
+                        val head = "HTTP/1.1 201 Created\r\n" +
+                            "Content-Type: application/json\r\n" +
+                            "Content-Length: ${response.size}\r\n" +
+                            "Connection: close\r\n\r\n"
+                        out.write(head.toByteArray(StandardCharsets.UTF_8))
+                        out.write(response)
+                        out.flush()
                     }
-                    val buf = CharArray(contentLength)
-                    var read = 0
-                    while (read < contentLength) {
-                        val n = reader.read(buf, read, contentLength - read)
-                        if (n == -1) break
-                        read += n
-                    }
-                    body.set(String(buf, 0, read))
-                    val response = "[]".toByteArray(StandardCharsets.UTF_8)
-                    val out = s.getOutputStream()
-                    val head = "HTTP/1.1 201 Created\r\n" +
-                        "Content-Type: application/json\r\n" +
-                        "Content-Length: ${response.size}\r\n" +
-                        "Connection: close\r\n\r\n"
-                    out.write(head.toByteArray(StandardCharsets.UTF_8))
-                    out.write(response)
-                    out.flush()
                 }
             } catch (_: Exception) {
             } finally {
