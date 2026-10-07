@@ -58,12 +58,18 @@ jobs:
         env:
           PLATFORM_KEYSTORE_BASE64: ${{ secrets.PLATFORM_KEYSTORE_BASE64 }}
           PUBLIC_RELEASE_TOKEN: ${{ secrets.PUBLIC_RELEASE_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_FUNCTIONS_URL: ${{ secrets.SUPABASE_FUNCTIONS_URL }}
         run: |
           set -euo pipefail
           missing=()
           for name in \
             PLATFORM_KEYSTORE_BASE64 \
-            PUBLIC_RELEASE_TOKEN
+            PUBLIC_RELEASE_TOKEN \
+            SUPABASE_URL \
+            SUPABASE_ANON_KEY \
+            SUPABASE_FUNCTIONS_URL
           do
             if [[ -z "${!name:-}" ]]; then
               missing+=("$name")
@@ -198,6 +204,10 @@ jobs:
       - name: Build signed arm64 APK
         env:
           PLATFORM_KEYSTORE_PATH: ${{ runner.temp }}/platform.jks
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_FUNCTIONS_URL: ${{ secrets.SUPABASE_FUNCTIONS_URL }}
+          CLOUD_SYNC_ENABLED: 'true'
         run: |
           set -euo pipefail
           flutter pub get

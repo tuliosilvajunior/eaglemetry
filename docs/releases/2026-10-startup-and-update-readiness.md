@@ -45,8 +45,11 @@ is ready until the secrets and one real release are verified.
 2. The app now defaults to the `latest.json` asset in that repository. Preserve
    the native Supabase URL, anon/publishable key and functions URL, with cloud
    sync enabled.
-3. Verify signing and publication secrets in GitHub Actions. Their presence and
-   validity were not established by the local release test.
+3. Verify signing, publication and Supabase build secrets in GitHub Actions.
+   The release workflow requires `PLATFORM_KEYSTORE_BASE64`,
+   `PUBLIC_RELEASE_TOKEN`, `SUPABASE_URL`, `SUPABASE_ANON_KEY` and
+   `SUPABASE_FUNCTIONS_URL`; their values are injected only during the CI
+   build and are not committed to the repository.
 4. Keep Android version codes monotonic. The car already has 715. The workflow
    derives the next code from Git commit count with a 715 baseline, so the
    first public release is above the installed build even though this imported
