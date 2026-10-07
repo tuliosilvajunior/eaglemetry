@@ -1284,4 +1284,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get syncLastRunTitle => 'Last sync';
+
+  @override
+  String get aboutTitle => 'About';
+
+  @override
+  String get aboutVersion => 'Version';
+
+  @override
+  String get aboutDeveloper => 'Developed by @tuliosilvajunior';
+
+  @override
+  String get aboutOrigin =>
+      'Based on Capy Energy by Timoteo Sousa (@timhss). Apache License 2.0.';
 }

@@ -772,10 +772,10 @@ class _SyncV2ScreenState extends State<SyncV2Screen> {
         children: [
           Expanded(
             child: SoftActionTile(
-              icon: Icons.cloud_done_outlined,
-              label: loc.v2SyncRegistered,
+              icon: Icons.qr_code_2,
+              label: loc.v2SyncCreateCode,
               centered: true,
-              onPressed: null,
+              onPressed: _busy ? null : _startPairingFlow,
             ),
           ),
         ],

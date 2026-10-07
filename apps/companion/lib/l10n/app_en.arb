@@ -750,5 +750,9 @@
   },
   "syncNothingPending": "Nothing is waiting to be sent.",
   "syncAutoNote": "Sync runs on its own every 10 minutes while the app is open. This button is temporary: it forces a sync now.",
-  "syncLastRunTitle": "Last sync"
+  "syncLastRunTitle": "Last sync",
+  "aboutTitle": "About",
+  "aboutVersion": "Version",
+  "aboutDeveloper": "Developed by @tuliosilvajunior",
+  "aboutOrigin": "Based on Capy Energy by Timoteo Sousa (@timhss). Apache License 2.0."
 }

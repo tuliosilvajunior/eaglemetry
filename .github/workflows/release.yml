@@ -9,7 +9,8 @@ name: Build and publish release
 #   - "feat:"                    -> minor
 #   - everything else            -> patch
 #
-# The Android versionCode is the source repository's total commit count.
+# The Android versionCode is based on the source repository's commit count,
+# offset above the highest version already installed on the validation car.
 
 on:
   push:
@@ -35,7 +36,7 @@ concurrency:
 
 env:
   FLUTTER_VERSION: 3.44.6
-  PUBLIC_RELEASE_REPOSITORY: example/capy_releases
+  PUBLIC_RELEASE_REPOSITORY: tuliosilvajunior/eaglemetry-releases
   EXPECTED_SIGNING_CERT_SHA256: c8a2e9bccf597c2fb6dc66bee293fc13f2fc47ec77bc6b2b0d52c11f51192ab8
 
 jobs:
@@ -57,12 +58,18 @@ jobs:
         env:
           PLATFORM_KEYSTORE_BASE64: ${{ secrets.PLATFORM_KEYSTORE_BASE64 }}
           PUBLIC_RELEASE_TOKEN: ${{ secrets.PUBLIC_RELEASE_TOKEN }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_FUNCTIONS_URL: ${{ secrets.SUPABASE_FUNCTIONS_URL }}
         run: |
           set -euo pipefail
           missing=()
           for name in \
             PLATFORM_KEYSTORE_BASE64 \
-            PUBLIC_RELEASE_TOKEN
+            PUBLIC_RELEASE_TOKEN \
+            SUPABASE_URL \
+            SUPABASE_ANON_KEY \
+            SUPABASE_FUNCTIONS_URL
           do
             if [[ -z "${!name:-}" ]]; then
               missing+=("$name")
@@ -147,7 +154,10 @@ jobs:
           esac
 
           next="$major.$minor.$patch"
-          build=$(git rev-list --count HEAD)
+          # The validation car already has versionCode 715. Keep every public
+          # release strictly above it even though this imported repository has
+          # a shorter history than the original source repository.
+          build=$((715 + $(git rev-list --count HEAD)))
           {
             echo "next=$next"
             echo "build=$build"
@@ -194,6 +204,10 @@ jobs:
       - name: Build signed arm64 APK
         env:
           PLATFORM_KEYSTORE_PATH: ${{ runner.temp }}/platform.jks
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          SUPABASE_FUNCTIONS_URL: ${{ secrets.SUPABASE_FUNCTIONS_URL }}
+          CLOUD_SYNC_ENABLED: 'true'
         run: |
           set -euo pipefail
           flutter pub get

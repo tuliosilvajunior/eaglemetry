@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:capy_ui/capy_ui.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:telemetry_core/telemetry_core.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -83,6 +84,7 @@ class SettingsScreen extends StatelessWidget {
             _BetaCard(settings: abrpStore, forwarder: abrpForwarder),
           if (control != null) _ControlCard(control: control!),
           _AccountCard(auth: auth),
+          const _AboutCard(),
         ];
         return Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -779,5 +781,45 @@ class _ControlCardState extends State<_ControlCard> {
       'default_charge_cost_per_kwh' => l10n.controlKeyChargeCost,
       _ => key,
     };
+  }
+}
+
+class _AboutCard extends StatefulWidget {
+  const _AboutCard();
+  @override
+  State<_AboutCard> createState() => _AboutCardState();
+}
+
+class _AboutCardState extends State<_AboutCard> {
+  late final Future<PackageInfo> _info = PackageInfo.fromPlatform();
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final colors = AppThemeColors.of(context);
+    return AppCard(
+      title: l10n.aboutTitle,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(l10n.appTitle, style: AppText.body.copyWith(color: colors.ink)),
+          FutureBuilder<PackageInfo>(
+            future: _info,
+            builder: (context, snapshot) => Text(
+              '${l10n.aboutVersion}: ${snapshot.data?.version ?? '--'}',
+              style: AppText.body.copyWith(color: colors.ink),
+            ),
+          ),
+          const SizedBox(height: AppSpacing.x1),
+          Text(
+            l10n.aboutDeveloper,
+            style: AppText.label.copyWith(color: colors.inkMuted),
+          ),
+          Text(
+            l10n.aboutOrigin,
+            style: AppText.label.copyWith(color: colors.inkMuted),
+          ),
+        ],
+      ),
+    );
   }
 }

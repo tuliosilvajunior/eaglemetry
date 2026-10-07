@@ -561,5 +561,9 @@
   "syncPending": "Faltan enviar {count} ediciones de este teléfono.",
   "syncNothingPending": "Nada espera para enviarse.",
   "syncAutoNote": "La sincronización corre sola cada 10 minutos con la app abierta. Este botón es temporal: fuerza la sincronización ahora.",
-  "syncLastRunTitle": "Última sincronización"
+  "syncLastRunTitle": "Última sincronización",
+  "aboutTitle": "Acerca de",
+  "aboutVersion": "Versión",
+  "aboutDeveloper": "Desarrollado por @tuliosilvajunior",
+  "aboutOrigin": "Basado en Capy Energy de Timoteo Sousa (@timhss). Licencia Apache 2.0."
 }

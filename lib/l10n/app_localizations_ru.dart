@@ -1320,7 +1320,8 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get settingsAboutTagline => 'Сделано с любовью и кофе';
+  String get settingsAboutTagline =>
+      'На основе Capy Energy, автор Timoteo Sousa (@timhss). Лицензия Apache 2.0.';
 
   @override
   String get settingsAppShellTitle => 'Интерфейс приложения';

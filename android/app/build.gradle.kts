@@ -7,6 +7,8 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+val emulatorBuild = System.getenv("EAGLEMETRY_EMULATOR") == "true"
+
 val supabaseFunctionsUrl: String by lazy {
     val props = Properties()
     val localPropsFile = rootProject.file("local.properties")
@@ -46,11 +48,9 @@ val supabaseAnonKey: String by lazy {
     fromLocal ?: fromGradle ?: fromEnv ?: ""
 }
 
-// Update channel (self-update manifest URLs). Both default to empty, which
-// disables the channel with a clear error instead of phoning a repository
-// that is not yours. Sourced like the other keys: local.properties →
-// gradle property → env → "". Publish your own manifests (see
-// scripts/create_release_manifest.sh) and point these at them.
+// Update channel (self-update manifest URL). Local and CI settings can still
+// override this value, while the public Eaglemetry release channel is the
+// safe default for signed production builds.
 val appUpdateManifestUrl: String by lazy {
     val props = Properties()
     val localPropsFile = rootProject.file("local.properties")
@@ -60,7 +60,8 @@ val appUpdateManifestUrl: String by lazy {
     val fromLocal = props.getProperty("APP_UPDATE_MANIFEST_URL")
     val fromGradle = findProperty("APP_UPDATE_MANIFEST_URL") as String?
     val fromEnv = System.getenv("APP_UPDATE_MANIFEST_URL")
-    fromLocal ?: fromGradle ?: fromEnv ?: ""
+    fromLocal ?: fromGradle ?: fromEnv ?:
+        "https://github.com/tuliosilvajunior/eaglemetry-releases/releases/latest/download/latest.json"
 }
 
 val chargeControlManifestUrl: String by lazy {
@@ -174,6 +175,10 @@ android {
         }
     }
 
+    if (emulatorBuild) {
+        sourceSets.getByName("debug").manifest.srcFile("src/emulator/AndroidManifest.xml")
+    }
+
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("platformRelease")
@@ -190,7 +195,12 @@ android {
         // non-signing tasks still configure successfully — the release build
         // will still fail with an actionable message (see below).
         debug {
-            signingConfig = if (platformKeystoreFile.exists()) {
+            if (emulatorBuild) {
+                applicationIdSuffix = ".emulator"
+                buildConfigField("boolean", "CLOUD_SYNC_ENABLED", "false")
+                versionNameSuffix = "-debug"
+            }
+            signingConfig = if (!emulatorBuild && platformKeystoreFile.exists()) {
                 signingConfigs.getByName("platformRelease")
             } else {
                 signingConfigs.getByName("debug")

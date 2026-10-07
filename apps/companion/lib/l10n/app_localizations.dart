@@ -2201,6 +2201,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last sync'**
   String get syncLastRunTitle;
+
+  /// No description provided for @aboutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get aboutVersion;
+
+  /// No description provided for @aboutDeveloper.
+  ///
+  /// In en, this message translates to:
+  /// **'Developed by @tuliosilvajunior'**
+  String get aboutDeveloper;
+
+  /// No description provided for @aboutOrigin.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on Capy Energy by Timoteo Sousa (@timhss). Apache License 2.0.'**
+  String get aboutOrigin;
 }
 
 class _AppLocalizationsDelegate

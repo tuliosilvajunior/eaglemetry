@@ -405,5 +405,9 @@
   "syncPending": "{count} edições deste celular ainda faltam enviar.",
   "syncNothingPending": "Nada está esperando para ser enviado.",
   "syncAutoNote": "O sync roda sozinho a cada 10 minutos com o app aberto. Este botão é temporário: ele força o sync agora.",
-  "syncLastRunTitle": "Último sync"
+  "syncLastRunTitle": "Último sync",
+  "aboutTitle": "Sobre",
+  "aboutVersion": "Versão",
+  "aboutDeveloper": "Desenvolvido por @tuliosilvajunior",
+  "aboutOrigin": "Baseado no Capy Energy de Timoteo Sousa (@timhss). Licença Apache 2.0."
 }

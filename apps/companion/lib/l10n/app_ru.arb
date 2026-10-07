@@ -405,5 +405,9 @@
   "syncPending": "Ещё не отправлено ваших правок: {count}.",
   "syncNothingPending": "Отправлять нечего.",
   "syncAutoNote": "Синхронизация идёт сама каждые 10 минут, пока приложение открыто. Эта кнопка временная: она запускает синхронизацию сейчас.",
-  "syncLastRunTitle": "Последняя синхронизация"
+  "syncLastRunTitle": "Последняя синхронизация",
+  "aboutTitle": "О приложении",
+  "aboutVersion": "Версия",
+  "aboutDeveloper": "Разработчик: @tuliosilvajunior",
+  "aboutOrigin": "На основе Capy Energy, автор Timoteo Sousa (@timhss). Лицензия Apache 2.0."
 }
