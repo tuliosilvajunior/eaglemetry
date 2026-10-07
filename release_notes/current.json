@@ -1,6 +1,6 @@
 {
   "en": [
-    "Both apps show the Eaglemetry name. About includes the original Capy Energy credits and Apache 2.0 license.",
+    "Both apps and public releases use the Eaglemetry name. About includes the original Capy Energy credits and Apache 2.0 license.",
     "Eaglemetry and Eaglemetry Companion now show the new eagle icon. Trip and charge times stay correct when the car clock jumps. Energy charts show the real recorded minutes.",
     "While the car waits for the real time, sessions show a 'time not synced' mark. The app does not delete them early.",
     "Trips recorded before the time sync show bars in driving order on the car and on the phone.",
@@ -14,7 +14,7 @@
     "The car app has an optional offline emulator build for testing screens without the vehicle system signature. Registered cars can now create a pairing code."
   ],
   "pt": [
-    "Os dois apps mostram o nome Eaglemetry. Sobre inclui os créditos originais do Capy Energy e a licença Apache 2.0.",
+    "Os dois apps e as publicações usam o nome Eaglemetry. Sobre inclui os créditos originais do Capy Energy e a licença Apache 2.0.",
     "Eaglemetry e Eaglemetry Companion agora exibem o novo ícone de águia. Os horários de viagem e recarga ficam corretos quando o relógio do carro salta. Os gráficos de energia mostram os minutos reais gravados.",
     "Enquanto o carro aguarda a hora real, as sessões mostram 'hora não sincronizada'. O app não apaga essas sessões antes da hora.",
     "Viagens gravadas antes da sincronização da hora mostram as barras na ordem em que você dirigiu, no carro e no celular.",
@@ -28,7 +28,7 @@
     "O app do carro tem uma versão opcional para testar telas no emulador, sem nuvem e sem a assinatura de sistema do veículo. Carros registrados agora podem criar um código de pareamento."
   ],
   "ru": [
-    "Оба приложения показывают название Eaglemetry. В разделе о приложении указаны автор Capy Energy и лицензия Apache 2.0.",
+    "Оба приложения и публикации используют название Eaglemetry. В разделе о приложении указаны автор Capy Energy и лицензия Apache 2.0.",
     "Eaglemetry и Eaglemetry Companion теперь показывают новый значок орла. Время поездок и зарядок остаётся верным при скачке часов автомобиля. Графики энергии показывают реально записанные минуты.",
     "Пока автомобиль ждёт точное время, сессии помечены как «время не синхронизировано». Приложение не удаляет их раньше срока.",
     "Поездки, записанные до синхронизации времени, показывают столбцы в порядке движения на автомобиле и на телефоне.",

@@ -31,7 +31,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: capy-release
+  group: eaglemetry-release
   cancel-in-progress: false
 
 env:
@@ -264,7 +264,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p dist
-          asset_name="capy-v$VERSION.apk"
+          asset_name="eaglemetry-v$VERSION.apk"
           cp build/app/outputs/flutter-apk/app-release.apk "dist/$asset_name"
           manifest_args=( \
             "dist/$asset_name" \
@@ -287,12 +287,12 @@ jobs:
           TAG: ${{ steps.version.outputs.tag }}
         run: |
           set -euo pipefail
-          notes="Signed Android arm64 APK for Capy Energy v$VERSION (versionCode $BUILD_NUMBER)."
+          notes="Signed Android arm64 APK for Eaglemetry v$VERSION (versionCode $BUILD_NUMBER)."
           if [[ -f release_notes/current.json ]]; then
             notes=$(jq -r \
               --arg version "$VERSION" \
               --arg build "$BUILD_NUMBER" \
-              '"Signed Android arm64 APK for Capy Energy v\($version) " +
+              '"Signed Android arm64 APK for Eaglemetry v\($version) " +
                "(versionCode \($build)).\n\n" +
                (.en | map("- " + .) | join("\n"))' \
               release_notes/current.json)
@@ -301,21 +301,21 @@ jobs:
             gh release upload "$TAG" \
               --repo "$PUBLIC_RELEASE_REPOSITORY" \
               --clobber \
-              "dist/capy-v$VERSION.apk" \
+              "dist/eaglemetry-v$VERSION.apk" \
               dist/latest.json
             gh release edit "$TAG" \
               --repo "$PUBLIC_RELEASE_REPOSITORY" \
-              --title "Capy Energy v$VERSION" \
+              --title "Eaglemetry v$VERSION" \
               --notes "$notes" \
               --latest
           else
             gh release create "$TAG" \
               --repo "$PUBLIC_RELEASE_REPOSITORY" \
               --target main \
-              --title "Capy Energy v$VERSION" \
+              --title "Eaglemetry v$VERSION" \
               --notes "$notes" \
               --latest \
-              "dist/capy-v$VERSION.apk" \
+              "dist/eaglemetry-v$VERSION.apk" \
               dist/latest.json
           fi
 
