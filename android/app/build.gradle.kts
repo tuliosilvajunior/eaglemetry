@@ -48,11 +48,9 @@ val supabaseAnonKey: String by lazy {
     fromLocal ?: fromGradle ?: fromEnv ?: ""
 }
 
-// Update channel (self-update manifest URLs). Both default to empty, which
-// disables the channel with a clear error instead of phoning a repository
-// that is not yours. Sourced like the other keys: local.properties →
-// gradle property → env → "". Publish your own manifests (see
-// scripts/create_release_manifest.sh) and point these at them.
+// Update channel (self-update manifest URL). Local and CI settings can still
+// override this value, while the public Eaglemetry release channel is the
+// safe default for signed production builds.
 val appUpdateManifestUrl: String by lazy {
     val props = Properties()
     val localPropsFile = rootProject.file("local.properties")
@@ -62,7 +60,8 @@ val appUpdateManifestUrl: String by lazy {
     val fromLocal = props.getProperty("APP_UPDATE_MANIFEST_URL")
     val fromGradle = findProperty("APP_UPDATE_MANIFEST_URL") as String?
     val fromEnv = System.getenv("APP_UPDATE_MANIFEST_URL")
-    fromLocal ?: fromGradle ?: fromEnv ?: ""
+    fromLocal ?: fromGradle ?: fromEnv ?:
+        "https://github.com/tuliosilvajunior/eaglemetry-releases/releases/latest/download/latest.json"
 }
 
 val chargeControlManifestUrl: String by lazy {

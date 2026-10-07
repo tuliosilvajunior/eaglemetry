@@ -36,14 +36,15 @@ between the two matters. No Roadcast binary was changed in this work.
 
 ## Before enabling Eaglemetry internet releases
 
-The checked-in release workflow still needs configuration. Do not treat a source
-push or PR merge as proof that the vehicle update channel is ready.
+The checked-in release workflow now targets `tuliosilvajunior/eaglemetry-releases`.
+Do not treat a source push or PR merge as proof that the vehicle update channel
+is ready until the secrets and one real release are verified.
 
-1. Choose the actual repository that will host APKs and `latest.json`. The
-   workflow currently has `PUBLIC_RELEASE_REPOSITORY: example/capy_releases`.
-2. Wire the app's public manifest URL into release builds. Preserve the native
-   Supabase URL, anon/publishable key and functions URL, with cloud sync enabled.
-   The workflow currently does not provide these build settings.
+1. Verify that `tuliosilvajunior/eaglemetry-releases` is public and can receive
+   releases from the source workflow.
+2. The app now defaults to the `latest.json` asset in that repository. Preserve
+   the native Supabase URL, anon/publishable key and functions URL, with cloud
+   sync enabled.
 3. Verify signing and publication secrets in GitHub Actions. Their presence and
    validity were not established by the local release test.
 4. Keep Android version codes monotonic. The car already has 715. The workflow
