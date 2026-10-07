@@ -9,7 +9,8 @@ name: Build and publish release
 #   - "feat:"                    -> minor
 #   - everything else            -> patch
 #
-# The Android versionCode is the source repository's total commit count.
+# The Android versionCode is based on the source repository's commit count,
+# offset above the highest version already installed on the validation car.
 
 on:
   push:
@@ -147,7 +148,10 @@ jobs:
           esac
 
           next="$major.$minor.$patch"
-          build=$(git rev-list --count HEAD)
+          # The validation car already has versionCode 715. Keep every public
+          # release strictly above it even though this imported repository has
+          # a shorter history than the original source repository.
+          build=$((715 + $(git rev-list --count HEAD)))
           {
             echo "next=$next"
             echo "build=$build"

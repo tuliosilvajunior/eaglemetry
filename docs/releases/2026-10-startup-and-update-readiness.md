@@ -48,9 +48,9 @@ is ready until the secrets and one real release are verified.
 3. Verify signing and publication secrets in GitHub Actions. Their presence and
    validity were not established by the local release test.
 4. Keep Android version codes monotonic. The car already has 715. The workflow
-   currently derives the next code from Git commit count; this repository has
-   much less history than that imported version. Use a policy that guarantees a
-   value above installed and previously published codes before a release.
+   derives the next code from Git commit count with a 715 baseline, so the
+   first public release is above the installed build even though this imported
+   repository has much less history than the original source repository.
 5. Build the public channel without the local `-debug` version-name marker.
    Keep Flutter release mode, the same signing identity and a compatible schema.
 6. Validate APK and manifest as draft assets before publishing them to the
