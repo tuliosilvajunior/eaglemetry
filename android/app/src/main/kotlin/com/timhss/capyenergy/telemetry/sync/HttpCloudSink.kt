@@ -71,8 +71,21 @@ class HttpCloudSink(
         if (rows.isEmpty()) return
         withContext(Dispatchers.IO) {
             val url = restUrl(table, conflictColumns, merge)
-            val payload = buildPayload(rows, stripNulls = table !in preserveNullsTables)
-            request("POST", url, payload, merge)
+            val stripNulls = table !in preserveNullsTables
+            // PostgREST requires identical keys in every object of one batch.
+            // Keep omitted fields omitted: filling them with null could erase
+            // existing cloud values. Consecutive groups preserve write order.
+            val prepared = rows.map { row ->
+                if (stripNulls) row.filterValues { it != null } else row
+            }
+            var start = 0
+            while (start < prepared.size) {
+                val keys = prepared[start].keys
+                var end = start + 1
+                while (end < prepared.size && prepared[end].keys == keys) end++
+                request("POST", url, buildPayload(prepared.subList(start, end), stripNulls = false), merge)
+                start = end
+            }
         }
     }
 
