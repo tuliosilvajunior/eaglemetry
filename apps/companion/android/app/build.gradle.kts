@@ -25,11 +25,37 @@ android {
         versionName = flutter.versionName
     }
 
+    // CI beta builds use a persistent signing key so Android can install a
+    // new Firebase-distributed APK over the previous one. Local release builds
+    // keep using the debug key unless these environment values are present.
+    val companionKeystorePath = System.getenv("COMPANION_KEYSTORE_PATH")
+    val companionKeystorePassword = System.getenv("COMPANION_KEYSTORE_PASSWORD")
+    val companionKeyAlias = System.getenv("COMPANION_KEY_ALIAS")
+    val companionKeyPassword = System.getenv("COMPANION_KEY_PASSWORD")
+    val hasCompanionSigningKey = listOf(
+        companionKeystorePath,
+        companionKeystorePassword,
+        companionKeyAlias,
+        companionKeyPassword
+    ).all { !it.isNullOrBlank() }
+
+    if (hasCompanionSigningKey) {
+        signingConfigs.create("companionRelease") {
+            storeFile = file(requireNotNull(companionKeystorePath))
+            storePassword = requireNotNull(companionKeystorePassword)
+            keyAlias = requireNotNull(companionKeyAlias)
+            keyPassword = requireNotNull(companionKeyPassword)
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = if (hasCompanionSigningKey) {
+                signingConfigs.getByName("companionRelease")
+            } else {
+                // Keep local `flutter run --release` usable without secrets.
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }
