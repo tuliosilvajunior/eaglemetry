@@ -143,7 +143,7 @@ jobs:
             --build-number="$build_number" \
             --dart-define="SUPABASE_URL=$SUPABASE_URL" \
             --dart-define="SUPABASE_PUBLISHABLE_KEY=$SUPABASE_ANON_KEY"
-          apk="$(find ../build build -path '*/outputs/flutter-apk/app-release.apk' -print -quit)"
+          apk="$(find build -path '*/outputs/flutter-apk/app-release.apk' -print -quit)"
           [[ -n "$apk" && -f "$apk" ]] || {
             echo "Companion APK was not found after the build" >&2
             exit 1
