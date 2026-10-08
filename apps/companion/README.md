@@ -68,6 +68,43 @@ flutter build apk --release \
   --dart-define=COMPANION_DIRECT_APK_URL=https://example.com/companion.apk
 ```
 
+## Android beta distribution
+
+The `Distribute Companion beta` GitHub Actions workflow builds a signed
+arm64 APK and sends it to Firebase App Distribution. Run it manually from
+the `main` branch. The Firebase app ID is read from
+`android/app/google-services.json`; the package name must stay
+`com.timhss.capyenergy.companion`.
+
+Before the first run, configure these repository Actions secrets:
+
+- `COMPANION_KEYSTORE_BASE64`
+- `COMPANION_KEYSTORE_PASSWORD`
+- `COMPANION_KEY_ALIAS`
+- `COMPANION_KEY_PASSWORD`
+- `COMPANION_GOOGLE_SERVICES_JSON` (the complete Firebase `google-services.json` file)
+- `SUPABASE_URL`
+- `SUPABASE_ANON_KEY`
+
+Configure these repository Actions variables for keyless Google Cloud
+authentication:
+
+- `FIREBASE_WIF_PROVIDER` (full Workload Identity Provider resource name)
+- `FIREBASE_DISTRIBUTION_SERVICE_ACCOUNT` (service-account email)
+
+The service account needs the Firebase App Distribution Admin role. The
+workflow authenticates through GitHub OIDC and Workload Identity Federation,
+so it does not store a long-lived Google private key. Restrict the provider to
+this repository and the `main` branch. Create the tester group in Firebase
+App Distribution first, then enter its alias when you run the workflow. Keep
+the Companion keystore safe and reuse the same key for every beta build.
+Android will reject an update signed with a different key; do not uninstall
+an existing Companion app to work around a signature mismatch, because that
+can delete local app data.
+
+The workflow is manual. It does not publish a production release and does
+not change the car app release workflow.
+
 ## Test
 
 ```bash

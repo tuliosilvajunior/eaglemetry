@@ -1,0 +1,187 @@
+name: Distribute Companion beta
+
+on:
+  workflow_dispatch:
+    inputs:
+      tester_group:
+        description: Firebase App Distribution tester group alias
+        required: true
+        default: beta-testers
+        type: string
+      release_notes:
+        description: Notes shown to testers
+        required: false
+        default: Eaglemetry Companion beta build
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: companion-beta
+  cancel-in-progress: false
+
+env:
+  FLUTTER_VERSION: 3.44.6
+  ANDROID_NDK_VERSION: 28.2.13676358
+  ROADCAST_API: '28'
+  ROADCAST_REF: e3505bd7c2736799db1a6645632b4331bdb8d756
+
+jobs:
+  build-and-distribute:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate distribution secrets
+        env:
+          COMPANION_KEYSTORE_BASE64: ${{ secrets.COMPANION_KEYSTORE_BASE64 }}
+          COMPANION_KEYSTORE_PASSWORD: ${{ secrets.COMPANION_KEYSTORE_PASSWORD }}
+          COMPANION_KEY_ALIAS: ${{ secrets.COMPANION_KEY_ALIAS }}
+          COMPANION_KEY_PASSWORD: ${{ secrets.COMPANION_KEY_PASSWORD }}
+          COMPANION_GOOGLE_SERVICES_JSON: ${{ secrets.COMPANION_GOOGLE_SERVICES_JSON }}
+          FIREBASE_WIF_PROVIDER: ${{ vars.FIREBASE_WIF_PROVIDER }}
+          FIREBASE_DISTRIBUTION_SERVICE_ACCOUNT: ${{ vars.FIREBASE_DISTRIBUTION_SERVICE_ACCOUNT }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          missing=()
+          for name in \
+            COMPANION_KEYSTORE_BASE64 \
+            COMPANION_KEYSTORE_PASSWORD \
+            COMPANION_KEY_ALIAS \
+            COMPANION_KEY_PASSWORD \
+            COMPANION_GOOGLE_SERVICES_JSON \
+            FIREBASE_WIF_PROVIDER \
+            FIREBASE_DISTRIBUTION_SERVICE_ACCOUNT \
+            SUPABASE_URL \
+            SUPABASE_ANON_KEY
+          do
+            if [[ -z "${!name:-}" ]]; then
+              missing+=("$name")
+            fi
+          done
+          if (( ${#missing[@]} > 0 )); then
+            echo "Missing required repository secrets: ${missing[*]}" >&2
+            exit 1
+          fi
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Set up Android NDK for Roadcast
+        uses: android-actions/setup-android@40fd30fb8d7440372e1316f5d1809ec01dcd3699
+        with:
+          packages: ndk;${{ env.ANDROID_NDK_VERSION }}
+
+      - name: Build Roadcast Android binaries
+        run: |
+          set -euo pipefail
+          roadcast_root="$RUNNER_TEMP/roadcast"
+          git clone https://github.com/Timoteohss/roadcast "$roadcast_root"
+          git -C "$roadcast_root" checkout --detach "$ROADCAST_REF"
+          export ANDROID_NDK="$ANDROID_SDK_ROOT/ndk/$ANDROID_NDK_VERSION"
+          (
+            cd "$roadcast_root"
+            scripts/build-libuv-android.sh
+            make android
+          )
+          scripts/update_roadcast_client.sh --roadcast-root "$roadcast_root" --api "$ROADCAST_API"
+          test -f android/app/src/main/jniLibs/arm64-v8a/libroadcast_client.so
+          test -x android/app/src/main/assets/roadcastd
+
+      - name: Restore Companion signing key
+        env:
+          COMPANION_KEYSTORE_BASE64: ${{ secrets.COMPANION_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$COMPANION_KEYSTORE_BASE64" \
+            | base64 --decode > "$RUNNER_TEMP/companion-release.jks"
+          chmod 600 "$RUNNER_TEMP/companion-release.jks"
+
+      - name: Restore Firebase app configuration
+        env:
+          COMPANION_GOOGLE_SERVICES_JSON: ${{ secrets.COMPANION_GOOGLE_SERVICES_JSON }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$COMPANION_GOOGLE_SERVICES_JSON" \
+            > apps/companion/android/app/google-services.json
+          jq -e '.client[] | select(.client_info.android_client_info.package_name == "com.timhss.capyenergy.companion")' \
+            apps/companion/android/app/google-services.json >/dev/null
+
+      - name: Build signed Android APK
+        env:
+          COMPANION_KEYSTORE_PATH: ${{ runner.temp }}/companion-release.jks
+          COMPANION_KEYSTORE_PASSWORD: ${{ secrets.COMPANION_KEYSTORE_PASSWORD }}
+          COMPANION_KEY_ALIAS: ${{ secrets.COMPANION_KEY_ALIAS }}
+          COMPANION_KEY_PASSWORD: ${{ secrets.COMPANION_KEY_PASSWORD }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+        run: |
+          set -euo pipefail
+          flutter pub get
+          version="$(sed -n 's/^version: \([0-9.]*\)+.*/\1/p' apps/companion/pubspec.yaml)"
+          [[ -n "$version" ]] || { echo "Companion version is missing" >&2; exit 1; }
+          build_number=$((1000 + GITHUB_RUN_NUMBER))
+          printf 'Building Eaglemetry Companion %s+%s\n' "$version" "$build_number"
+          cd apps/companion
+          flutter build apk --release --target-platform android-arm64 \
+            --build-name="$version" \
+            --build-number="$build_number" \
+            --dart-define="SUPABASE_URL=$SUPABASE_URL" \
+            --dart-define="SUPABASE_PUBLISHABLE_KEY=$SUPABASE_ANON_KEY"
+          apk="$(find ../build build -path '*/outputs/flutter-apk/app-release.apk' -print -quit)"
+          [[ -n "$apk" && -f "$apk" ]] || {
+            echo "Companion APK was not found after the build" >&2
+            exit 1
+          }
+          mkdir -p "$RUNNER_TEMP/companion-dist"
+          cp "$apk" "$RUNNER_TEMP/companion-dist/eaglemetry-companion.apk"
+
+      - name: Save APK as workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: eaglemetry-companion-beta
+          path: ${{ runner.temp }}/companion-dist/eaglemetry-companion.apk
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.FIREBASE_WIF_PROVIDER }}
+          service_account: ${{ vars.FIREBASE_DISTRIBUTION_SERVICE_ACCOUNT }}
+          create_credentials_file: true
+
+      - name: Distribute with Firebase App Distribution
+        env:
+          TESTER_GROUP: ${{ inputs.tester_group }}
+          RELEASE_NOTES: ${{ inputs.release_notes }}
+        run: |
+          set -euo pipefail
+          app_id="$(jq -r '.client[] | select(.client_info.android_client_info.package_name == "com.timhss.capyenergy.companion") | .client_info.mobilesdk_app_id' apps/companion/android/app/google-services.json | head -n 1)"
+          [[ "$app_id" =~ ^1:[0-9]+:android:[[:xdigit:]]+$ ]] || {
+            echo "Firebase App ID for the Companion package is missing" >&2
+            exit 1
+          }
+          [[ -n "$TESTER_GROUP" ]] || { echo "A tester group is required" >&2; exit 1; }
+          printf '%s\n' "$RELEASE_NOTES" > "$RUNNER_TEMP/release-notes.txt"
+          npm install --global firebase-tools
+          firebase appdistribution:distribute \
+            "$RUNNER_TEMP/companion-dist/eaglemetry-companion.apk" \
+            --app "$app_id" \
+            --groups "$TESTER_GROUP" \
+            --release-notes-file "$RUNNER_TEMP/release-notes.txt"
