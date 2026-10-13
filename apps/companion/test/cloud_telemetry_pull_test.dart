@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:capy_companion/runtime/companion_runtime.dart';
 import 'package:capy_companion/sync/annotation_cloud_sync.dart';
 import 'package:capy_companion/sync/cloud_telemetry_pull.dart';
@@ -158,6 +160,21 @@ void main() {
       expect(await archive.database.countSessions(), 0);
     });
 
+    test('a cloud request timeout returns a failed report', () async {
+      final archive = await memoryArchive();
+      final pull = CloudTelemetryPull(
+        archive: archive,
+        sink: _HangingCloudSink(),
+        accountId: 'acct-1',
+        requestTimeout: const Duration(milliseconds: 10),
+      );
+
+      final report = await pull.pull();
+
+      expect(report.status, SyncRunStatus.failed);
+      expect(report.error, isA<TimeoutException>());
+    });
+
     test('pagination works — more than one page', () async {
       final archive = await memoryArchive();
       // 2500 sessions, pageSize is 1000, so 3 pages.
@@ -227,6 +244,25 @@ void main() {
       await controller.runNow();
       expect(controller.lastReport?.status, SyncRunStatus.failed);
     });
+
+    test('a timed out pull releases the manual sync button', () async {
+      final archive = await memoryArchive();
+      final pull = CloudTelemetryPull(
+        archive: archive,
+        sink: _HangingCloudSink(),
+        accountId: 'acct-1',
+        requestTimeout: const Duration(milliseconds: 10),
+      );
+      final controller = SyncController(
+        car: _FakeRuntime(archive: archive),
+        runner: ({onProgress}) => pull.pull(onProgress: onProgress),
+      );
+
+      await controller.runNow();
+
+      expect(controller.lastReport?.status, SyncRunStatus.failed);
+      expect(controller.busy, isFalse);
+    });
   });
 
   group('CompanionDatabase cloud dirty flag', () {
@@ -269,6 +305,30 @@ void main() {
       expect(await db.countDirtyRows(), 1);
     });
   });
+}
+
+class _HangingCloudSink implements CloudSink {
+  @override
+  Future<void> upsert(
+    String table,
+    List<Map<String, Object?>> rows, {
+    required List<String> conflictColumns,
+    required bool merge,
+  }) async {}
+
+  @override
+  Future<Set<String>> ownedVehicles(Set<String> ids) async => ids;
+
+  @override
+  Future<List<Map<String, Object?>>> fetch(String table) async =>
+      Completer<List<Map<String, Object?>>>().future;
+
+  @override
+  Future<List<Map<String, Object?>>> fetchRange(
+    String table, {
+    required int offset,
+    required int limit,
+  }) => Completer<List<Map<String, Object?>>>().future;
 }
 
 class _FakeRuntime implements CarLink {

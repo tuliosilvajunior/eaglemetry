@@ -27,11 +27,17 @@ class CloudTelemetryPull {
     required this.archive,
     required this.sink,
     required this.accountId,
+    this.requestTimeout = const Duration(seconds: 30),
   });
 
   final CompanionArchive archive;
   final CloudSink sink;
   final String accountId;
+
+  /// A mobile request that never completes must not keep the sync screen
+  /// busy forever. Each page gets its own deadline so large histories can
+  /// still finish over a slower connection.
+  final Duration requestTimeout;
 
   /// How many rows one cloud page fetches.
   static const pageSize = 1000;
@@ -180,7 +186,9 @@ class CloudTelemetryPull {
     String table, {
     required int offset,
     required int limit,
-  }) => sink.fetchRange(table, offset: offset, limit: limit);
+  }) => sink
+      .fetchRange(table, offset: offset, limit: limit)
+      .timeout(requestTimeout);
 
   /// `snake_case` row from PostgREST → `camelCase` wire map the archive expects.
   Map<String, Object?> _toCamel(Map<String, Object?> snake) {

@@ -9,8 +9,8 @@
     "Cars that are not linked yet stop uploading, and cars linked again keep every trip. The cloud keeps only linked cars' history.",
     "Local cloud test builds now open faster on the car by using the optimized release mode.",
     "A car cannot read the charging preferences of a different account on the same vehicle.",
-    "If the car is not paired, FORCE SYNC tells you to pair it first. FORCE SYNC now reports cloud upload failures, including authentication errors, even when some records were sent.",
-    "The car and the phone show how much of your history is in the cloud, how much is still to send, and what waits for the car clock. A dot shows live values.",
+    "If the car is not paired, FORCE SYNC asks you to pair it. It reports cloud upload errors, including authentication errors, and ends a pull with no response after 30 seconds for retry.",
+    "The phone shows cloud progress, records still to send, and what waits for the car clock.",
     "The car app has an optional offline emulator build for testing screens without the vehicle system signature. Registered cars can now create a pairing code."
   ],
   "pt": [
@@ -24,7 +24,7 @@
     "As versões locais para testar o sync agora abrem mais rápido no carro com o modo release otimizado.",
     "Um carro não consegue ler as preferências de carga de outra conta no mesmo veículo.",
     "Viagens e rotas registram a conta dona delas.",
-    "Se o carro não estiver pareado, FORÇAR SYNC avisa para parear primeiro. FORÇAR SYNC agora mostra falhas no envio à nuvem, inclusive erros de autenticação, mesmo quando alguns registros foram enviados.",
+    "Se o carro não estiver pareado, FORÇAR SYNC pede o pareamento. Ele mostra falhas de upload, inclusive de autenticação, e encerra consultas sem resposta após 30 segundos para tentar de novo.",
     "O app do carro tem uma versão opcional para testar telas no emulador, sem nuvem e sem a assinatura de sistema do veículo. Carros registrados agora podem criar um código de pareamento."
   ],
   "ru": [
@@ -38,7 +38,7 @@
     "Автомобили без привязки не выгружают данные; привяжите аккаунт, чтобы сохранить поездки.",
     "Автомобиль не может читать настройки зарядки другого аккаунта на том же автомобиле.",
     "Поездки и маршруты записывают аккаунт, которому они принадлежат.",
-    "Если автомобиль не сопряжён, ФОРСИРОВАТЬ SYNC предложит сначала выполнить сопряжение. ФОРСИРОВАТЬ SYNC теперь сообщает об ошибках выгрузки, включая ошибки авторизации, даже если часть записей отправлена.",
+    "Если автомобиль не сопряжён, ФОРСИРОВАТЬ SYNC предложит сначала выполнить сопряжение. Он сообщает об ошибках загрузки, включая авторизацию, и завершает запрос без ответа через 30 секунд для повтора.",
     "Приложение автомобиля можно собрать для проверки экранов в эмуляторе без облака и системной подписи автомобиля. Зарегистрированные автомобили теперь могут создать код сопряжения."
   ]
 }
