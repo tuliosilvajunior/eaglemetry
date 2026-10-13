@@ -117,7 +117,7 @@ interface IntervalDao {
     @Query("UPDATE `interval` SET dirty = 1")
     fun markAllDirty(): Int
 
-    @Query("UPDATE `interval` SET timeState = 'uncorrectable' WHERE timeState = 'pending' AND sessionId IN (SELECT id FROM session WHERE status = 'ENDED')")
+    @Query("UPDATE `interval` SET timeState = 'uncorrectable' WHERE timeState = 'pending' AND sessionId IN (SELECT id FROM session WHERE status IN ('ENDED', 'DISCONNECTED'))")
     fun promoteEndedPendingToUncorrectable(): Int
 
 

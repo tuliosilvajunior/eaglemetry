@@ -33,6 +33,34 @@ class SessionTimeAuthorityConsumerJvmTest {
     private val realNow = 1_786_000_000_000L // inside the healthy 2026 window
     private val dayMillis = 86_400_000L
 
+    @Test
+    fun `disconnected completed sessions promote pending session and interval rows`() {
+        execute { s, _ ->
+            seedSession(
+                s, "charge-disconnected", "pending", realNow,
+                endedAgoDays = 1, kind = "CHARGE", status = "DISCONNECTED", dirty = 1
+            )
+            seedSession(
+                s, "charge-still-connected", "pending", realNow,
+                endedAgoDays = 1, kind = "CHARGE", status = "ENDED_WAITING_DISCONNECT", dirty = 1
+            )
+            seedInterval(s, "charge-disconnected", 10_000L, "pending")
+            seedInterval(s, "charge-still-connected", 20_000L, "pending")
+
+            val sessionDao = readDao("SessionDao.kt")
+            val intervalDao = readDao("IntervalDao.kt")
+            val sessionChanges = s.executeUpdate(queryFrom(sessionDao, "promoteEndedPendingToUncorrectable"))
+            val intervalChanges = s.executeUpdate(queryFrom(intervalDao, "promoteEndedPendingToUncorrectable"))
+
+            assertEquals(1, sessionChanges)
+            assertEquals(1, intervalChanges)
+            assertEquals("uncorrectable", timeState(s, "session", "charge-disconnected"))
+            assertEquals("pending", timeState(s, "session", "charge-still-connected"))
+            assertEquals("uncorrectable", intervalTimeState(s, "charge-disconnected", 10_000L))
+            assertEquals("pending", intervalTimeState(s, "charge-still-connected", 20_000L))
+        }
+    }
+
     private val schemaDir = File(
         "android/app/schemas/com.timhss.capyenergy.telemetry.db.TelemetryDatabase"
     ).let { if (it.isDirectory) it else File("schemas/com.timhss.capyenergy.telemetry.db.TelemetryDatabase") }
@@ -303,6 +331,10 @@ class SessionTimeAuthorityConsumerJvmTest {
 
     private fun queryFor(sessionDao: String, intervalDao: String, method: String): String {
         val src = if (method == "dirtyIntervals" || method == "dirtyIntervalCount") intervalDao else sessionDao
+        return queryFrom(src, method)
+    }
+
+    private fun queryFrom(src: String, method: String): String {
         // The @Query directly above `fun <method>(`: adjacent Kotlin string
         // literals joined with `+`, exactly as Room compiles them.
         val sig = src.lines().first { it.contains("fun $method(") }
@@ -339,14 +371,16 @@ class SessionTimeAuthorityConsumerJvmTest {
         timeState: String,
         endedAt: Long,
         endedAgoDays: Long,
-        kind: String = "PARKED"
+        kind: String = "PARKED",
+        status: String = "ENDED",
+        dirty: Int = 0
     ) {
         val updated = realNow - endedAgoDays * dayMillis
         s.execute(
             "INSERT INTO `session` " +
                 "(`id`, `vehicleId`, `kind`, `status`, `startedAtUtcMillis`, `startedAtElapsedNanos`, " +
                 "`endedAtUtcMillis`, `createdAtUtcMillis`, `updatedAtUtcMillis`, `dirty`, `timeState`) VALUES " +
-                "('$id', 'car', '$kind', 'ENDED', $endedAt, 100, $endedAt, $updated, $updated, 0, '$timeState')"
+                "('$id', 'car', '$kind', '$status', $endedAt, 100, $endedAt, $updated, $updated, $dirty, '$timeState')"
         )
     }
 
@@ -361,6 +395,19 @@ class SessionTimeAuthorityConsumerJvmTest {
     private fun exists(s: Statement, id: String): Boolean =
         s.executeQuery("SELECT COUNT(*) FROM `session` WHERE `id` = '$id'").use { rs ->
             rs.next(); rs.getLong(1) > 0
+        }
+
+    private fun timeState(s: Statement, table: String, id: String): String =
+        s.executeQuery("SELECT `timeState` FROM `$table` WHERE `id` = '$id'").use { rs ->
+            rs.next(); rs.getString(1)
+        }
+
+    private fun intervalTimeState(s: Statement, sessionId: String, start: Long): String =
+        s.executeQuery(
+            "SELECT `timeState` FROM `interval` WHERE `sessionId` = '$sessionId' AND `startUtcMillis` = $start"
+        ).use { rs ->
+            rs.next()
+            rs.getString(1)
         }
 
     private fun readDao(name: String): String {
