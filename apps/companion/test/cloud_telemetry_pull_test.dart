@@ -263,6 +263,27 @@ void main() {
       expect(controller.lastReport?.status, SyncRunStatus.failed);
       expect(controller.busy, isFalse);
     });
+    test(
+      'a stalled annotation round-trip releases the manual sync button',
+      () async {
+        final archive = await memoryArchive();
+        final controller = SyncController(
+          car: _HangingAnnotationRuntime(archive: archive),
+          runner: ({onProgress}) async => const SyncRunReport(
+            status: SyncRunStatus.completed,
+            ackedRecords: 3,
+          ),
+          annotationSyncTimeout: const Duration(milliseconds: 10),
+        );
+
+        await controller.runNow();
+
+        expect(controller.busy, isFalse);
+        expect(controller.lastReport?.status, SyncRunStatus.failed);
+        expect(controller.lastReport?.error, isA<TimeoutException>());
+        expect(controller.lastReport?.ackedRecords, 3);
+      },
+    );
   });
 
   group('CompanionDatabase cloud dirty flag', () {
@@ -352,4 +373,12 @@ class _FakeRuntime implements CarLink {
 
   @override
   Future<void> wipeArchive() async {}
+}
+
+class _HangingAnnotationRuntime extends _FakeRuntime {
+  _HangingAnnotationRuntime({super.archive});
+
+  @override
+  Future<AnnotationCloudSyncReport?> syncAnnotationsToCloud() =>
+      Completer<AnnotationCloudSyncReport?>().future;
 }

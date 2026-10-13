@@ -27,10 +27,16 @@ class SyncController extends ChangeNotifier {
     // Test seam for the automatic pull: production reads
     // [CloudSyncConfig.enabled] (a compile-time const, true in tests).
     bool Function()? autoSyncGate,
+    this.annotationSyncTimeout = const Duration(seconds: 30),
   }) : assert(car != null || runtime != null, 'car or runtime required'),
        car = car ?? runtime!,
        _cloudRunner = runner ?? (car ?? runtime!).syncFromCloud,
        _autoSyncGate = autoSyncGate ?? (() => CloudSyncConfig.enabled);
+
+  /// The annotation round-trip is a separate cloud path from the paged
+  /// telemetry pull. Give it its own deadline so a stalled request cannot
+  /// leave the manual sync control busy forever.
+  final Duration annotationSyncTimeout;
 
   /// Whether the automatic pull may run. Production reads
   /// [CloudSyncConfig.enabled]; a test hands in `() => true`.
@@ -219,10 +225,16 @@ class SyncController extends ChangeNotifier {
       // production build, so "still to send" could never reach zero and the
       // card would ask the reader to fix something they cannot.
       try {
-        await car.syncAnnotationsToCloud();
-      } on Object {
+        await car.syncAnnotationsToCloud().timeout(annotationSyncTimeout);
+      } on Object catch (error) {
         // The rows stay in the outbox, so [pendingCount] still reads
-        // "waiting". A push that failed needs no second report.
+        // "waiting". Preserve the failure in the sync card so it does not
+        // report success when this cloud path stalled.
+        lastReport = SyncRunReport(
+          status: SyncRunStatus.failed,
+          ackedRecords: lastReport?.ackedRecords ?? 0,
+          error: error,
+        );
       }
       final archive = car.archive;
       if (archive != null) {
