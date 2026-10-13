@@ -284,6 +284,20 @@ void main() {
         expect(controller.lastReport?.ackedRecords, 3);
       },
     );
+    test('local count refresh does not hold the manual sync button', () async {
+      final controller = _HangingCountsController(
+        car: _FakeRuntime(),
+        runner: ({onProgress}) async => const SyncRunReport(
+          status: SyncRunStatus.completed,
+          ackedRecords: 0,
+        ),
+      );
+
+      await controller.runNow();
+
+      expect(controller.countRefreshStarted, isTrue);
+      expect(controller.busy, isFalse);
+    });
   });
 
   group('CompanionDatabase cloud dirty flag', () {
@@ -381,4 +395,16 @@ class _HangingAnnotationRuntime extends _FakeRuntime {
   @override
   Future<AnnotationCloudSyncReport?> syncAnnotationsToCloud() =>
       Completer<AnnotationCloudSyncReport?>().future;
+}
+
+class _HangingCountsController extends SyncController {
+  _HangingCountsController({required super.car, required super.runner});
+
+  bool countRefreshStarted = false;
+
+  @override
+  Future<void> refreshCounts() {
+    countRefreshStarted = true;
+    return Completer<void>().future;
+  }
 }
