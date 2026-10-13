@@ -231,11 +231,17 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           SUPABASE_FUNCTIONS_URL: ${{ secrets.SUPABASE_FUNCTIONS_URL }}
+          COMPANION_ANDROID_URL: ${{ vars.COMPANION_ANDROID_URL }}
           CLOUD_SYNC_ENABLED: 'true'
         run: |
           set -euo pipefail
+          [[ "$COMPANION_ANDROID_URL" == https://* ]] || {
+            echo "Set the COMPANION_ANDROID_URL Actions variable to the Firebase tester invite link." >&2
+            exit 1
+          }
           flutter pub get
-          flutter build apk --release --target-platform android-arm64
+          flutter build apk --release --target-platform android-arm64 \
+            --dart-define="COMPANION_ANDROID_URL=$COMPANION_ANDROID_URL"
 
       - name: Verify APK signature
         run: |

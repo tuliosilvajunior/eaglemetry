@@ -1,6 +1,6 @@
 {
   "en": [
-    "Eaglemetry and Eaglemetry Companion now show the new eagle icon. Trip and charge times stay correct when the car clock jumps. Energy charts show the real recorded minutes.",
+    "Scan the QR code on the car's Sync screen to join the Eaglemetry Companion beta in Firebase App Distribution.",
     "While the car waits for the real time, sessions show a 'time not synced' mark. The app does not delete them early.",
     "Trips recorded before the time sync show bars in driving order on the car and on the phone.",
     "When the real time arrives, corrected minutes replace the old minutes in the cloud and on the phone. No wrong minute stays.",
@@ -14,7 +14,7 @@
     "Completed charging sessions now upload after the cable is disconnected, even when the car marks them DISCONNECTED. Sessions still waiting for unplug stay local."
   ],
   "pt": [
-    "Eaglemetry e Eaglemetry Companion agora exibem o novo ícone de águia. Os horários de viagem e recarga ficam corretos quando o relógio do carro salta. Os gráficos de energia mostram os minutos reais gravados.",
+    "Leia o QR code na tela de Sync do carro para entrar no beta do Eaglemetry Companion pelo Firebase App Distribution.",
     "Enquanto o carro aguarda a hora real, as sessões mostram 'hora não sincronizada'. O app não apaga essas sessões antes da hora.",
     "Viagens gravadas antes da sincronização da hora mostram as barras na ordem em que você dirigiu, no carro e no celular.",
     "Quando a hora real chega, os minutos corrigidos substituem os antigos na nuvem e no celular. Nenhum minuto errado fica.",
@@ -28,7 +28,7 @@
     "Recargas concluídas agora são enviadas depois que o cabo é desconectado, mesmo quando o carro marca a sessão como DISCONNECTED. Sessões que ainda aguardam a desconexão continuam locais."
   ],
   "ru": [
-    "Eaglemetry и Eaglemetry Companion теперь показывают новый значок орла. Время поездок и зарядок остаётся верным при скачке часов автомобиля. Графики энергии показывают реально записанные минуты.",
+    "Отсканируйте QR-код на экране синхронизации автомобиля, чтобы присоединиться к бета-тесту Eaglemetry Companion в Firebase App Distribution.",
     "Пока автомобиль ждёт точное время, сессии помечены как «время не синхронизировано». Приложение не удаляет их раньше срока.",
     "Поездки, записанные до синхронизации времени, показывают столбцы в порядке движения на автомобиле и на телефоне.",
     "Когда приходит точное время, исправленные минуты заменяют старые в облаке и на телефоне. Неверные минуты не остаются.",

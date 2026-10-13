@@ -128,6 +128,26 @@ flutter build apk --release --dart-define-from-file=.env
 
 Details in `apps/companion/README.md`.
 
+## QR code for the Companion on the car screen
+
+The car's Sync screen already renders a QR code for the selected Companion
+platform. The Android QR uses the Firebase App Distribution group invite link.
+Create an invite link for the `beta-testers` group in Firebase Console under
+**App Distribution → Invite links**, then save it in the Eaglemetry source
+repository as the Actions variable `COMPANION_ANDROID_URL` under
+**Settings → Secrets and variables → Actions → Variables**. This is a public
+invite URL, so it belongs in a variable, not a secret.
+
+The release workflow embeds this variable in the car APK. If the variable is
+empty or is not an HTTPS URL, the release build stops with an error. After
+publishing a new car release and updating the car, the QR takes a phone to
+Firebase's tester invitation flow. Testers must accept the invite and use
+Firebase App Tester to install the beta. This QR does not pair the phone with
+the car; the separate six-digit pairing code still does that.
+
+Firebase invite links can add anyone who opens them to a tester group. Share
+the QR only with people who should receive the beta.
+
 ## Configure your own Supabase account (optional)
 
 Without credentials both apps run fully local: pairing, sync, and history
