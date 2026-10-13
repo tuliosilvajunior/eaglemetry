@@ -168,8 +168,16 @@ class SyncController extends ChangeNotifier {
   Future<void> refreshCounts() async {
     final archive = car.archive;
     if (archive == null) return;
-    tripCount = await archive.database.countTrips();
-    chargeCount = await archive.database.countCharges();
+    try {
+      tripCount = await archive.database.countTrips();
+    } on Object {
+      // Keep the last known count. This read is independent of cloud sync.
+    }
+    try {
+      chargeCount = await archive.database.countCharges();
+    } on Object {
+      // Keep the last known count. This read is independent of cloud sync.
+    }
     try {
       syncProgress = await archive.database.getSyncProgress();
     } on Object {
@@ -236,16 +244,6 @@ class SyncController extends ChangeNotifier {
           error: error,
         );
       }
-      final archive = car.archive;
-      if (archive != null) {
-        tripCount = await archive.database.countTrips();
-        chargeCount = await archive.database.countCharges();
-        try {
-          syncProgress = await archive.database.getSyncProgress();
-        } on Object {
-          // Keep what it had.
-        }
-      }
     } finally {
       busy = false;
       // The pages are kept. The card lists what the finished run did, and
@@ -254,8 +252,9 @@ class SyncController extends ChangeNotifier {
       lastRunAt = DateTime.now();
       notifyListeners();
     }
-    await _refreshPending();
-    notifyListeners();
+    // Local counts are presentation data. A slow SQLite read must not hold
+    // the sync action busy after cloud work has ended.
+    unawaited(refreshCounts());
   }
 }
 
