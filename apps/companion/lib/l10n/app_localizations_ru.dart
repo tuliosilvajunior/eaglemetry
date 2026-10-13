@@ -148,7 +148,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get syncResultPhoneOffline =>
-      'Этот телефон не смог связаться с облаком. Проверьте связь и попробуйте снова.';
+      'Телефон не подключился к облаку. Проверьте связь и убедитесь, что проект Supabase активен.';
+
+  @override
+  String get syncResultAccessDenied =>
+      'Облако отклонило доступ. Проверьте аккаунт и сопряжение автомобиля, затем повторите попытку.';
+
+  @override
+  String get syncResultServerUnavailable =>
+      'Облачный сервис временно недоступен. Повторите попытку позже.';
 
   @override
   String get syncResultCarSilent =>

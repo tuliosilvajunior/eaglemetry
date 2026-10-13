@@ -102,7 +102,30 @@ void main() {
       );
       expect(
         syncOutcomeKind(serverError, cloudEnabled: true),
-        SyncOutcomeKind.failed,
+        SyncOutcomeKind.serverUnavailable,
+      );
+      final authError = SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+        error: const CloudUploadFailure(
+          'session',
+          'AuthRetryableFetchException',
+          0,
+          statusCode: '401',
+        ),
+      );
+      expect(
+        syncOutcomeKind(authError, cloudEnabled: true),
+        SyncOutcomeKind.accessDenied,
+      );
+      final permissionError = SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+        error: const CloudUploadFailure('session', '42501', 0),
+      );
+      expect(
+        syncOutcomeKind(permissionError, cloudEnabled: true),
+        SyncOutcomeKind.accessDenied,
       );
       final raw = SyncRunReport(
         status: SyncRunStatus.failed,
@@ -115,11 +138,11 @@ void main() {
       );
     });
 
-    test('server refusals stay generic failures', () {
+    test('other cloud refusals stay generic failures', () {
       final refused = SyncRunReport(
         status: SyncRunStatus.failed,
         ackedRecords: 0,
-        error: const CloudUploadFailure('session', '42501', 3),
+        error: const CloudUploadFailure('session', '23503', 3),
       );
       expect(
         syncOutcomeKind(refused, cloudEnabled: true),

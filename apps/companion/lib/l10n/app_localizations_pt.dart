@@ -146,7 +146,15 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get syncResultPhoneOffline =>
-      'Este celular não alcançou a nuvem. Verifique a conexão e tente novamente.';
+      'Este celular não alcançou a nuvem. Verifique a conexão e se o projeto Supabase está ativo.';
+
+  @override
+  String get syncResultAccessDenied =>
+      'A nuvem recusou o acesso. Verifique a conta e o pareamento do carro e tente de novo.';
+
+  @override
+  String get syncResultServerUnavailable =>
+      'O serviço de nuvem está indisponível agora. Tente de novo mais tarde.';
 
   @override
   String get syncResultCarSilent =>

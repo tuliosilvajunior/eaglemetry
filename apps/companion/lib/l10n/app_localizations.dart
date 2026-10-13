@@ -327,8 +327,20 @@ abstract class AppLocalizations {
   /// No description provided for @syncResultPhoneOffline.
   ///
   /// In en, this message translates to:
-  /// **'This phone could not reach the cloud. Check its connection and try again.'**
+  /// **'This phone could not reach the cloud. Check its connection and confirm the Supabase project is active.'**
   String get syncResultPhoneOffline;
+
+  /// No description provided for @syncResultAccessDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'The cloud rejected access. Check the account and vehicle pairing, then try again.'**
+  String get syncResultAccessDenied;
+
+  /// No description provided for @syncResultServerUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The cloud service is temporarily unavailable. Try again later.'**
+  String get syncResultServerUnavailable;
 
   /// No description provided for @syncResultCarSilent.
   ///
