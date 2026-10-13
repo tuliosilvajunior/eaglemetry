@@ -458,10 +458,32 @@ void main() {
         cloudReady: true,
         movedRows: 12,
         failed: false,
+        failureKind: CloudSyncFailureKind.network,
       );
       final restored = CloudSyncResult.fromMap(report.toMap());
       expect(restored, equals(report));
       expect(restored.hashCode, equals(report.hashCode));
+    });
+
+    test('CloudSyncResult reads safe failure categories from the car', () {
+      expect(
+        CloudSyncResult.fromMap(const {
+          'cloudReady': true,
+          'movedRows': 0,
+          'failed': true,
+          'failureKind': 'authentication',
+        }).failureKind,
+        CloudSyncFailureKind.authentication,
+      );
+      expect(
+        CloudSyncResult.fromMap(const {
+          'cloudReady': true,
+          'movedRows': 0,
+          'failed': true,
+          'failureKind': 'private-provider-error',
+        }).failureKind,
+        isNull,
+      );
     });
 
     test('CloudSyncResult answers failure on a null map, never a guess', () {

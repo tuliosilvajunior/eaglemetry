@@ -221,7 +221,13 @@ class TelemetryRuntime internal constructor(
             runCloudUploadPass()
         }.getOrElse { error ->
             Log.w(TAG, "Force cloud upload failed", error)
-            return mapOf("cloudReady" to true, "paired" to true, "movedRows" to 0, "failed" to true)
+            return mapOf(
+                "cloudReady" to true,
+                "paired" to true,
+                "movedRows" to 0,
+                "failed" to true,
+                "failureKind" to classifyCloudSyncFailure(error).wireValue,
+            )
         }
         return pass.forceSyncResult()
     }

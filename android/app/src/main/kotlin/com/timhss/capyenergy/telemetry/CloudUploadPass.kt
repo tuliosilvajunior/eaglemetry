@@ -1,6 +1,12 @@
 package com.timhss.capyenergy.telemetry
 
 import android.util.Log
+import com.timhss.capyenergy.telemetry.sync.HttpCloudSinkException
+import java.net.ConnectException
+import java.net.NoRouteToHostException
+import java.net.SocketException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 private const val TAG = "TelemetryRuntime"
 
@@ -10,13 +16,52 @@ internal data class CloudUploadPass(
     val annotationsMoved: Int,
     val retrySoon: Boolean,
     val failed: Boolean,
+    val failureKind: CloudSyncFailureKind? = null,
 ) {
     fun forceSyncResult(): Map<String, Any?> = mapOf(
         "cloudReady" to true,
         "paired" to true,
         "movedRows" to (telemetryMoved + annotationsMoved),
         "failed" to failed,
+        "failureKind" to failureKind?.wireValue,
     )
+}
+
+/** Safe categories for the UI; never includes provider messages or credentials. */
+internal enum class CloudSyncFailureKind(val wireValue: String) {
+    NETWORK("network"),
+    AUTHENTICATION("authentication"),
+    SERVER("server"),
+    OTHER("other"),
+}
+
+internal fun classifyCloudSyncFailure(error: Throwable): CloudSyncFailureKind {
+    var current: Throwable? = error
+    while (current != null) {
+        val status = when (current) {
+            is HttpCloudSinkException -> current.statusCode
+            else -> Regex("\\bHTTP\\s+(\\d{3})\\b", RegexOption.IGNORE_CASE)
+                .find(current.message.orEmpty())
+                ?.groupValues
+                ?.getOrNull(1)
+                ?.toIntOrNull()
+        }
+        when (status) {
+            401, 403 -> return CloudSyncFailureKind.AUTHENTICATION
+            408, 429 -> return CloudSyncFailureKind.SERVER
+        }
+        if (status != null && status in 500..599) return CloudSyncFailureKind.SERVER
+        if (current is UnknownHostException ||
+            current is ConnectException ||
+            current is NoRouteToHostException ||
+            current is SocketTimeoutException ||
+            current is SocketException
+        ) {
+            return CloudSyncFailureKind.NETWORK
+        }
+        current = current.cause
+    }
+    return CloudSyncFailureKind.OTHER
 }
 
 // Callbacks keep the actual pass testable without constructing Android services.
@@ -29,11 +74,16 @@ internal fun runCloudUploadPass(
 ): CloudUploadPass {
     var retrySoon = false
     var failed = false
+    var failureKind: CloudSyncFailureKind? = null
+    fun recordFailure(error: Throwable) {
+        failed = true
+        if (failureKind == null) failureKind = classifyCloudSyncFailure(error)
+    }
     var telemetryMoved = 0
     try {
         telemetryMoved = uploadTelemetry()
     } catch (e: com.timhss.capyenergy.telemetry.sync.TelemetryCloudUploadException) {
-        failed = true
+        recordFailure(e)
         if (e.retryable) {
             Log.w(TAG, "Cloud upload transient failure for ${e.table}, will retry", e)
             retrySoon = true
@@ -42,7 +92,7 @@ internal fun runCloudUploadPass(
             handlePermanentUploadFailure(e)
         }
     } catch (e: Exception) {
-        failed = true
+        recordFailure(e)
         Log.w(TAG, "Cloud upload failed", e)
         retrySoon = true
     }
@@ -50,7 +100,7 @@ internal fun runCloudUploadPass(
     try {
         annotationsMoved = uploadAnnotations()
     } catch (e: com.timhss.capyenergy.telemetry.sync.AnnotationCloudUploadException) {
-        failed = true
+        recordFailure(e)
         if (e.retryable) {
             Log.w(TAG, "Annotation cloud upload transient failure for ${e.table}, will retry", e)
             retrySoon = true
@@ -59,14 +109,14 @@ internal fun runCloudUploadPass(
             handlePermanentUploadFailure(e)
         }
     } catch (e: Exception) {
-        failed = true
+        recordFailure(e)
         Log.w(TAG, "Annotation cloud upload failed", e)
         retrySoon = true
     }
     try {
         syncPreferences()
     } catch (e: com.timhss.capyenergy.telemetry.control.PreferenceControlCloudException) {
-        failed = true
+        recordFailure(e)
         if (e.retryable) {
             Log.w(TAG, "Preference control sync transient failure, will retry", e)
             retrySoon = true
@@ -75,7 +125,7 @@ internal fun runCloudUploadPass(
             handlePermanentUploadFailure(e)
         }
     } catch (e: Exception) {
-        failed = true
+        recordFailure(e)
         Log.w(TAG, "Preference control sync failed", e)
         retrySoon = true
     }
@@ -84,12 +134,12 @@ internal fun runCloudUploadPass(
         try {
             updateReadiness()
         } catch (e: Exception) {
-            failed = true
+            recordFailure(e)
             retrySoon = com.timhss.capyenergy.telemetry.sync.TelemetryCloudUploadException.isRetryable(e)
             Log.w(TAG, "Cutover readiness update failed", e)
             if (!retrySoon) handlePermanentUploadFailure(e)
         }
     }
-    return CloudUploadPass(telemetryMoved, annotationsMoved, retrySoon, failed)
+    return CloudUploadPass(telemetryMoved, annotationsMoved, retrySoon, failed, failureKind)
 }
 

@@ -3380,6 +3380,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get v2SyncCloudFailed => 'Upload failed. Try again.';
 
   @override
+  String get v2SyncCloudNetworkFailed =>
+      'The cloud server could not be reached. Check the connection and confirm the Supabase project is active.';
+
+  @override
+  String get v2SyncCloudAuthFailed =>
+      'The cloud rejected access. Check the car pairing and sync access, then try again.';
+
+  @override
+  String get v2SyncCloudServerFailed =>
+      'The cloud service is temporarily unavailable. Try again later.';
+
+  @override
   String get v2SyncCloudDisabled =>
       'Cloud sync is off in this build. Nothing was uploaded.';
 

@@ -3389,6 +3389,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get v2SyncCloudFailed => 'Загрузка не удалась. Попробуйте ещё раз.';
 
   @override
+  String get v2SyncCloudNetworkFailed =>
+      'Не удалось найти облачный сервер. Проверьте подключение и убедитесь, что проект Supabase активен.';
+
+  @override
+  String get v2SyncCloudAuthFailed =>
+      'Облако отклонило доступ. Проверьте сопряжение автомобиля и доступ для синхронизации, затем повторите попытку.';
+
+  @override
+  String get v2SyncCloudServerFailed =>
+      'Облачный сервис временно недоступен. Повторите попытку позже.';
+
+  @override
   String get v2SyncCloudDisabled =>
       'Облачный sync выключен в этой сборке. Ничего не загружено.';
 

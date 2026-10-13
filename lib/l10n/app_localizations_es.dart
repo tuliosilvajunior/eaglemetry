@@ -3398,6 +3398,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get v2SyncCloudFailed => 'La subida falló. Inténtelo de nuevo.';
 
   @override
+  String get v2SyncCloudNetworkFailed =>
+      'No se pudo encontrar el servidor en la nube. Revise la conexión y confirme que el proyecto de Supabase esté activo.';
+
+  @override
+  String get v2SyncCloudAuthFailed =>
+      'La nube rechazó el acceso. Revise el emparejamiento del coche y el acceso de sync, y vuelva a intentarlo.';
+
+  @override
+  String get v2SyncCloudServerFailed =>
+      'El servicio en la nube no está disponible ahora. Inténtelo más tarde.';
+
+  @override
   String get v2SyncCloudDisabled =>
       'El sync en la nube está apagado en esta versión. No se subió nada.';
 
