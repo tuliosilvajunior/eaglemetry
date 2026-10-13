@@ -60,7 +60,7 @@ if [[ -n "$RELEASE_NOTES_PATH" ]]; then
     }
     for locale in en pt ru; do
         jq -e --arg locale "$locale" \
-            '.[$locale] | type == "array" and length > 0 and length <= 20 and
+            '.[$locale] | type == "array" and length > 0 and length <= 12 and
             all(.[]; type == "string" and length > 0 and length <= 240)' \
             "$RELEASE_NOTES_PATH" >/dev/null || {
             echo "Invalid $locale release notes in $RELEASE_NOTES_PATH" >&2
