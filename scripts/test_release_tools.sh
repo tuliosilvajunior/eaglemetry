@@ -65,4 +65,17 @@ jq -e \
     "$TEMP_DIR/latest-without-notes.json" >/dev/null
 jq -e 'has("changelog") | not' "$TEMP_DIR/latest-without-notes.json" >/dev/null
 
+jq '.en = [.en[0]] * 13' "$TEMP_DIR/notes.json" > "$TEMP_DIR/notes-too-many.json"
+if "$ROOT_DIR/scripts/create_release_manifest.sh" \
+    "$TEMP_DIR/app.apk" \
+    1.2.3 \
+    123 \
+    "https://github.com/example/capy_releases/releases/download/v1.2.3/capy-v1.2.3.apk" \
+    "$TEMP_DIR/latest-too-many.json" \
+    false \
+    "$TEMP_DIR/notes-too-many.json" >/dev/null 2>&1; then
+    echo "13 English release notes were accepted; app updater supports at most 12" >&2
+    exit 1
+fi
+
 echo "Release tool tests passed"
