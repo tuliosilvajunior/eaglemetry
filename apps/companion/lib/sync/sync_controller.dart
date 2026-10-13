@@ -254,6 +254,8 @@ enum SyncOutcomeKind {
   carSilent,
   failed,
   phoneOffline,
+  accessDenied,
+  serverUnavailable,
   cloudDisabled,
 }
 
@@ -275,6 +277,10 @@ SyncOutcomeKind syncOutcomeKind(
     // Gate off: the cloud was never tried, so any failure here is the build,
     // not connectivity.
     SyncRunStatus.failed when !cloudEnabled => SyncOutcomeKind.cloudDisabled,
+    SyncRunStatus.failed when _isServerError(report.error) =>
+      SyncOutcomeKind.serverUnavailable,
+    SyncRunStatus.failed when _isAccessDenied(report.error) =>
+      SyncOutcomeKind.accessDenied,
     SyncRunStatus.failed when _isNetworkError(report.error) =>
       SyncOutcomeKind.phoneOffline,
     SyncRunStatus.failed => SyncOutcomeKind.failed,
@@ -319,6 +325,20 @@ bool _isNetworkError(Object? error) {
       text.contains('timeout') ||
       text.contains('unreachable') ||
       text.contains('no address associated with hostname');
+}
+
+bool _isAccessDenied(Object? error) {
+  if (error is! CloudUploadFailure) return false;
+  if (error.statusCode == '401' || error.statusCode == '403') return true;
+  return error.code == '42501' || error.code == 'PGRST301';
+}
+
+bool _isServerError(Object? error) {
+  if (error is! CloudUploadFailure) return false;
+  final status = int.tryParse(error.statusCode ?? '');
+  return status == 408 ||
+      status == 429 ||
+      (status != null && status >= 500 && status < 600);
 }
 
 /// Thrown-type names the sink's guard keeps as [CloudUploadFailure.code] for

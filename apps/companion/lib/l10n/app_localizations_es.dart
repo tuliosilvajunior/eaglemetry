@@ -147,7 +147,15 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get syncResultPhoneOffline =>
-      'Este celular no pudo alcanzar la nube. Verifique su conexión e intente de nuevo.';
+      'Este celular no pudo alcanzar la nube. Revise la conexión y confirme que el proyecto Supabase esté activo.';
+
+  @override
+  String get syncResultAccessDenied =>
+      'La nube rechazó el acceso. Revise la cuenta y el emparejamiento del coche, y vuelva a intentarlo.';
+
+  @override
+  String get syncResultServerUnavailable =>
+      'El servicio en la nube no está disponible ahora. Inténtelo más tarde.';
 
   @override
   String get syncResultCarSilent =>

@@ -323,6 +323,8 @@ String syncOutcomeLine(
     SyncOutcomeKind.cloudDisabled => l10n.syncResultCloudDisabled,
     // This phone could not reach the cloud: its own connection, not the car's.
     SyncOutcomeKind.phoneOffline => l10n.syncResultPhoneOffline,
+    SyncOutcomeKind.accessDenied => l10n.syncResultAccessDenied,
+    SyncOutcomeKind.serverUnavailable => l10n.syncResultServerUnavailable,
     SyncOutcomeKind.failed => l10n.syncResultFailed,
   };
 }
