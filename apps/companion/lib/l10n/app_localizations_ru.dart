@@ -138,6 +138,11 @@ class AppLocalizationsRu extends AppLocalizations {
       'Синхронизация не достигла облака. Проверьте связь и попробуйте снова.';
 
   @override
+  String syncDiagnostic(String detail) {
+    return 'Данные для поддержки: $detail';
+  }
+
+  @override
   String get syncResultCloudDisabled =>
       'Облачная синхронизация отключена в этой сборке.';
 

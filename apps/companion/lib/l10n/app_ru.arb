@@ -41,6 +41,8 @@
   "syncResultCompleted": "Из облака получено записей: {records}.",
   "syncResultNothing": "У машины не было ничего нового.",
   "syncResultFailed": "Синхронизация не достигла облака. Проверьте связь и попробуйте снова.",
+  "syncDiagnostic": "Данные для поддержки: {detail}",
+  "@syncDiagnostic": { "placeholders": { "detail": { "type": "String" } } },
   "syncResultCloudDisabled": "Облачная синхронизация отключена в этой сборке.",
   "syncResultPhoneOffline": "Этот телефон не смог связаться с облаком. Проверьте связь и попробуйте снова.",
   "syncResultCarSilent": "Автомобиль ничего не отправил в облако. Если в нём есть новые поездки, проверьте его связь.",

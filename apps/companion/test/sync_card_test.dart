@@ -5,6 +5,7 @@ import 'package:capy_companion/sync/pairing_controller.dart';
 import 'package:capy_companion/sync/pairing_store.dart';
 import 'package:capy_companion/sync/sync_controller.dart';
 import 'package:capy_companion/sync/cloud_run_report.dart';
+import 'package:capy_companion/sync/supabase_cloud_sink.dart';
 import 'package:capy_ui/capy_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -312,15 +313,16 @@ void main() {
     );
   });
 
-  testWidgets('a failed run reaches the cloud now, not the disabled gate', (
-    tester,
-  ) async {
+  testWidgets('a failed run shows a safe cloud diagnostic', (tester) async {
     // Tests build with CLOUD_SYNC_ENABLED on by default, so a bare failure
     // lands on the generic reading, never the gate-off line.
     final sync = SyncController(
       runtime: CompanionRuntime(),
-      runner: ({onProgress}) async =>
-          const SyncRunReport(status: SyncRunStatus.failed, ackedRecords: 0),
+      runner: ({onProgress}) async => const SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+        error: CloudUploadFailure('session', '42501', 3),
+      ),
     );
     await tester.pumpWidget(
       CompanionApp(
@@ -340,6 +342,7 @@ void main() {
       ),
       findsOneWidget,
     );
+    expect(find.text('Support detail: 42501 · session · 3'), findsOneWidget);
   });
 
   testWidgets('the annotation streams read as one line', (tester) async {
