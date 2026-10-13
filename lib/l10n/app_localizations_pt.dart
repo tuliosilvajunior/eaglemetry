@@ -3393,18 +3393,6 @@ class AppLocalizationsPt extends AppLocalizations {
   String get v2SyncCloudFailed => 'Envio falhou. Tente de novo.';
 
   @override
-  String get v2SyncCloudNetworkFailed =>
-      'Não foi possível encontrar o servidor da nuvem. Verifique a conexão e se o projeto Supabase está ativo.';
-
-  @override
-  String get v2SyncCloudAuthFailed =>
-      'A nuvem recusou o acesso. Verifique o pareamento do carro e o acesso ao sync e tente de novo.';
-
-  @override
-  String get v2SyncCloudServerFailed =>
-      'O serviço de nuvem está indisponível agora. Tente de novo mais tarde.';
-
-  @override
   String get v2SyncCloudDisabled =>
       'Sync na nuvem está desligado nesta versão. Nada foi enviado.';
 

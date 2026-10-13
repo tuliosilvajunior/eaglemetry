@@ -790,20 +790,6 @@ class CompanionDevice {
 /// `paired` false means the car is not paired yet (or its pairing was
 /// revoked): the car attempted nothing, so the screen must not call it a
 /// failure.
-enum CloudSyncFailureKind {
-  network,
-  authentication,
-  server,
-  other;
-
-  static CloudSyncFailureKind? fromWire(Object? value) {
-    for (final kind in values) {
-      if (kind.name == value) return kind;
-    }
-    return null;
-  }
-}
-
 @immutable
 class CloudSyncResult {
   const CloudSyncResult({
@@ -811,7 +797,6 @@ class CloudSyncResult {
     required this.movedRows,
     required this.failed,
     this.paired = true,
-    this.failureKind,
   });
 
   /// The car answered nothing usable. The screen states the failure, never a
@@ -820,7 +805,6 @@ class CloudSyncResult {
     cloudReady: true,
     movedRows: 0,
     failed: true,
-    failureKind: CloudSyncFailureKind.other,
   );
 
   static CloudSyncResult fromMap(Map<String, Object?>? map) {
@@ -831,7 +815,6 @@ class CloudSyncResult {
       paired: map['paired'] as bool? ?? true,
       movedRows: moved < 0 ? 0 : moved,
       failed: map['failed'] as bool? ?? false,
-      failureKind: CloudSyncFailureKind.fromWire(map['failureKind']),
     );
   }
 
@@ -847,15 +830,11 @@ class CloudSyncResult {
   /// Whether the pass ended in failure.
   final bool failed;
 
-  /// A safe category for a failed upload. Older car builds do not send it.
-  final CloudSyncFailureKind? failureKind;
-
   Map<String, Object?> toMap() => {
     'cloudReady': cloudReady,
     'paired': paired,
     'movedRows': movedRows,
     'failed': failed,
-    if (failureKind != null) 'failureKind': failureKind!.name,
   };
 
   @override
@@ -866,14 +845,12 @@ class CloudSyncResult {
           cloudReady == other.cloudReady &&
           paired == other.paired &&
           movedRows == other.movedRows &&
-          failed == other.failed &&
-          failureKind == other.failureKind;
+          failed == other.failed;
 
   @override
-  int get hashCode =>
-      Object.hash(cloudReady, paired, movedRows, failed, failureKind);
+  int get hashCode => Object.hash(cloudReady, paired, movedRows, failed);
 
   @override
   String toString() =>
-      'CloudSyncResult(ready: $cloudReady, paired: $paired, moved: $movedRows, failed: $failed, failureKind: $failureKind)';
+      'CloudSyncResult(ready: $cloudReady, paired: $paired, moved: $movedRows, failed: $failed)';
 }

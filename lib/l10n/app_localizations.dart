@@ -6232,24 +6232,6 @@ abstract class AppLocalizations {
   /// **'Upload failed. Try again.'**
   String get v2SyncCloudFailed;
 
-  /// No description provided for @v2SyncCloudNetworkFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'The cloud server could not be reached. Check the connection and confirm the Supabase project is active.'**
-  String get v2SyncCloudNetworkFailed;
-
-  /// No description provided for @v2SyncCloudAuthFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'The cloud rejected access. Check the car pairing and sync access, then try again.'**
-  String get v2SyncCloudAuthFailed;
-
-  /// No description provided for @v2SyncCloudServerFailed.
-  ///
-  /// In en, this message translates to:
-  /// **'The cloud service is temporarily unavailable. Try again later.'**
-  String get v2SyncCloudServerFailed;
-
   /// No description provided for @v2SyncCloudDisabled.
   ///
   /// In en, this message translates to:

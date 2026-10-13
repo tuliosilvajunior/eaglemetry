@@ -883,56 +883,6 @@ void main() {
       expect(find.text('Upload failed. Try again.'), findsOneWidget);
     });
 
-    testWidgets('FORCE SYNC explains when the cloud host cannot be reached', (
-      tester,
-    ) async {
-      final api = _FakeTelemetryApi()
-        ..queueGetResponses([const DevicePairingIdle()])
-        ..forceResult = const CloudSyncResult(
-          cloudReady: true,
-          movedRows: 0,
-          failed: true,
-          failureKind: CloudSyncFailureKind.network,
-        );
-      await pumpScreen(tester, api);
-
-      await tester.tap(find.text('FORCE SYNC'));
-      await tester.pump();
-      await tester.pump();
-
-      expect(
-        find.text(
-          'The cloud server could not be reached. Check the connection and confirm the Supabase project is active.',
-        ),
-        findsOneWidget,
-      );
-    });
-
-    testWidgets('FORCE SYNC distinguishes an authentication rejection', (
-      tester,
-    ) async {
-      final api = _FakeTelemetryApi()
-        ..queueGetResponses([const DevicePairingIdle()])
-        ..forceResult = const CloudSyncResult(
-          cloudReady: true,
-          movedRows: 0,
-          failed: true,
-          failureKind: CloudSyncFailureKind.authentication,
-        );
-      await pumpScreen(tester, api);
-
-      await tester.tap(find.text('FORCE SYNC'));
-      await tester.pump();
-      await tester.pump();
-
-      expect(
-        find.text(
-          'The cloud rejected access. Check the car pairing and sync access, then try again.',
-        ),
-        findsOneWidget,
-      );
-    });
-
     testWidgets('FORCE SYNC says the car is not paired, never a failure', (
       tester,
     ) async {

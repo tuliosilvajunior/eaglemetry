@@ -4,7 +4,6 @@ import com.timhss.capyenergy.telemetry.control.PreferenceControlCloudException
 import com.timhss.capyenergy.telemetry.sync.AnnotationCloudUploadException
 import com.timhss.capyenergy.telemetry.sync.HttpCloudSinkException
 import com.timhss.capyenergy.telemetry.sync.TelemetryCloudUploadException
-import java.net.UnknownHostException
 import org.junit.Assert.*
 import org.junit.Test
 
@@ -59,27 +58,6 @@ class CloudUploadPassTest {
         assertEquals(0, pass.forceSyncResult()["movedRows"])
         assertEquals(true, pass.forceSyncResult()["failed"])
         assertFalse(pass.retrySoon)
-    }
-
-    @Test
-    fun `force sync returns safe network and authentication categories`() {
-        val dnsFailure = runCloudUploadPass(
-            { throw TelemetryCloudUploadException("session", UnknownHostException("private host"), true) },
-            { 0 }, {}, {}, {},
-        )
-        assertEquals("network", dnsFailure.forceSyncResult()["failureKind"])
-
-        val authFailure = runCloudUploadPass(
-            { throw TelemetryCloudUploadException("session", HttpCloudSinkException(403, "private response"), false) },
-            { 0 }, {}, {}, {},
-        )
-        assertEquals("authentication", authFailure.forceSyncResult()["failureKind"])
-
-        val serverFailure = runCloudUploadPass(
-            { throw TelemetryCloudUploadException("session", HttpCloudSinkException(503, "private response"), true) },
-            { 0 }, {}, {}, {},
-        )
-        assertEquals("server", serverFailure.forceSyncResult()["failureKind"])
     }
 
     @Test

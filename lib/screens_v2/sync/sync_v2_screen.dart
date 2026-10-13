@@ -331,15 +331,7 @@ class _SyncV2ScreenState extends State<SyncV2Screen> {
   String _describeForceResult(AppLocalizations loc, CloudSyncResult report) {
     if (!report.cloudReady) return loc.v2SyncCloudDisabled;
     if (!report.paired) return loc.v2SyncCloudNotPaired;
-    if (report.failed) {
-      return switch (report.failureKind) {
-        CloudSyncFailureKind.network => loc.v2SyncCloudNetworkFailed,
-        CloudSyncFailureKind.authentication => loc.v2SyncCloudAuthFailed,
-        CloudSyncFailureKind.server => loc.v2SyncCloudServerFailed,
-        CloudSyncFailureKind.other => loc.v2SyncCloudFailed,
-        null => loc.v2SyncCloudFailed,
-      };
-    }
+    if (report.failed) return loc.v2SyncCloudFailed;
     if (report.movedRows == 0) return loc.v2SyncCloudEmpty;
     return loc.v2SyncCloudMoved(report.movedRows);
   }
