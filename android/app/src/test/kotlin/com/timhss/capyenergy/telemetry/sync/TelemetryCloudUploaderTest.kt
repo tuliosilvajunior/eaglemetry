@@ -99,7 +99,7 @@ private class FakeSessionDaoU : SessionDao {
         var c = 0
         for (i in sessions.indices) {
             val s = sessions[i]
-            if (s.timeState == "pending" && s.status == "ENDED") {
+            if (s.timeState == "pending" && s.status in setOf("ENDED", "DISCONNECTED")) {
                 sessions[i] = s.copy(timeState = "uncorrectable")
                 c++
             }
@@ -112,7 +112,7 @@ private class FakeSessionDaoU : SessionDao {
     override fun markAliasedSessionsDirty(): Int = 0
 }
 
-private class FakeIntervalDaoU : IntervalDao {
+private class FakeIntervalDaoU(private val sessionDao: FakeSessionDaoU) : IntervalDao {
     val intervals = mutableListOf<IntervalEntity>()
     override fun upsertAll(intervals: List<IntervalEntity>) { this.intervals.addAll(intervals) }
     override fun forSession(sessionId: String) = intervals.filter { it.sessionId == sessionId }
@@ -154,7 +154,8 @@ private class FakeIntervalDaoU : IntervalDao {
         var c = 0
         for (i in intervals.indices) {
             val it = intervals[i]
-            if (it.timeState == "pending") {
+            val sessionStatus = sessionDao.findById(it.sessionId)?.status
+            if (it.timeState == "pending" && (sessionStatus == "ENDED" || sessionStatus == "DISCONNECTED")) {
                 intervals[i] = it.copy(timeState = "uncorrectable")
                 c++
             }
@@ -358,7 +359,7 @@ class TelemetryCloudUploaderTest {
     @Before
     fun setUp() {
         sessionDao = FakeSessionDaoU()
-        intervalDao = FakeIntervalDaoU()
+        intervalDao = FakeIntervalDaoU(sessionDao)
         trackDao = FakeTrackDaoU()
         eventDao = FakeTelemetryEventDaoU()
         cycleDao = FakeBatteryCycleDaoU()
@@ -386,12 +387,19 @@ class TelemetryCloudUploaderTest {
         chunkSize = chunkSize
     )
 
-    private fun session(id: String, dirty: Boolean = true, vehicleId: String = this.vehicleId, timeState: String = "unknown") =
+    private fun session(
+        id: String,
+        dirty: Boolean = true,
+        vehicleId: String = this.vehicleId,
+        timeState: String = "unknown",
+        kind: String = "TRIP",
+        status: String = "ENDED",
+    ) =
         SessionEntity(
             id = id,
             vehicleId = vehicleId,
-            kind = "TRIP",
-            status = "ENDED",
+            kind = kind,
+            status = status,
             startedAtUtcMillis = 1_750_000_000_000L,
             startedAtElapsedNanos = 1L,
             endedAtUtcMillis = 1_750_000_360_000L,
@@ -990,18 +998,26 @@ class TelemetryCloudUploaderTest {
         intervalDao.intervals.add(interval("sess-clean", 1_750_000_000_000L, dirty = false, timeState = "corrected"))
         sessionDao.sessions.add(session("sess-pending", dirty = true, timeState = "pending"))
         intervalDao.intervals.add(interval("sess-pending", 1_750_000_000_000L, dirty = true, timeState = "pending"))
+        sessionDao.sessions.add(session("charge-disconnected", dirty = true, timeState = "pending", kind = "CHARGE", status = "DISCONNECTED"))
+        intervalDao.intervals.add(interval("charge-disconnected", 1_750_000_120_000L, dirty = true, timeState = "pending"))
+        sessionDao.sessions.add(session("charge-waiting", dirty = true, timeState = "pending", kind = "CHARGE", status = "ENDED_WAITING_DISCONNECT"))
+        intervalDao.intervals.add(interval("charge-waiting", 1_750_000_180_000L, dirty = true, timeState = "pending"))
 
         val promoted = uploader().promoteEndedPending()
-        assertEquals(2, promoted)
+        assertEquals(4, promoted)
         assertEquals("uncorrectable", sessionDao.findById("sess-pending")?.timeState)
         assertEquals("uncorrectable", intervalDao.findById("sess-pending", 1_750_000_000_000L)?.timeState)
+        assertEquals("uncorrectable", sessionDao.findById("charge-disconnected")?.timeState)
+        assertEquals("uncorrectable", intervalDao.findById("charge-disconnected", 1_750_000_120_000L)?.timeState)
+        assertEquals("pending", sessionDao.findById("charge-waiting")?.timeState)
+        assertEquals("pending", intervalDao.findById("charge-waiting", 1_750_000_180_000L)?.timeState)
 
         assertFalse(sessionDao.findById("sess-clean")!!.dirty)
         assertFalse(intervalDao.findById("sess-clean", 1_750_000_000_000L)!!.dirty)
 
         val report = uploader().upload()
-        assertEquals(1, report.perStream["session"])
-        assertEquals(1, report.perStream["interval"])
+        assertEquals(2, report.perStream["session"])
+        assertEquals(2, report.perStream["interval"])
     }
 
     // -- F6: orphaned children --------------------------------------------------

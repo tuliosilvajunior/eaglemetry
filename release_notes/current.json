@@ -11,7 +11,8 @@
     "A car cannot read the charging preferences of a different account on the same vehicle.",
     "If the car is not paired, FORCE SYNC asks you to pair it. It ends cloud reads and annotation sync after 30 seconds, shows safe cloud errors, and refreshes local counts after sync so a slow count does not hold the button.",
     "The phone shows cloud progress, records still to send, and what waits for the car clock.",
-    "The car app has an optional offline emulator build for testing screens without the vehicle system signature. Registered cars can now create a pairing code."
+    "The car app has an optional offline emulator build for testing screens without the vehicle system signature. Registered cars can now create a pairing code.",
+    "Completed charging sessions now upload after the cable is disconnected, even when the car marks them DISCONNECTED. Sessions still waiting for unplug stay local."
   ],
   "pt": [
     "Os dois apps e as publicações usam o nome Eaglemetry. Sobre inclui os créditos originais do Capy Energy e a licença Apache 2.0.",
@@ -25,7 +26,8 @@
     "Um carro não consegue ler as preferências de carga de outra conta no mesmo veículo.",
     "Viagens e rotas registram a conta dona delas.",
     "Se o carro não estiver pareado, FORÇAR SYNC pede o pareamento. Ele encerra consultas e sync de anotações sem resposta após 30 segundos, mostra erros seguros e atualiza os contadores sem prender o botão.",
-    "O app do carro tem uma versão opcional para testar telas no emulador, sem nuvem e sem a assinatura de sistema do veículo. Carros registrados agora podem criar um código de pareamento."
+    "O app do carro tem uma versão opcional para testar telas no emulador, sem nuvem e sem a assinatura de sistema do veículo. Carros registrados agora podem criar um código de pareamento.",
+    "Recargas concluídas agora são enviadas depois que o cabo é desconectado, mesmo quando o carro marca a sessão como DISCONNECTED. Sessões que ainda aguardam a desconexão continuam locais."
   ],
   "ru": [
     "Оба приложения и публикации используют название Eaglemetry. В разделе о приложении указаны автор Capy Energy и лицензия Apache 2.0.",
@@ -39,6 +41,7 @@
     "Автомобиль не может читать настройки зарядки другого аккаунта на том же автомобиле.",
     "Поездки и маршруты записывают аккаунт, которому они принадлежат.",
     "Если автомобиль не сопряжён, ФОРСИРОВАТЬ SYNC предложит сначала выполнить сопряжение. Он завершает чтение и синхронизацию заметок через 30 секунд, показывает безопасную ошибку и обновляет счётчики без блокировки кнопки.",
-    "Приложение автомобиля можно собрать для проверки экранов в эмуляторе без облака и системной подписи автомобиля. Зарегистрированные автомобили теперь могут создать код сопряжения."
+    "Приложение автомобиля можно собрать для проверки экранов в эмуляторе без облака и системной подписи автомобиля. Зарегистрированные автомобили теперь могут создать код сопряжения.",
+    "Завершённые зарядки отправляются после отключения кабеля, даже если автомобиль помечает сеанс как DISCONNECTED. Сеансы, ожидающие отключения, остаются локальными."
   ]
 }

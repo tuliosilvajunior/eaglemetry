@@ -423,7 +423,7 @@ interface SessionDao {
     @Query("UPDATE session SET dirty = 1")
     fun markAllDirty(): Int
 
-    @Query("UPDATE session SET timeState = 'uncorrectable' WHERE timeState = 'pending' AND status = 'ENDED'")
+    @Query("UPDATE session SET timeState = 'uncorrectable' WHERE timeState = 'pending' AND status IN ('ENDED', 'DISCONNECTED')")
     fun promoteEndedPendingToUncorrectable(): Int
 
     @Query("SELECT DISTINCT vehicleId FROM session WHERE vehicleId IS NOT NULL AND vehicleId != '' AND vehicleId != 'unassigned'")
