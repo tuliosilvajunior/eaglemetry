@@ -41,6 +41,8 @@
   "syncResultCompleted": "{records} registros chegaram da nuvem.",
   "syncResultNothing": "O carro não tinha nada novo.",
   "syncResultFailed": "O sync nao alcancou a nuvem. Verifique a conexao e tente novamente.",
+  "syncDiagnostic": "Detalhe para suporte: {detail}",
+  "@syncDiagnostic": { "placeholders": { "detail": { "type": "String" } } },
   "syncResultCloudDisabled": "Sincronização em nuvem desativada nesta compilação.",
   "syncResultPhoneOffline": "Este celular não alcançou a nuvem. Verifique a conexão e tente novamente.",
   "syncResultCarSilent": "O carro não enviou nada para a nuvem. Se ele tem viagens novas, verifique a conexão dele.",

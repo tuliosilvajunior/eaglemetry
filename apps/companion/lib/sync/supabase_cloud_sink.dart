@@ -117,6 +117,13 @@ class SupabaseCloudSink implements CloudSink {
       await request();
     } on PostgrestException catch (error) {
       throw CloudUploadFailure(table, error.code, rows);
+    } on AuthRetryableFetchException catch (error) {
+      throw CloudUploadFailure(
+        table,
+        error.runtimeType.toString(),
+        rows,
+        statusCode: error.statusCode,
+      );
     } on Object catch (error) {
       throw CloudUploadFailure(table, error.runtimeType.toString(), rows);
     }
@@ -191,17 +198,21 @@ List<List<T>> requestParts<T>(List<T> rows, int size) => [
 /// thrown type takes its place. It is a poorer name, but it is a name, and it
 /// arrives with the table and the size of the request instead of alone.
 class CloudUploadFailure implements Exception {
-  const CloudUploadFailure(this.table, this.code, this.rows);
+  const CloudUploadFailure(this.table, this.code, this.rows, {this.statusCode});
 
   final String table;
   final String? code;
   final int rows;
+  final String? statusCode;
 
   /// What a reader can repeat back. The code comes first because it is what
   /// names the fault: `42501` is the ownership boundary refusing, `23503` a row
   /// naming a vehicle the cloud does not have, `23505` a key already there.
-  String get label => '${code ?? 'no code'} · $table · $rows';
+  String get label {
+    final status = statusCode == null ? '' : ' HTTP $statusCode';
+    return '${code ?? 'no code'}$status · $table · $rows';
+  }
 
   @override
-  String toString() => 'CloudUploadFailure($table, code: $code, rows: $rows)';
+  String toString() => 'CloudUploadFailure($label)';
 }

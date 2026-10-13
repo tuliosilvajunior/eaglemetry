@@ -16,6 +16,7 @@ import '../settings/companion_theme_controller.dart';
 import '../settings/nominatim_opt_in_store.dart';
 import '../sync/preference_control_cloud.dart';
 import '../sync/preference_control_sync.dart';
+import '../sync/sync_controller.dart';
 import 'companion_shell.dart';
 
 /// The Settings destination: appearance, external integrations, and account status.
@@ -651,7 +652,7 @@ class _ControlCardState extends State<_ControlCard> {
       );
     } catch (error) {
       if (!mounted) return;
-      _reportStatus(l10n.controlLastError('$error'));
+      _reportStatus(l10n.controlLastError(syncFailureDetail(error)));
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -712,7 +713,7 @@ class _ControlCardState extends State<_ControlCard> {
             Padding(
               padding: const EdgeInsets.only(top: AppSpacing.x2),
               child: Text(
-                l10n.controlLastError('${_control.lastError}'),
+                l10n.controlLastError(syncFailureDetail(_control.lastError)),
                 style: AppText.caption.copyWith(color: colors.energy.critical),
               ),
             ),

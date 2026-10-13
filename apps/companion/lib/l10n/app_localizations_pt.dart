@@ -136,6 +136,11 @@ class AppLocalizationsPt extends AppLocalizations {
       'O sync nao alcancou a nuvem. Verifique a conexao e tente novamente.';
 
   @override
+  String syncDiagnostic(String detail) {
+    return 'Detalhe para suporte: $detail';
+  }
+
+  @override
   String get syncResultCloudDisabled =>
       'Sincronização em nuvem desativada nesta compilação.';
 

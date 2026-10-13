@@ -61,6 +61,8 @@
   "syncResultCompleted": "{records} records came down from the cloud.",
   "syncResultNothing": "The car had nothing new.",
   "syncResultFailed": "Sync did not reach the cloud. Check your connection and try again.",
+  "syncDiagnostic": "Support detail: {detail}",
+  "@syncDiagnostic": { "placeholders": { "detail": { "type": "String" } } },
   "syncResultCloudDisabled": "Cloud sync is disabled in this build.",
   "syncResultPhoneOffline": "This phone could not reach the cloud. Check its connection and try again.",
   "syncResultCarSilent": "The car sent nothing to the cloud. If the car has new trips, check its connection.",

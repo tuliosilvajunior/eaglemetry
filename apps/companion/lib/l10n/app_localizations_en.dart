@@ -136,6 +136,11 @@ class AppLocalizationsEn extends AppLocalizations {
       'Sync did not reach the cloud. Check your connection and try again.';
 
   @override
+  String syncDiagnostic(String detail) {
+    return 'Support detail: $detail';
+  }
+
+  @override
   String get syncResultCloudDisabled => 'Cloud sync is disabled in this build.';
 
   @override

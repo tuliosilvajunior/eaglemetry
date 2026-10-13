@@ -312,6 +312,12 @@ abstract class AppLocalizations {
   /// **'Sync did not reach the cloud. Check your connection and try again.'**
   String get syncResultFailed;
 
+  /// No description provided for @syncDiagnostic.
+  ///
+  /// In en, this message translates to:
+  /// **'Support detail: {detail}'**
+  String syncDiagnostic(String detail);
+
   /// No description provided for @syncResultCloudDisabled.
   ///
   /// In en, this message translates to:

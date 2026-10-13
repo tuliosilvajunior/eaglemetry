@@ -281,6 +281,14 @@ SyncOutcomeKind syncOutcomeKind(
   };
 }
 
+/// A support detail that is safe to show in the UI and send in a screenshot.
+/// Keep provider messages out: they can contain server text or request data.
+String syncFailureDetail(Object? error) {
+  if (error is CloudUploadFailure) return error.label;
+  if (error == null) return 'UnknownError';
+  return error.runtimeType.toString();
+}
+
 /// Whether [error] names this phone's link to the cloud rather than the car.
 ///
 /// The cloud path wraps transport faults as [CloudUploadFailure] carrying the
@@ -295,6 +303,12 @@ bool _isNetworkError(Object? error) {
     return true;
   }
   if (error is CloudUploadFailure && _networkCodes.contains(error.code)) {
+    // AuthRetryableFetchException also represents an HTTP 5xx response. The
+    // Supabase server answered in that case, so do not blame the phone's link.
+    if (error.code == 'AuthRetryableFetchException' &&
+        error.statusCode != null) {
+      return false;
+    }
     return true;
   }
   final text = error.toString().toLowerCase();
@@ -314,6 +328,7 @@ const _networkCodes = {
   'HttpException',
   'ClientException',
   'TimeoutException',
+  'AuthRetryableFetchException',
   'TlsException',
   'HandshakeException',
   'OSError',

@@ -363,6 +363,14 @@ class _SyncCard extends StatelessWidget {
             key: const Key('sync-outcome'),
             style: AppText.body.copyWith(color: colors.ink),
           ),
+          if (!sync.busy && report?.status == SyncRunStatus.failed) ...[
+            const SizedBox(height: AppSpacing.x1),
+            Text(
+              l10n.syncDiagnostic(syncFailureDetail(report?.error)),
+              key: const Key('sync-diagnostic'),
+              style: AppText.label.copyWith(color: colors.inkMuted),
+            ),
+          ],
           if (at != null && !sync.busy) ...[
             const SizedBox(height: AppSpacing.x1),
             Text(

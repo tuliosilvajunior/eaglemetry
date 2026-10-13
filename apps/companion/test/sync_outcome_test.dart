@@ -77,6 +77,33 @@ void main() {
         syncOutcomeKind(socket, cloudEnabled: true),
         SyncOutcomeKind.phoneOffline,
       );
+      final authFetch = SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+        error: const CloudUploadFailure(
+          'preference_control_status',
+          'AuthRetryableFetchException',
+          0,
+        ),
+      );
+      expect(
+        syncOutcomeKind(authFetch, cloudEnabled: true),
+        SyncOutcomeKind.phoneOffline,
+      );
+      final serverError = SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+        error: const CloudUploadFailure(
+          'preference_control_status',
+          'AuthRetryableFetchException',
+          0,
+          statusCode: '503',
+        ),
+      );
+      expect(
+        syncOutcomeKind(serverError, cloudEnabled: true),
+        SyncOutcomeKind.failed,
+      );
       final raw = SyncRunReport(
         status: SyncRunStatus.failed,
         ackedRecords: 0,
@@ -153,6 +180,46 @@ void main() {
     });
   });
 
+  group('syncFailureDetail', () {
+    test('shows provider code and table without server messages', () {
+      final refused = SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+        error: const CloudUploadFailure('session', '42501', 0),
+      );
+      expect(syncFailureDetail(refused.error), '42501 · session · 0');
+      const serviceUnavailable = CloudUploadFailure(
+        'preference_control_status',
+        'AuthRetryableFetchException',
+        0,
+        statusCode: '503',
+      );
+      expect(
+        syncFailureDetail(serviceUnavailable),
+        'AuthRetryableFetchException HTTP 503 · preference_control_status · 0',
+      );
+
+      final sensitive = SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+        error: _SensitiveException(),
+      );
+      expect(syncFailureDetail(sensitive.error), '_SensitiveException');
+      expect(
+        syncFailureDetail(sensitive.error),
+        isNot(contains('private server text')),
+      );
+    });
+
+    test('uses a useful marker when a failure has no captured error', () {
+      const report = SyncRunReport(
+        status: SyncRunStatus.failed,
+        ackedRecords: 0,
+      );
+      expect(syncFailureDetail(report.error), 'UnknownError');
+    });
+  });
+
   group('CloudTelemetryPull failures', () {
     test('a dead link fails the pull instead of reading as empty', () async {
       final archive = await memoryArchive();
@@ -172,6 +239,11 @@ void main() {
       );
     });
   });
+}
+
+class _SensitiveException implements Exception {
+  @override
+  String toString() => 'private server text';
 }
 
 /// A cloud that answers nothing because the link is down.
